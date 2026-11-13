@@ -1,0 +1,104 @@
+# Decap CMS config. EDIT the repo line below: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+  branch: main
+  base_url: https://lovescoretest.com
+  auth_endpoint: api/auth
+
+site_url: https://lovescoretest.com
+display_url: https://lovescoretest.com
+media_folder: static/images
+public_folder: /images
+locale: en
+
+collections:
+  - name: blog
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: content/blog
+    create: true
+    extension: md
+    slug: "{{fields.slug}}"
+    summary: "{{title}} ({{date}})"
+    sortable_fields: [date, title]
+    fields:
+      - { label: "URL slug (lowercase-with-dashes, used in the link)", name: slug, widget: string, pattern: ["^[a-z0-9-]+$", "Only lowercase letters, numbers and dashes"], hint: "Example: zodiac-love-match -> /blog/zodiac-love-match" }
+      - { label: Title, name: title, widget: string }
+      - { label: "Meta description (about 150 characters)", name: description, widget: string }
+      - { label: Publish date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: Last updated (optional), name: updated, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: Category, name: category, widget: relation, collection: categories, search_fields: [name], value_field: "{{slug}}", display_fields: [name] }
+      - { label: Image, name: image, widget: image, required: false, hint: "Best size 1200x675 (WebP or JPG)" }
+      - { label: Image alt text, name: image_alt, widget: string, required: false }
+      - { label: Draft (hide from site), name: draft, widget: boolean, default: false, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: pages
+    label: Pages (tools, quizzes)
+    label_singular: Page
+    folder: content/tools
+    create: true
+    extension: md
+    slug: "{{fields.slug}}"
+    summary: "{{title}}"
+    fields:
+      - { label: "URL slug (lowercase-with-dashes, used in the link)", name: slug, widget: string, pattern: ["^[a-z0-9-]+$", "Only lowercase letters, numbers and dashes"], hint: "Example: love-language-test -> /love-language-test" }
+      - { label: Title, name: title, widget: string }
+      - { label: "Meta description (about 150 characters)", name: description, widget: string }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: Category, name: category, widget: relation, collection: categories, search_fields: [name], value_field: "{{slug}}", display_fields: [name] }
+      - { label: Image, name: image, widget: image, required: false, hint: "Best size 1200x675 (WebP or JPG)" }
+      - { label: Image alt text, name: image_alt, widget: string, required: false }
+      - { label: Draft (hide from site), name: draft, widget: boolean, default: false, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: categories
+    label: Categories
+    label_singular: Category
+    folder: content/categories
+    create: true
+    extension: md
+    slug: "{{fields.slug}}"
+    summary: "{{name}}"
+    fields:
+      - { label: "URL slug (cannot be changed later without breaking the link)", name: slug, widget: string, pattern: ["^[a-z0-9-]+$", "Only lowercase letters, numbers and dashes"] }
+      - { label: Menu order (1, 2, 3...), name: order, widget: number, value_type: int, min: 1, default: 9 }
+      - { label: Icon (emoji), name: icon, widget: string }
+      - { label: Name, name: name, widget: string }
+      - { label: Short text for home card, name: blurb, widget: string }
+      - { label: SEO title, name: title, widget: string }
+      - { label: Meta description, name: description, widget: string }
+      - { label: "Extra text (optional, shown under the list)", name: body, widget: markdown, required: false }
+
+  - name: site
+    label: Home & Site Pages
+    files:
+      - name: home
+        label: Home page (calculator + article)
+        file: content/home.md
+        fields:
+          - { label: Title (H1 and Google title), name: title, widget: string }
+          - { label: Meta description, name: description, widget: string }
+          - { label: Show calculator, name: calculator, widget: boolean, default: true }
+          - { label: "Article (markdown). Keep the first line '# Title'", name: body, widget: text }
+      - name: about
+        label: About
+        file: content/pages/about.md
+        fields: &legal
+          - { label: Google title, name: title, widget: string }
+          - { label: Page heading, name: h1, widget: string }
+          - { label: Meta description, name: description, widget: string }
+          - { label: Body, name: body, widget: markdown }
+      - name: contact
+        label: Contact
+        file: content/pages/contact.md
+        fields: *legal
+      - name: privacy
+        label: Privacy Policy
+        file: content/pages/privacy-policy.md
+        fields: *legal
+      - name: terms
+        label: Terms of Use
+        file: content/pages/terms.md
+        fields: *legal
