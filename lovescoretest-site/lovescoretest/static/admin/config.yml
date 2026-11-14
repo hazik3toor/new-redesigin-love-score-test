@@ -1,14 +1,14 @@
-# Decap CMS config. EDIT the repo line below: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+# Decap CMS config. Site files live in the repo folder lovescoretest-site/lovescoretest/ (paths below include it).
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+  repo: hazik3toor/new-redesigin-love-score-test
   branch: main
-  base_url: https://lovescoretest.com
+  base_url: https://www.lovescoretest.com
   auth_endpoint: api/auth
 
-site_url: https://lovescoretest.com
-display_url: https://lovescoretest.com
-media_folder: static/images
+site_url: https://www.lovescoretest.com
+display_url: https://www.lovescoretest.com
+media_folder: lovescoretest-site/lovescoretest/static/images
 public_folder: /images
 locale: en
 
@@ -16,7 +16,7 @@ collections:
   - name: blog
     label: Blog Posts
     label_singular: Blog Post
-    folder: content/blog
+    folder: lovescoretest-site/lovescoretest/content/blog
     create: true
     extension: md
     slug: "{{fields.slug}}"
@@ -37,7 +37,7 @@ collections:
   - name: pages
     label: Pages (tools, quizzes)
     label_singular: Page
-    folder: content/tools
+    folder: lovescoretest-site/lovescoretest/content/tools
     create: true
     extension: md
     slug: "{{fields.slug}}"
@@ -56,7 +56,7 @@ collections:
   - name: categories
     label: Categories
     label_singular: Category
-    folder: content/categories
+    folder: lovescoretest-site/lovescoretest/content/categories
     create: true
     extension: md
     slug: "{{fields.slug}}"
@@ -76,7 +76,7 @@ collections:
     files:
       - name: home
         label: Home page (calculator + article)
-        file: content/home.md
+        file: lovescoretest-site/lovescoretest/content/home.md
         fields:
           - { label: Title (H1 and Google title), name: title, widget: string }
           - { label: Meta description, name: description, widget: string }
@@ -84,7 +84,7 @@ collections:
           - { label: "Article (markdown). Keep the first line '# Title'", name: body, widget: text }
       - name: about
         label: About
-        file: content/pages/about.md
+        file: lovescoretest-site/lovescoretest/content/pages/about.md
         fields: &legal
           - { label: Google title, name: title, widget: string }
           - { label: Page heading, name: h1, widget: string }
@@ -92,13 +92,13 @@ collections:
           - { label: Body, name: body, widget: markdown }
       - name: contact
         label: Contact
-        file: content/pages/contact.md
+        file: lovescoretest-site/lovescoretest/content/pages/contact.md
         fields: *legal
       - name: privacy
         label: Privacy Policy
-        file: content/pages/privacy-policy.md
+        file: lovescoretest-site/lovescoretest/content/pages/privacy-policy.md
         fields: *legal
       - name: terms
         label: Terms of Use
-        file: content/pages/terms.md
+        file: lovescoretest-site/lovescoretest/content/pages/terms.md
         fields: *legal
