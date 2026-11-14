@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 
-const SITE = "https://lovescoretest.com";
+const SITE = "https://www.lovescoretest.com";
 const NAME = "LoveScoreTest";
 const GA = "G-4QW8EWN05R";
 const root = path.dirname(new URL(import.meta.url).pathname);
