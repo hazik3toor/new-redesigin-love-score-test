@@ -404,7 +404,7 @@ ${bands}
     const { html } = md(hasText ? c.body : "");
     const has = catHas(L, c);
     const cp = pre() + "/" + c.slug;
-    const body = pageHead({ h1: cf(c, "name"), lead: cf(c, "description"), icon: c.data.icon, crumbs: `<a href="${homeP()}">${t("home")}</a> › ${esc(cf(c, "name"))}` }) +
+    const body = pageHead({ h1: cf(c, "name"), lead: cf(c, "description"), crumbs: `<a href="${homeP()}">${t("home")}</a> › ${esc(cf(c, "name"))}` }) +
       `<section class="sec"><div class="container">${list.length ? `<div class="posts">${list.map(card).join("")}</div>` : (hasText ? "" : `<p class="empty">${t("soon")}</p>`)}</div>${hasText ? `<div class="prose" style="margin-top:${list.length ? 40 : 0}px">${html}</div>` : ""}</section>`;
     const bothHave = catHas("en", c) && catHas("fr", c) && LANGS.length > 1;
     write(outFile(cp), layout({ title: cf(c, "title") + " | " + NAME, description: cf(c, "description"), path: cp, body, noindex: !has, alts: bothHave ? { en: "/" + c.slug, fr: "/fr/" + c.slug } : null, schema: [breadcrumbLd([[t("home"), homeP()], [cf(c, "name"), cp]])] }));
