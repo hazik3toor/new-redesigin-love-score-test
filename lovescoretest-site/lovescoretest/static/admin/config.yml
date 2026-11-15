@@ -24,8 +24,6 @@ collections:
     sortable_fields: [date, title]
     fields:
       - { label: "URL slug (lowercase-with-dashes, used in the link)", name: slug, widget: string, pattern: ["^[a-z0-9-]+$", "Only lowercase letters, numbers and dashes"], hint: "Example: zodiac-love-match -> /blog/zodiac-love-match" }
-      - { label: "Language", name: lang, widget: select, options: [{ label: "English", value: en }, { label: "Français (French)", value: fr }], default: en, required: false, hint: "French pages show at /fr/your-slug. Use a different slug for the French version (example: calculateur-amour)." }
-      - { label: "Same page in the other language (optional): type its slug", name: translation, widget: string, required: false, hint: "Links English and French versions together (language switch + Google hreflang). Type the slug of the other-language page." }
       - { label: "Short name for footer/menu (optional)", name: menu_title, widget: string, required: false, hint: "Example: Zodiac Calculator. If empty, the full title is used." }
       - { label: Title, name: title, widget: string }
       - { label: "Meta description (about 150 characters)", name: description, widget: string }
@@ -49,8 +47,6 @@ collections:
     summary: "{{title}}"
     fields:
       - { label: "URL slug (lowercase-with-dashes, used in the link)", name: slug, widget: string, pattern: ["^[a-z0-9-]+$", "Only lowercase letters, numbers and dashes"], hint: "Example: love-language-test -> /love-language-test" }
-      - { label: "Language", name: lang, widget: select, options: [{ label: "English", value: en }, { label: "Français (French)", value: fr }], default: en, required: false, hint: "French pages show at /fr/your-slug. Use a different slug for the French version (example: calculateur-amour)." }
-      - { label: "Same page in the other language (optional): type its slug", name: translation, widget: string, required: false, hint: "Links English and French versions together (language switch + Google hreflang). Type the slug of the other-language page." }
       - { label: "Short name for footer/menu (optional)", name: menu_title, widget: string, required: false, hint: "Example: Zodiac Calculator. If empty, the full title is used." }
       - { label: Title, name: title, widget: string }
       - { label: "Meta description (about 150 characters)", name: description, widget: string }
@@ -76,13 +72,9 @@ collections:
       - { label: Name, name: name, widget: string, hint: "Menu and page name. You can change it any time (the link stays the same)." }
       - { label: "Icon (paste one emoji, example 💞)", name: icon, widget: string, default: "💕" }
       - { label: "Menu order (1, 2, 3...)", name: order, widget: number, value_type: int, min: 1, default: 9, required: false }
-      - { label: "Name in French", name: name_fr, widget: string, required: false }
       - { label: "Short text for home card", name: blurb, widget: string, required: false, hint: "If empty, it is written automatically." }
       - { label: "SEO title", name: title, widget: string, required: false, hint: "If empty, it is written automatically." }
       - { label: "Meta description", name: description, widget: string, required: false, hint: "If empty, it is written automatically." }
-      - { label: "Home card text, French", name: blurb_fr, widget: string, required: false }
-      - { label: "SEO title, French", name: title_fr, widget: string, required: false }
-      - { label: "Meta description, French", name: description_fr, widget: string, required: false }
       - { label: "Extra text (optional, shown under the list)", name: body, widget: markdown, required: false }
 
   - name: site
@@ -96,14 +88,6 @@ collections:
           - { label: Meta description, name: description, widget: string }
           - { label: Show calculator, name: calculator, widget: boolean, default: true }
           - { label: "Article (markdown). Keep the first line '# Title'", name: body, widget: text }
-      - name: home_fr
-        label: Home page FRANÇAIS (optional article)
-        file: lovescoretest-site/lovescoretest/content/home.fr.md
-        fields:
-          - { label: Title (H1 and Google title), name: title, widget: string }
-          - { label: Meta description, name: description, widget: string }
-          - { label: Show calculator, name: calculator, widget: boolean, default: true }
-          - { label: "French article (markdown, optional). Start with '# Title'", name: body, widget: text, required: false }
       - name: about
         label: About
         file: lovescoretest-site/lovescoretest/content/pages/about.md

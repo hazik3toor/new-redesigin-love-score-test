@@ -142,7 +142,8 @@ const calcFile = `calc.${crypto.createHash("sha1").update(calcSrc).digest("hex")
 const readDir = (d) => fs.existsSync(path.join(root, d)) ? fs.readdirSync(path.join(root, d)).filter((f) => f.endsWith(".md") && !f.startsWith("_")).sort().map((f) => ({ slug: f.slice(0, -3), ...fm(read(`${d}/${f}`)) })) : [];
 const langOf = (p) => (String(p.data.lang || "").toLowerCase() === "fr" ? "fr" : "en");
 const homes = { en: fm(read("content/home.md")), fr: fs.existsSync(path.join(root, "content/home.fr.md")) ? fm(read("content/home.fr.md")) : null };
-const LANGS = homes.fr ? ["en", "fr"] : ["en"];
+const ENABLE_FR = false; // French is switched OFF. Set to true to turn the /fr/ site on again.
+const LANGS = ENABLE_FR && homes.fr ? ["en", "fr"] : ["en"];
 const cats = readDir("content/categories").sort((a, b) => (+a.data.order || 99) - (+b.data.order || 99));
 const legalAll = readDir("content/pages").map((p) => ({ ...p, lang: langOf(p), url: (langOf(p) === "fr" ? "/fr" : "") + "/" + p.slug }));
 for (const c of cats) { // simple categories: only name + icon are needed, the rest is written automatically
@@ -258,7 +259,10 @@ function layout({ title, description, path: p, body, noindex, schema = [], ogIma
   const hasAlt = alts && alts.en && alts.fr && !noindex;
   const hreflang = hasAlt ? `<link rel="alternate" hreflang="en" href="${SITE + alts.en}"><link rel="alternate" hreflang="fr" href="${SITE + alts.fr}"><link rel="alternate" hreflang="x-default" href="${SITE + alts.en}">` : "";
   const hrefFor = (L) => (L === cur ? p : (alts && alts[L]) || (L === "fr" ? "/fr/" : "/"));
-  const langSwitch = LANGS.length > 1 ? `<details class="dd lang"><summary aria-label="${t("language")}"><span aria-hidden="true">🌐</span> ${cur.toUpperCase()} <span aria-hidden="true">▾</span></summary><div class="ddm"><a href="${hrefFor("en")}" hreflang="en" lang="en"${cur === "en" ? ' aria-current="true"' : ""}>English${cur === "en" ? " ✓" : ""}</a><a href="${hrefFor("fr")}" hreflang="fr" lang="fr"${cur === "fr" ? ' aria-current="true"' : ""}>Français${cur === "fr" ? " ✓" : ""}</a></div></details>` : "";
+  const oth = cur === "en" ? "fr" : "en";
+  const BN = { en: ["View this page in English?", "English", "No thanks"], fr: ["Voir cette page en français ?", "Français", "Non merci"] }[oth];
+  const banner = LANGS.length > 1 ? `<div class="lb" id="lb" data-o="${oth}" data-c="${cur}" hidden><span lang="${oth}">${BN[0]}</span><a href="${hrefFor(oth)}" hreflang="${oth}" lang="${oth}" data-lg="${oth}">${BN[1]}</a><button type="button" lang="${oth}">${BN[2]}</button></div>` : "";
+  const langSwitch = LANGS.length > 1 ? `<details class="dd lang"><summary aria-label="${t("language")}"><span aria-hidden="true">🌐</span> ${cur.toUpperCase()} <span aria-hidden="true">▾</span></summary><div class="ddm"><a href="${hrefFor("en")}" hreflang="en" lang="en" data-lg="en"${cur === "en" ? ' aria-current="true"' : ""}>English${cur === "en" ? " ✓" : ""}</a><a href="${hrefFor("fr")}" hreflang="fr" lang="fr" data-lg="fr"${cur === "fr" ? ' aria-current="true"' : ""}>Français${cur === "fr" ? " ✓" : ""}</a></div></details>` : "";
   return `<!doctype html>
 <html lang="${cur}" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <script>try{var t=localStorage.getItem('lst-theme');if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
@@ -275,14 +279,14 @@ function layout({ title, description, path: p, body, noindex, schema = [], ogIma
 ${ld}
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA}');(function(){var l=0;function g(){if(l)return;l=1;var s=document.createElement('script');s.async=1;s.src='https://www.googletagmanager.com/gtag/js?id=${GA}';document.head.appendChild(s)}addEventListener('load',function(){setTimeout(g,2500)});['scroll','click','touchstart','keydown'].forEach(function(e){addEventListener(e,g,{once:true,passive:true})})})();</script>
 </head><body>
-<a class="skip" href="#main">${t("skip")}</a>
+${banner}<a class="skip" href="#main">${t("skip")}</a>
 <header class="site"><div class="top">${logo()}
 <nav class="main" aria-label="Main">${catLinks}<a href="${blogHref}"${p === blogHref ? ' aria-current="page"' : ""}><span aria-hidden="true">📰</span> ${t("blog")}</a></nav>
 <button class="tt" type="button" aria-label="Light / dark mode" title="Light / dark mode">🌙</button>${langSwitch}
 <details class="burger"><summary aria-label="Menu">☰</summary><div class="bm">${catLinks}<a href="${blogHref}">📰 ${t("blog")}</a></div></details></div></header>
 <main id="main">${body}</main>
 ${footerHtml()}
-<script>(function(){var d=document.documentElement,b=document.querySelector('.tt');function s(){b.textContent=d.dataset.theme==='dark'?'☀️':'🌙'}s();b.addEventListener('click',function(){var n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('lst-theme',n)}catch(e){}s()});document.addEventListener('click',function(e){document.querySelectorAll('details.dd[open],details.burger[open]').forEach(function(x){if(!x.contains(e.target))x.open=false})})})()</script>
+<script>(function(){var d=document.documentElement,b=document.querySelector('.tt');function s(){b.textContent=d.dataset.theme==='dark'?'☀️':'🌙'}s();b.addEventListener('click',function(){var n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('lst-theme',n)}catch(e){}s()});document.querySelectorAll('a[data-lg]').forEach(function(a){a.addEventListener('click',function(){try{localStorage.setItem('lst-lang',a.dataset.lg)}catch(e){}})});var lb=document.getElementById('lb');if(lb){try{var sv=localStorage.getItem('lst-lang'),nl=(navigator.language||'').toLowerCase().slice(0,2);if(nl===lb.dataset.o&&sv!==lb.dataset.c)lb.hidden=false}catch(e){}lb.querySelector('button').addEventListener('click',function(){lb.hidden=true;try{localStorage.setItem('lst-lang',lb.dataset.c)}catch(e){}})}document.addEventListener('click',function(e){document.querySelectorAll('details.dd[open],details.burger[open]').forEach(function(x){if(!x.contains(e.target))x.open=false})})})()</script>
 ${withCalc ? `<script src="/${calcFile}" defer></script>` : ""}
 </body></html>`;
 }
@@ -385,7 +389,7 @@ ${bands}
       ...(faqs.length ? [{ "@type": "FAQPage", mainEntity: faqs }] : []),
     ] }];
     write(outFile(hp), layout({ title: hm.data.title + " | " + NAME, description: hm.data.description, path: hp, body, schema, withCalc: true, alts: homeAlts }));
-    sitemap.push({ loc: hp, pri: "1.0" });
+    sitemap.push({ loc: hp, pri: "1.0", alts: homeAlts });
     Object.assign(stats, { faq: faqs.length, toc: h2s.length, links: linked.count });
   }
 
@@ -406,9 +410,9 @@ ${bands}
     const cp = pre() + "/" + c.slug;
     const body = pageHead({ h1: cf(c, "name"), lead: cf(c, "description"), crumbs: `<a href="${homeP()}">${t("home")}</a> › ${esc(cf(c, "name"))}` }) +
       `<section class="sec"><div class="container">${list.length ? `<div class="posts">${list.map(card).join("")}</div>` : (hasText ? "" : `<p class="empty">${t("soon")}</p>`)}</div>${hasText ? `<div class="prose" style="margin-top:${list.length ? 40 : 0}px">${html}</div>` : ""}</section>`;
-    const bothHave = catHas("en", c) && catHas("fr", c) && LANGS.length > 1;
-    write(outFile(cp), layout({ title: cf(c, "title") + " | " + NAME, description: cf(c, "description"), path: cp, body, noindex: !has, alts: bothHave ? { en: "/" + c.slug, fr: "/fr/" + c.slug } : null, schema: [breadcrumbLd([[t("home"), homeP()], [cf(c, "name"), cp]])] }));
-    if (has) sitemap.push({ loc: cp, pri: "0.7" });
+    const catAlts = catHas("en", c) && catHas("fr", c) && LANGS.length > 1 ? { en: "/" + c.slug, fr: "/fr/" + c.slug } : null;
+    write(outFile(cp), layout({ title: cf(c, "title") + " | " + NAME, description: cf(c, "description"), path: cp, body, noindex: !has, alts: catAlts, schema: [breadcrumbLd([[t("home"), homeP()], [cf(c, "name"), cp]])] }));
+    if (has) sitemap.push({ loc: cp, pri: "0.7", alts: catAlts });
   }
 
   // ----- Blog index
@@ -417,9 +421,9 @@ ${bands}
     const pills = `<ul class="pills">${cats.filter((c) => posts.some((p) => p.data.category === c.slug)).map((c) => `<li><a href="${pre()}/${c.slug}">${esc(cf(c, "name"))}</a></li>`).join("")}</ul>`;
     const body = pageHead({ h1: t("blogH1"), lead: t("blogLead"), crumbs: `<a href="${homeP()}">${t("home")}</a> › ${t("blog")}`, extra: posts.length ? pills : "" }) +
       `<section class="sec"><div class="container">${posts.length ? `<div class="posts">${posts.map(card).join("")}</div>` : `<p class="empty">${t("blogSoon")}</p>`}</div></section>`;
-    const bothHave = LANGS.length > 1 && itemsAll.some((x) => x.type === "post" && x.lang === "en") && itemsAll.some((x) => x.type === "post" && x.lang === "fr");
-    write(outFile(bp), layout({ title: t("blogTitle") + " | " + NAME, description: t("blogDesc"), path: bp, body, noindex: !posts.length, alts: bothHave ? { en: "/blog", fr: "/fr/blog" } : null, schema: [breadcrumbLd([[t("home"), homeP()], [t("blog"), bp]]), { "@context": "https://schema.org", "@type": "Blog", name: NAME + " Blog", url: SITE + bp, inLanguage: L, blogPost: posts.slice(0, 20).map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: SITE + p.url, datePublished: p.date })) }] }));
-    if (posts.length) sitemap.push({ loc: bp, pri: "0.8", mod: posts[0].date });
+    const blogAlts = LANGS.length > 1 && itemsAll.some((x) => x.type === "post" && x.lang === "en") && itemsAll.some((x) => x.type === "post" && x.lang === "fr") ? { en: "/blog", fr: "/fr/blog" } : null;
+    write(outFile(bp), layout({ title: t("blogTitle") + " | " + NAME, description: t("blogDesc"), path: bp, body, noindex: !posts.length, alts: blogAlts, schema: [breadcrumbLd([[t("home"), homeP()], [t("blog"), bp]]), { "@context": "https://schema.org", "@type": "Blog", name: NAME + " Blog", url: SITE + bp, inLanguage: L, blogPost: posts.slice(0, 20).map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: SITE + p.url, datePublished: p.date })) }] }));
+    if (posts.length) sitemap.push({ loc: bp, pri: "0.8", mod: posts[0].date, alts: blogAlts });
   }
 
   // ----- Blog posts + tool pages
@@ -449,7 +453,7 @@ ${bands}
     const cp = LANGS.length > 1 ? counterpart(p) : null;
     const alts = cp ? { [L]: p.url, [cp.lang]: cp.url } : null;
     write(outFile(p.url), layout({ title: p.data.title + " | " + NAME, description: p.data.description || "", path: p.url, body, ogImage: img, ogType: isPost ? "article" : "website", schema: [crumbLd, main], withCalc: hasCalc, alts }));
-    sitemap.push({ loc: p.url, pri: isPost ? "0.8" : "0.9", mod: String(p.data.updated || p.date).slice(0, 10) });
+    sitemap.push({ loc: p.url, pri: isPost ? "0.8" : "0.9", mod: String(p.data.updated || p.date).slice(0, 10), alts });
   }
   console.log(`${L}: faq ${stats.faq}, toc ${stats.toc}, links added ${stats.links}, pages ${tools.length}, posts ${posts.length}`);
 }
@@ -467,7 +471,7 @@ function copyDir(src, dst) {
 copyDir(path.join(root, "static"), dist);
 write(calcFile, calcSrc.replace(/^\s*\/\/.*$/gm, ""));
 const today = new Date().toISOString().slice(0, 10);
-write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` + sitemap.map((u) => `<url><loc>${SITE}${u.loc}</loc><lastmod>${u.mod || today}</lastmod><priority>${u.pri}</priority></url>`).join("\n") + `\n</urlset>\n`);
+write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` + sitemap.map((u) => `<url><loc>${SITE}${u.loc}</loc>${u.alts && u.alts.en && u.alts.fr ? `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${u.alts.en}"/><xhtml:link rel="alternate" hreflang="fr" href="${SITE}${u.alts.fr}"/>` : ""}<lastmod>${u.mod || today}</lastmod><priority>${u.pri}</priority></url>`).join("\n") + `\n</urlset>\n`);
 const enPosts = itemsAll.filter((x) => x.type === "post" && x.lang === "en");
 write("rss.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>${NAME} Blog</title><link>${SITE}/blog</link><description>Love and relationship guides</description>` + enPosts.slice(0, 30).map((p) => `<item><title>${esc(p.data.title)}</title><link>${SITE}${p.url}</link><guid>${SITE}${p.url}</guid><pubDate>${new Date(p.date + "T00:00:00Z").toUTCString()}</pubDate><description>${esc(p.data.description || "")}</description></item>`).join("") + `</channel></rss>\n`);
 write("robots.txt", `User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`);
