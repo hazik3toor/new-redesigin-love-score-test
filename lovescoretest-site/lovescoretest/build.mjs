@@ -145,6 +145,13 @@ const homes = { en: fm(read("content/home.md")), fr: fs.existsSync(path.join(roo
 const LANGS = homes.fr ? ["en", "fr"] : ["en"];
 const cats = readDir("content/categories").sort((a, b) => (+a.data.order || 99) - (+b.data.order || 99));
 const legalAll = readDir("content/pages").map((p) => ({ ...p, lang: langOf(p), url: (langOf(p) === "fr" ? "/fr" : "") + "/" + p.slug }));
+for (const c of cats) { // simple categories: only name + icon are needed, the rest is written automatically
+  const d = c.data, n = d.name || c.slug;
+  d.name = n; d.icon = d.icon || "💕";
+  d.title = d.title || `${n}: Free Tests and Quizzes`;
+  d.description = d.description || `Free ${n.toLowerCase()} to try with your partner, no sign-up needed.`;
+  d.blurb = d.blurb || `Free ${n.toLowerCase()} for you and your partner.`;
+}
 const catBySlug = Object.fromEntries(cats.map((c) => [c.slug, c]));
 
 function loadItems(dir, type) {
