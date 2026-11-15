@@ -5,6 +5,8 @@
 
   // Sun sign table: [month, last day of the sign that STARTS the month's first part]
   var SIGNS = ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
+  var FR = document.documentElement.lang === "fr";
+  if (FR) SIGNS = ["Bélier","Taureau","Gémeaux","Cancer","Lion","Vierge","Balance","Scorpion","Sagittaire","Capricorne","Verseau","Poissons"];
   var GLYPH = ["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"];
   // cutoffs: day on which each sign begins, by month (Jan..Dec) -> index of sign starting that day
   var START = [[20,10],[19,11],[21,0],[20,1],[21,2],[21,3],[23,4],[23,5],[23,6],[23,7],[22,8],[22,9]];
@@ -72,6 +74,12 @@
   }
 
   function message(p) {
+    if (FR) {
+      if (p >= 85) return "Une très belle association sur le papier";
+      if (p >= 72) return "Une bonne compatibilité, avec un vrai potentiel";
+      if (p >= 60) return "Une association équilibrée : vos différences peuvent vous faire grandir";
+      return "Des styles différents : la communication sera essentielle";
+    }
     if (p >= 85) return "A very strong match on paper";
     if (p >= 72) return "Good compatibility with real potential";
     if (p >= 60) return "A balanced match: differences can help you grow";
@@ -88,7 +96,7 @@
   }
 
   var err = document.getElementById("lc-err"), res = document.getElementById("lc-res");
-  var rows = [["love", "Love"], ["sexual", "Intimacy"], ["marriage", "Marriage"], ["comm", "Communication"], ["friend", "Friendship"]];
+  var rows = FR ? [["love", "Amour"], ["sexual", "Intimité"], ["marriage", "Mariage"], ["comm", "Communication"], ["friend", "Amitié"]] : [["love", "Love"], ["sexual", "Intimacy"], ["marriage", "Marriage"], ["comm", "Communication"], ["friend", "Friendship"]];
   var list = document.getElementById("lc-bars");
   rows.forEach(function (r) {
     var li = document.createElement("li");
@@ -101,14 +109,14 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var a = parse(form.d1.value), b = parse(form.d2.value);
-    if (!a || !b) { err.textContent = "Please enter two valid birth dates (not in the future)."; res.hidden = true; return; }
+    if (!a || !b) { err.textContent = FR ? "Veuillez entrer deux dates de naissance valides (pas dans le futur)." : "Please enter two valid birth dates (not in the future)."; res.hidden = true; return; }
     err.textContent = "";
     var r = compute(a, b);
-    var n1 = form.n1.value.trim() || "Partner 1", n2 = form.n2.value.trim() || "Partner 2";
+    var n1 = form.n1.value.trim() || (FR ? "Partenaire 1" : "Partner 1"), n2 = form.n2.value.trim() || (FR ? "Partenaire 2" : "Partner 2");
     document.getElementById("lc-who").textContent = n1 + " & " + n2;
     document.getElementById("lc-signs").textContent =
       GLYPH[r.signs[0]] + "\uFE0E " + SIGNS[r.signs[0]] + " + " + GLYPH[r.signs[1]] + "\uFE0E " + SIGNS[r.signs[1]] +
-      "  ·  Life Path " + r.paths[0] + " + " + r.paths[1];
+      "  ·  " + (FR ? "Chemin de vie " : "Life Path ") + r.paths[0] + " + " + r.paths[1];
     var big = document.getElementById("lc-big");
     big.style.setProperty("--p", r.overall);
     big.firstElementChild.textContent = r.overall + "%";
