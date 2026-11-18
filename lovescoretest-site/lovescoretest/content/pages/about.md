@@ -1,7 +1,8 @@
 ---
-title: "About LoveScoreTest.com - Fun Compatibility Calculators"
-h1: "About This Site"
-description: "LoveScoreTest.com makes free, fun compatibility calculators - Love Score, Friendship Score, and Zodiac Match. Learn what the site is and isn't."
+title: About LoveScoreTest.com - Fun Compatibility Calculators
+h1: About us
+description: LoveScoreTest.com makes free, fun compatibility calculators - Love
+  Score, Friendship Score, and Zodiac Match. Learn what the site is and isn't.
 ---
 ## What LoveScoreTest.com is
 
