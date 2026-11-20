@@ -11,6 +11,40 @@ const dist = path.join(root, "dist");
 const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
+// ---------- FAQ support (list field "faqs" from the CMS) ----------
+function parseFaqs(lines, i) {
+  const items = []; let cur = null, j = i + 1;
+  const unq = (s) => /^".*"$/s.test(s) ? s.slice(1, -1).replace(/\\n/g, "\n").replace(/\\"/g, '"').replace(/\\\\/g, "\\") : /^'.*'$/s.test(s) ? s.slice(1, -1).replace(/''/g, "'") : s;
+  while (j < lines.length && (lines[j].trim() === "" || /^\s/.test(lines[j]) || /^-\s/.test(lines[j]))) {
+    const m = /^(\s*)(-\s+)?(question|answer):\s*(.*)$/.exec(lines[j]);
+    if (!m) { j++; continue; }
+    if (m[2] || !cur) { cur = {}; items.push(cur); }
+    const ki = m[1].length + (m[2] ? m[2].length : 0);
+    let v = m[4].trim();
+    const blk = /^([|>])([+-]?)$/.exec(v);
+    const buf = [];
+    while (j + 1 < lines.length && (lines[j + 1].trim() === "" || lines[j + 1].match(/^\s*/)[0].length > ki)) buf.push(lines[++j]);
+    if (blk) {
+      const ne = buf.filter((l) => l.trim());
+      const ind = Math.min(...ne.map((l) => l.match(/^\s*/)[0].length), 1e9);
+      let txt = buf.map((l) => l.slice(Math.min(ind, l.length))).join("\n");
+      if (blk[1] === ">") txt = txt.replace(/([^\n])\n(?=[^\n])/g, "$1 ");
+      v = txt.replace(/\n+$/, "").trim();
+    } else v = unq([v, ...buf.map((s) => s.trim()).filter(Boolean)].join(" "));
+    cur[m[3]] = v;
+    j++;
+  }
+  return { items: items.filter((x) => x.question && x.answer), end: j - 1 };
+}
+function faqBlock(p, L) {
+  const f = Array.isArray(p.data.faqs) ? p.data.faqs : [];
+  if (!f.length) return "";
+  const ld = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: f.map((x) => ({ "@type": "Question", name: x.question, acceptedAnswer: { "@type": "Answer", text: x.answer } })) };
+  return `<section class="faqx"><h2>${L === "fr" ? "Questions fréquentes" : "Frequently asked questions"}</h2>` +
+    f.map((x) => `<details name="faqx"><summary>${esc(x.question)}</summary><div class="a">${x.answer.split(/\n{2,}/).map((s) => `<p>${inline(s)}</p>`).join("")}</div></details>`).join("") +
+    `</section><script type="application/ld+json">${JSON.stringify(ld).replace(/</g, "\\u003c")}</script>`;
+}
+
 // ---------- front matter + markdown ----------
 function fm(raw) {
   const m = /^---\n([\s\S]*?)\n---\n?([\s\S]*)$/.exec(raw.replace(/\r\n/g, "\n"));
@@ -21,6 +55,7 @@ function fm(raw) {
     const k = /^([\w-]+):\s*(.*)$/.exec(lines[i]);
     if (!k) continue;
     let v = k[2].trim();
+    if (k[1] === "faqs" && v === "") { const r = parseFaqs(lines, i); data.faqs = r.items; i = r.end; continue; }
     const blk = /^([|>])([+-]?)$/.exec(v);
     if (blk) {
       // YAML block scalar (multi-line text, used for calculator code)
@@ -461,7 +496,7 @@ ${bands}
     if (isPost) crumbItems.push([t("blog"), pre() + "/blog"]);
     if (p.cat) crumbItems.push([cf(p.cat, "name"), pre() + "/" + p.cat.slug]);
     const crumbHtml = crumbItems.map(([n, h]) => `<a href="${h}">${esc(n)}</a>`).join(" › ");
-    const linked = applyLinks(p.html).html;
+    const linked = applyLinks(p.html).html + faqBlock(p, L);
     const toolCode = typeof p.data.tool === "string" ? p.data.tool.trim() : "";
     const toolBox = toolCode ? `<div class="toolbox" style="margin:1.6em 0">${toolCode}</div>` : "";
     const toolTop = p.data.tool_position === "bottom" ? "" : toolBox;
