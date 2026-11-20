@@ -3,11 +3,11 @@ backend:
   name: github
   repo: hazik3toor/new-redesigin-love-score-test
   branch: main
-  base_url: https://www.lovescoretest.com
+  base_url: https://lovescoretest.com
   auth_endpoint: api/auth
 
-site_url: https://www.lovescoretest.com
-display_url: https://www.lovescoretest.com
+site_url: https://lovescoretest.com
+display_url: https://lovescoretest.com
 media_folder: lovescoretest-site/lovescoretest/static/images
 public_folder: /images
 locale: en
