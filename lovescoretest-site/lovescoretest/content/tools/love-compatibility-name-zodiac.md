@@ -9,155 +9,155 @@ date: 2026-11-20
 category: calculators
 draft: false
 calculator: none
-tool: >
-  <!-- Love Compatibility Calculator (name + zodiac). Paste into a CMS "Custom
-  HTML" block. Self-contained, no plugins. -->
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+tool: >-
+  <!-- Love Compatibility Calculator (name + zodiac), themed to match
+  lovescoretest.com. Paste into the "Custom calculator / tool code" field. -->
 
   <style>
 
-  .lc,.lc *{box-sizing:border-box}
+  .lx,.lx *{box-sizing:border-box}
 
-  .lc{--ink:#2a1a3a;--pink:#e8479a;--violet:#8a5bd0;--line:#9a82ae;--field:#fbf6f2;--muted:#7a6a88;
-    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);
-    background:radial-gradient(120% 90% at 10% 0%,#3d2559 0,#2a1a3a 55%,#1f1229 100%);
-    padding:clamp(18px,4vw,40px);border-radius:24px;max-width:860px;margin:24px auto;line-height:1.5}
-  .lc h2{font-family:Fredoka,Inter,sans-serif;font-weight:700;font-size:clamp(28px,6vw,46px);line-height:1.1;color:#fff;margin:0 0 8px}
+  .lx{--pk:#db2777;--vi:#7c3aed;--ink:#2d1b3d;--mut:#6b5a7a;--pn:#fdf0f6;--ln:#f0d7e5;position:relative;font-family:inherit;max-width:720px;margin:20px auto;line-height:1.5}
 
-  .lc h2 span{background:linear-gradient(90deg,#f59ad0,#c9a2ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lx p,.lx h3,.lx ul,.lx li{margin:0;padding:0}
 
-  .lc .sub{color:#d9c9ea;margin:0 0 20px;font-size:15px}
+  .lx button,.lx input,.lx select{font-family:inherit}
 
-  .lc .card{background:#fff;border:3px solid #3a2457;border-radius:24px;padding:clamp(12px,3vw,20px);box-shadow:8px 8px 0 #7b62a3}
+  article:has(.lx) h1{text-align:center;font-weight:800;letter-spacing:-.02em;line-height:1.1;font-size:clamp(32px,6vw,52px);background:linear-gradient(90deg,#db2777,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent}
 
-  .lc .pair{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  article:has(.lx) .art-meta{text-align:center}
 
-  .lc .p{border-radius:18px;padding:16px}
+  .lx .lx-heart{position:absolute;color:#f7c0da;opacity:.7;pointer-events:none;line-height:1}
 
-  .lc .p1{background:#fff0f5}.lc .p2{background:#f4f0fb}
+  .lx .h1{top:-6px;left:2px;font-size:30px}.lx .h2{top:120px;right:0;font-size:22px}.lx .h3{bottom:-14px;left:10px;font-size:20px}
 
-  .lc .who{display:flex;align-items:center;gap:10px;font-weight:700;margin-bottom:10px}
+  .lx .lx-lead{text-align:center;font-size:17px;opacity:.85;max-width:560px;margin:0 auto 12px}
 
-  .lc .av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:20px}
+  .lx .lx-chips{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;list-style:none;font-size:13px;font-weight:600;margin-bottom:22px}
 
-  .lc .p1 .av{background:#f7b3d1}.lc .p2 .av{background:#c8b0ee}
+  .lx .lx-chips li::before{content:"\2713";color:#15803d;margin-right:5px}
 
-  .lc label{display:block;font-size:13px;font-weight:600;color:#6d5a7c;margin:10px 0 5px}
+  .lx .lx-card{position:relative;color:var(--ink);background:#fff;border:1px solid #f6e4ee;border-radius:24px;padding:clamp(14px,3vw,22px);box-shadow:0 18px 50px rgba(190,24,93,.12),0 2px 8px rgba(124,58,237,.06)}
 
-  .lc input,.lc select{width:100%;height:48px;border:2px solid var(--line);border-radius:14px;background:var(--field);padding:0 14px;font:500 16px Inter,sans-serif;color:var(--ink);appearance:none;-webkit-appearance:none}
+  .lx .lx-pair{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-  .lc select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236d5a7c' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+  .lx .lx-p{background:var(--pn);border-radius:18px;padding:16px}
 
-  .lc input::placeholder{color:#a898b4}
+  .lx .lx-p2{background:#f7f2fe}
 
-  .lc input:focus-visible,.lc select:focus-visible,.lc button:focus-visible{outline:3px solid #c9a2ff;outline-offset:2px}
+  .lx .lx-who{color:#be185d;font-weight:700;font-size:15px;margin-bottom:4px}
 
-  .lc .swap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;border:3px solid #3a2457;background:#fff;color:var(--pink);font-size:16px;cursor:pointer;display:grid;place-items:center;transition:transform .35s}
+  .lx .lx-p2 .lx-who{color:#6d28d9}
 
-  .lc .swap:hover{transform:translate(-50%,-50%) rotate(180deg)}
+  .lx label{display:block;font-size:13px;font-weight:500;color:#4b3a5a;margin:12px 0 6px}
 
-  .lc .go{margin-top:16px;width:100%;height:56px;border:3px solid #3a2457;border-radius:999px;background:linear-gradient(90deg,#e8479a,#8a5bd0);color:#fff;font:700 18px Inter,sans-serif;cursor:pointer;box-shadow:0 5px 0 #7b62a3;transition:transform .1s,box-shadow .1s}
+  .lx input,.lx select{display:block;width:100%;height:50px;border:1px solid var(--ln);border-radius:12px;background:#fff;padding:0 14px;font-size:16px;color:var(--ink);appearance:none;-webkit-appearance:none;margin:0}
 
-  .lc .go:active{transform:translateY(4px);box-shadow:0 1px 0 #7b62a3}
+  .lx select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236b5a7a' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
 
-  .lc .err{color:#c0262d;font-size:14px;font-weight:600;min-height:20px;margin:10px 4px 0}
+  .lx input::placeholder{color:#8f7f9d}
 
-  .lc .hist{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:13px;color:var(--muted);align-items:center}
+  .lx input:focus-visible,.lx select:focus-visible,.lx button:focus-visible,.lx a:focus-visible{outline:3px solid rgba(124,58,237,.4);outline-offset:2px}
 
-  .lc .chip{border:1.5px solid #d8c9e8;background:#faf6ff;border-radius:999px;padding:4px 12px;font:600 13px Inter,sans-serif;color:var(--ink);cursor:pointer}
+  .lx .lx-swap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;border:1px solid var(--ln);background:#fff;color:var(--pk);font-size:16px;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 12px rgba(190,24,93,.15);transition:transform .35s;padding:0}
 
-  .lc .res{margin-top:18px;border-top:2px dashed #e3d6f0;padding-top:20px}
+  .lx .lx-swap:hover{transform:translate(-50%,-50%) rotate(180deg)}
 
-  .lc .top{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .lx .lx-err{color:#b91c1c;font-size:14px;font-weight:600;min-height:20px;margin:12px 2px 0}
 
-  .lc .ring{position:relative;width:150px;height:150px;flex:none}
+  .lx .lx-go{display:block;width:100%;height:56px;margin-top:8px;border:0;border-radius:14px;background:linear-gradient(90deg,#db2777,#7c3aed);color:#fff;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 10px 24px rgba(190,24,93,.28);transition:transform .1s,filter .2s;padding:0}
 
-  .lc .ring svg{transform:rotate(-90deg)}
+  .lx .lx-go:hover{filter:brightness(1.06)}.lx .lx-go:active{transform:translateY(1px)}
 
-  .lc .ring .bg{stroke:#f0e6f7}
+  .lx .lx-hist{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;font-size:13px;color:var(--mut);align-items:center}
 
-  .lc .ring .fg{stroke:url(#lcg);stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)}
+  .lx .lx-chip{border:1px solid #ead7f3;background:#faf5ff;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
 
-  .lc .ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 38px Fredoka,Inter,sans-serif}
+  .lx .lx-res{margin-top:22px;border-top:1px dashed var(--ln);padding-top:22px}
 
-  .lc .names{font:700 clamp(20px,4.5vw,26px) Fredoka,Inter,sans-serif;margin:0}
+  .lx .lx-top{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
 
-  .lc .tag{margin:4px 0 8px;color:var(--violet);font-weight:700}
+  .lx .lx-ring{position:relative;width:150px;height:150px;flex:none}
 
-  .lc .asp{font-size:14px;color:var(--muted);margin:0}
+  .lx .lx-ring svg{transform:rotate(-90deg)}
 
-  .lc .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+  .lx .lx-bg{stroke:#f7e3ee}
 
-  .lc .box{background:#faf6ff;border-radius:16px;padding:16px}
+  .lx .lx-fg{stroke:url(#lxg);stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)}
 
-  .lc .box h3{margin:0 0 10px;font-size:15px}
+  .lx .lx-ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:36px;font-weight:800}
 
-  .lc .bar{margin:9px 0}
+  .lx .lx-names{font-size:clamp(20px,4.5vw,26px);font-weight:800;line-height:1.2}
 
-  .lc .bar div:first-child{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px}
+  .lx .lx-tag{margin:4px 0 8px;color:var(--vi);font-weight:700}
 
-  .lc .tr{height:9px;background:#eadff5;border-radius:9px;overflow:hidden}
+  .lx .lx-asp{font-size:14px;color:var(--mut)}
 
-  .lc .tr i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#e8479a,#8a5bd0);transition:width 1s cubic-bezier(.2,.8,.2,1)}
+  .lx .lx-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;text-align:center}
 
-  .lc .box p{margin:0 0 10px;font-size:14px}
+  .lx .lx-mini div{background:var(--pn);border-radius:14px;padding:12px 6px}
 
-  .lc .box p:last-child{margin:0}
+  .lx .lx-mini b{display:block;font-size:24px;font-weight:800;color:var(--pk)}
 
-  .lc .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;text-align:center}
+  .lx .lx-mini span{font-size:12px;color:var(--mut)}
 
-  .lc .mini div{background:#fff0f5;border-radius:14px;padding:12px 6px}
+  .lx .lx-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
 
-  .lc .mini b{display:block;font:700 24px Fredoka,Inter,sans-serif;color:var(--pink)}
+  .lx .lx-box{background:#faf5ff;border-radius:16px;padding:16px}
 
-  .lc .mini span{font-size:12px;color:var(--muted)}
+  .lx .lx-box h3{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--ink)}
 
-  .lc .best{font-size:14px}.lc .best span{display:inline-block;margin:3px 4px 0 0;background:#fff;border:1.5px solid #e3d6f0;border-radius:999px;padding:2px 10px;font-weight:600}
+  .lx .lx-box p{font-size:14px;margin-bottom:10px;color:var(--ink)}.lx .lx-box p:last-child{margin-bottom:0}
 
-  .lc .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .lx .lx-bar{margin:10px 0}
 
-  .lc .btn{flex:1 1 130px;height:44px;border-radius:999px;border:2px solid #3a2457;background:#fff;font:600 14px Inter,sans-serif;color:var(--ink);cursor:pointer;text-decoration:none;display:grid;place-items:center}
+  .lx .lx-bar div:first-child{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px;color:var(--ink)}
 
-  .lc .btn:hover{background:#f4f0fb}
+  .lx .lx-tr{height:9px;background:#f1e4f3;border-radius:9px;overflow:hidden}
 
-  .lc .note{font-size:12px;color:var(--muted);text-align:center;margin:16px 0 0}
+  .lx .lx-tr i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#db2777,#7c3aed);transition:width 1s cubic-bezier(.2,.8,.2,1)}
 
-  .lc [hidden]{display:none!important}
+  .lx .lx-best span{display:inline-block;margin:3px 4px 0 0;background:#fff;border:1px solid #ead7f3;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:600}
 
-  @media(max-width:640px){.lc .pair,.lc .grid{grid-template-columns:1fr}.lc .pair{gap:24px}.lc .top{justify-content:center;text-align:center}}
+  .lx .lx-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 
-  @media(prefers-reduced-motion:reduce){.lc *{transition:none!important}}
+  .lx .lx-btn{flex:1 1 130px;height:44px;border-radius:999px;border:1px solid #e3cdef;background:#fff;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;text-decoration:none;display:grid;place-items:center;padding:0}
+
+  .lx .lx-btn:hover{background:#faf5ff}
+
+  .lx [hidden]{display:none!important}
+
+  @media(max-width:640px){.lx .lx-pair,.lx .lx-grid{grid-template-columns:1fr}.lx .lx-pair{gap:26px}.lx .lx-top{justify-content:center;text-align:center}}
+
+  @media(prefers-reduced-motion:reduce){.lx *{transition:none!important}}
 
   </style>
 
 
-  <section class="lc" id="lc" aria-label="Love compatibility calculator">
-    <p class="sub">Enter two names and signs to see your match score, strengths, challenges and tips.</p>
-    <div class="card">
-      <div class="pair">
-        <div class="p p1">
-          <div class="who"><span class="av" aria-hidden="true">💗</span>Person 1</div>
-          <label for="lc-n1">First name</label><input id="lc-n1" maxlength="30" placeholder="E.g. Emma" autocomplete="off">
-          <label for="lc-s1">Zodiac sign</label><select id="lc-s1"></select>
-          <label for="lc-d1">Not sure? Pick a birthday <small>(optional)</small></label><input type="date" id="lc-d1">
+  <section class="lx" id="lx" aria-label="Love compatibility calculator by name and zodiac sign">
+    <span class="lx-heart h1" aria-hidden="true">♥</span><span class="lx-heart h2" aria-hidden="true">♥</span><span class="lx-heart h3" aria-hidden="true">♥</span>
+    <p class="lx-lead">Enter two first names and zodiac signs to see your love score, strengths, challenges and tips.</p>
+    <ul class="lx-chips"><li>100% free</li><li>No sign-up</li><li>Private, runs in your browser</li><li>Instant result</li></ul>
+    <div class="lx-card">
+      <div class="lx-pair">
+        <div class="lx-p lx-p1">
+          <div class="lx-who">Person 1</div>
+          <label for="lx-n1">First name</label><input id="lx-n1" maxlength="30" placeholder="E.g. Emma" autocomplete="off">
+          <label for="lx-s1">Zodiac sign</label><select id="lx-s1"></select>
+          <label for="lx-d1">Not sure? Pick a birthday (optional)</label><input type="date" id="lx-d1">
         </div>
-        <button class="swap" type="button" id="lc-swap" aria-label="Swap Person 1 and Person 2">♥</button>
-        <div class="p p2">
-          <div class="who"><span class="av" aria-hidden="true">💜</span>Person 2</div>
-          <label for="lc-n2">First name</label><input id="lc-n2" maxlength="30" placeholder="E.g. Jake" autocomplete="off">
-          <label for="lc-s2">Zodiac sign</label><select id="lc-s2"></select>
-          <label for="lc-d2">Not sure? Pick a birthday <small>(optional)</small></label><input type="date" id="lc-d2">
+        <button class="lx-swap" type="button" id="lx-swap" aria-label="Swap Person 1 and Person 2">♥</button>
+        <div class="lx-p lx-p2">
+          <div class="lx-who">Person 2</div>
+          <label for="lx-n2">First name</label><input id="lx-n2" maxlength="30" placeholder="E.g. Jake" autocomplete="off">
+          <label for="lx-s2">Zodiac sign</label><select id="lx-s2"></select>
+          <label for="lx-d2">Not sure? Pick a birthday (optional)</label><input type="date" id="lx-d2">
         </div>
       </div>
-      <div class="err" id="lc-err" role="alert"></div>
-      <button class="go" type="button" id="lc-go">☆ Check compatibility</button>
-      <div class="hist" id="lc-hist" hidden></div>
-      <div class="res" id="lc-res" hidden aria-live="polite"></div>
+      <div class="lx-err" id="lx-err" role="alert"></div>
+      <button class="lx-go" type="button" id="lx-go">Check Compatibility ♥</button>
+      <div class="lx-hist" id="lx-hist" hidden></div>
+      <div class="lx-res" id="lx-res" hidden aria-live="polite"></div>
     </div>
   </section>
 
@@ -166,7 +166,7 @@ tool: >
 
   (function(){
 
-  var SITE='https://lovescoretest.com';var R=document.getElementById('lc'),$=function(i){return document.getElementById('lc-'+i)};
+  var SITE='https://lovescoretest.com';var R=document.getElementById('lx'),$=function(i){return document.getElementById('lx-'+i)};
 
   var S=[['Aries','♈'],['Taurus','♉'],['Gemini','♊'],['Cancer','♋'],['Leo','♌'],['Virgo','♍'],['Libra','♎'],['Scorpio','♏'],['Sagittarius','♐'],['Capricorn','♑'],['Aquarius','♒'],['Pisces','♓']];
 
@@ -242,23 +242,21 @@ tool: >
   function best(i){return S.map(function(s,j){return[j,zs(i,j)[0]]}).sort(function(p,q){return q[1]-p[1]||p[0]-q[0]}).slice(0,4)
     .map(function(p){return'<span>'+S[p[0]][1]+' '+S[p[0]][0]+'</span>'}).join('')}
 
-  var cur=null;
-
   function show(r){
-    cur=r;var C=2*Math.PI*54,T=$('res');
+    var C=2*Math.PI*54,T=$('res');
     var txt=r.n1+' & '+r.n2+': '+r.total+'% love compatibility ('+S[r.a][0]+' + '+S[r.b][0]+')';
-    T.innerHTML='<div class="top"><div class="ring"><svg width="150" height="150" viewBox="0 0 120 120"><defs><linearGradient id="lcg"><stop offset="0" stop-color="#e8479a"/><stop offset="1" stop-color="#8a5bd0"/></linearGradient></defs><circle class="bg" cx="60" cy="60" r="54" fill="none" stroke-width="10"/><circle class="fg" cx="60" cy="60" r="54" fill="none" stroke-width="10" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'"/></svg><b id="lc-pct">0%</b></div>'
-    +'<div style="flex:1;min-width:220px"><h3 class="names">'+esc(r.n1)+' '+S[r.a][1]+' ♥ '+S[r.b][1]+' '+esc(r.n2)+'</h3><p class="tag">'+r.tier+'</p><p class="asp">'+r.asp+'. '+EI[r.ea]+' '+r.ea+' + '+EI[r.eb]+' '+r.eb+'.</p></div></div>'
-    +'<div class="mini"><div><b>'+r.z+'%</b><span>Zodiac match</span></div><div><b>'+r.name+'%</b><span>Name match</span></div><div><b>'+r.ln+'</b><span>Love number</span></div></div>'
-    +'<div class="grid"><div class="box"><h3>Compatibility breakdown</h3>'+r.cats.map(function(c){return'<div class="bar"><div><span>'+c[0]+'</span><span>'+c[1]+'%</span></div><div class="tr"><i data-w="'+c[1]+'"></i></div></div>'}).join('')+'</div>'
-    +'<div class="box"><h3>What to know</h3><p><b>Strength:</b> '+r.tx[0]+'</p><p><b>Challenge:</b> '+r.tx[1]+'</p><p><b>Tip:</b> '+r.tx[2]+'</p><p><b>Name insight:</b> You share '+r.sh+' letter'+(r.sh==1?'':'s')+'. Love number '+r.ln+': '+LN[r.ln].toLowerCase()+'.</p></div>'
-    +'<div class="box best"><h3>Best matches for '+S[r.a][0]+'</h3>'+best(r.a)+'</div>'
-    +'<div class="box best"><h3>Best matches for '+S[r.b][0]+'</h3>'+best(r.b)+'</div></div>'
-    +'<div class="acts"><button class="btn" id="lc-share" type="button">Share result</button><button class="btn" id="lc-copy" type="button">Copy result</button><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(txt+' '+SITE)+'">WhatsApp</a><button class="btn" id="lc-new" type="button">Try another pair</button></div>';
+    T.innerHTML='<div class="lx-top"><div class="lx-ring"><svg width="150" height="150" viewBox="0 0 120 120"><defs><linearGradient id="lxg"><stop offset="0" stop-color="#db2777"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><circle class="lx-bg" cx="60" cy="60" r="54" fill="none" stroke-width="10"/><circle class="lx-fg" cx="60" cy="60" r="54" fill="none" stroke-width="10" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'"/></svg><b id="lx-pct">0%</b></div>'
+    +'<div style="flex:1;min-width:220px"><h3 class="lx-names">'+esc(r.n1)+' '+S[r.a][1]+' ♥ '+S[r.b][1]+' '+esc(r.n2)+'</h3><p class="lx-tag">'+r.tier+'</p><p class="lx-asp">'+r.asp+'. '+EI[r.ea]+' '+r.ea+' + '+EI[r.eb]+' '+r.eb+'.</p></div></div>'
+    +'<div class="lx-mini"><div><b>'+r.z+'%</b><span>Zodiac match</span></div><div><b>'+r.name+'%</b><span>Name match</span></div><div><b>'+r.ln+'</b><span>Love number</span></div></div>'
+    +'<div class="lx-grid"><div class="lx-box"><h3>Compatibility breakdown</h3>'+r.cats.map(function(c){return'<div class="lx-bar"><div><span>'+c[0]+'</span><span>'+c[1]+'%</span></div><div class="lx-tr"><i data-w="'+c[1]+'"></i></div></div>'}).join('')+'</div>'
+    +'<div class="lx-box"><h3>What to know</h3><p><b>Strength:</b> '+r.tx[0]+'</p><p><b>Challenge:</b> '+r.tx[1]+'</p><p><b>Tip:</b> '+r.tx[2]+'</p><p><b>Name insight:</b> You share '+r.sh+' letter'+(r.sh==1?'':'s')+'. Love number '+r.ln+': '+LN[r.ln].toLowerCase()+'.</p></div>'
+    +'<div class="lx-box lx-best"><h3>Best matches for '+S[r.a][0]+'</h3>'+best(r.a)+'</div>'
+    +'<div class="lx-box lx-best"><h3>Best matches for '+S[r.b][0]+'</h3>'+best(r.b)+'</div></div>'
+    +'<div class="lx-acts"><button class="lx-btn" id="lx-share" type="button">Share result</button><button class="lx-btn" id="lx-copy" type="button">Copy result</button><a class="lx-btn" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(txt+' '+SITE)+'">WhatsApp</a><button class="lx-btn" id="lx-new" type="button">Try another pair</button></div>';
     T.hidden=false;
     requestAnimationFrame(function(){requestAnimationFrame(function(){
-      T.querySelector('.fg').style.strokeDashoffset=C*(1-r.total/100);
-      T.querySelectorAll('.tr i').forEach(function(i){i.style.width=i.dataset.w+'%'});
+      T.querySelector('.lx-fg').style.strokeDashoffset=C*(1-r.total/100);
+      T.querySelectorAll('.lx-tr i').forEach(function(i){i.style.width=i.dataset.w+'%'});
       var p=$('pct'),t0=null,rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
       (function f(t){if(rm){p.textContent=r.total+'%';return}t0=t0||t;var k=Math.min(1,(t-t0)/1100);p.textContent=Math.round(r.total*k)+'%';if(k<1)requestAnimationFrame(f)})(performance.now());
     })});
@@ -266,7 +264,7 @@ tool: >
     var copy=function(){var s=txt+' '+SITE;if(navigator.clipboard)navigator.clipboard.writeText(s).then(function(){$('copy').textContent='Copied ✓'});else{prompt('Copy your result:',s)}};
     $('copy').onclick=copy;
     $('share').onclick=function(){navigator.share?navigator.share({title:'Love compatibility',text:txt,url:SITE}).catch(function(){}):copy()};
-    $('new').onclick=function(){T.hidden=true;['n1','n2'].forEach(function(i){$(i).value=''});['s1','s2','d1','d2'].forEach(function(i){$(i).value=''});$('n1').focus();R.scrollIntoView({behavior:'smooth'})};
+    $('new').onclick=function(){T.hidden=true;['n1','n2','s1','s2','d1','d2'].forEach(function(i){$(i).value=''});$('n1').focus();R.scrollIntoView({behavior:'smooth'})};
   }
 
 
@@ -277,8 +275,8 @@ tool: >
   function drawHist(){
     var h=[];try{h=JSON.parse(localStorage.getItem('lc_h')||'[]')}catch(e){}
     var H_=$('hist');if(!h.length){H_.hidden=true;return}
-    H_.hidden=false;H_.innerHTML='Recent: ';
-    h.forEach(function(i){var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=i[0]+' + '+i[2];
+    H_.hidden=false;H_.textContent='Recent: ';
+    h.forEach(function(i){var b=document.createElement('button');b.type='button';b.className='lx-chip';b.textContent=i[0]+' + '+i[2];
       b.onclick=function(){$('n1').value=i[0];$('s1').value=i[1];$('n2').value=i[2];$('s2').value=i[3];go()};H_.appendChild(b)})}
 
   function go(){
