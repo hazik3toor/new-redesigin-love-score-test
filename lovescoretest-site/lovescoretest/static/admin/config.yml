@@ -35,6 +35,14 @@ collections:
       - { label: Draft (hide from site), name: draft, widget: boolean, default: false, required: false }
       - { label: "Custom calculator / tool code (optional): paste HTML + CSS + JS here", name: tool, widget: text, required: false, hint: "Self-contained code only. It shows on the page together with your article." }
       - { label: "Where to show the custom code", name: tool_position, widget: select, options: [{ label: "Above the article", value: top }, { label: "Below the article", value: bottom }], default: top, required: false }
+      - label: "FAQs (optional)"
+        name: faqs
+        widget: list
+        required: false
+        summary: "{{fields.question}}"
+        fields:
+          - { label: Question, name: question, widget: string }
+          - { label: Answer, name: answer, widget: text }
       - { label: Body, name: body, widget: markdown }
 
   - name: pages
@@ -58,6 +66,14 @@ collections:
       - { label: "Calculator on this page", name: calculator, widget: select, options: [{ label: "None", value: "none" }, { label: "Love calculator (two birth dates)", value: "love-birthdate" }], default: "none", required: false, hint: "The calculator appears under the title, then your text below it." }
       - { label: "Custom calculator / tool code (optional): paste HTML + CSS + JS here", name: tool, widget: text, required: false, hint: "Self-contained code only. It shows on the page together with your article." }
       - { label: "Where to show the custom code", name: tool_position, widget: select, options: [{ label: "Above the article", value: top }, { label: "Below the article", value: bottom }], default: top, required: false }
+      - label: "FAQs (optional)"
+        name: faqs
+        widget: list
+        required: false
+        summary: "{{fields.question}}"
+        fields:
+          - { label: Question, name: question, widget: string }
+          - { label: Answer, name: answer, widget: text }
       - { label: Body, name: body, widget: markdown }
 
   - name: categories
