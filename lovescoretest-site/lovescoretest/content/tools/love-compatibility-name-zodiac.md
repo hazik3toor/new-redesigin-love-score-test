@@ -1,6 +1,6 @@
 ---
 slug: love-compatibility-name-zodiac
-menu_title: ""
+menu_title: love compatibility name zodiac
 title: Reveal Your Love Compatibility by Name & Zodiac
 description: Discover your love compatibility by name and zodiac. Enter both
   names and star signs to see what numerology and astrology reveal about your
@@ -339,6 +339,10 @@ Beyond **numerology** and **astrology**, every **relationship** carries **emotio
 
 ## **How the Compatibility Test Works**
 
+![love compatibility by name and zodiac ](/images/love-compatibility-by-name-and-zodiac.webp "love compatibility by name and zodiac ")
+
+\
+\
 In my experience, I try a **partner name** first, since it is **fast**, **free**, and needs **no sign-up**; **instant results** feel playful, so treat the **compatibility percentage** as **fun**, never a final verdict on love.
 
 In **name mode**, you type **names only**; the **Pythagorean method** maps letters **A to I** onto **1 to 9**. Add the **total**, reduce to **one digit**, and spare **master numbers** **11** and **22** from reduction.
