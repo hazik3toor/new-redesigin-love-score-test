@@ -341,8 +341,6 @@ Beyond **numerology** and **astrology**, every **relationship** carries **emotio
 
 ![love compatibility by name and zodiac ](/images/love-compatibility-by-name-and-zodiac.webp "love compatibility by name and zodiac ")
 
-\
-\
 In my experience, I try a **partner name** first, since it is **fast**, **free**, and needs **no sign-up**; **instant results** feel playful, so treat the **compatibility percentage** as **fun**, never a final verdict on love.
 
 In **name mode**, you type **names only**; the **Pythagorean method** maps letters **A to I** onto **1 to 9**. Add the **total**, reduce to **one digit**, and spare **master numbers** **11** and **22** from reduction.
