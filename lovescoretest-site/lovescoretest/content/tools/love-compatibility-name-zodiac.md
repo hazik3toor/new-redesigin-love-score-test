@@ -7,7 +7,7 @@ description: Discover your love compatibility by name and zodiac. Enter both
   match.
 date: 2026-11-20
 category: calculators
-draft: true
+draft: false
 calculator: none
 tool: >
   <!-- Love Compatibility Calculator (name + zodiac). Paste into a CMS "Custom
