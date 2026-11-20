@@ -13,7 +13,7 @@ By comparing partner's date of birth, the tool considers birth signs, zodiac sig
 
 A love score or relationship score can make the experience engaging, but genuine relationship compatibility depends on emotional connection, communication, trust, and commitment. Numbers cannot fully explain how two people understand and support each other.
 
-Use zodiac compatibility and numerology as reflection tools rather than fixed predictions. Shared values, kindness, honest conversations, and emotional maturity often matter more when building a romantic relationship that can grow through change over time.
+Use [zodiac compatibility](https://lovescoretest.com/love-compatibility-name-zodiac) and numerology as reflection tools rather than fixed predictions. Shared values, kindness, honest conversations, and emotional maturity often matter more when building a romantic relationship that can grow through change over time.
 
 This birthday compatibility check is best treated as a lighthearted introduction to partner matching. Explore the result with curiosity, then focus on real-life behaviour, mutual respect, shared goals, and the care you build together daily.
 
@@ -195,7 +195,7 @@ Use a birthday compatibility calculator as a reflective starting point, not a fi
 
 A useful birth date comparison may include each person's birth numbers, partner numbers, and age difference. Check the partner's birthday before calculating, because an incorrect date can change the displayed result significantly for both people.
 
-If astrology interests you, consider zodiac signs, astrological compatibility, and birth sign compatibility as interpretive themes. These ideas can prompt conversation, but they cannot establish whether two people will build lasting trust together in practice.
+If astrology interests you, consider zodiac signs, astrological compatibility, and[ birth sign compatibility](https://lovescoretest.com/love-compatibility-name-zodiac) as interpretive themes. These ideas can prompt conversation, but they cannot establish whether two people will build lasting trust together in practice.
 
 Read the love percentage and compatibility score as simplified indicators rather than scientific measurements. A good match or mixed match label should encourage thoughtful questions about values, expectations, and everyday behaviour within real relationships too.
 
