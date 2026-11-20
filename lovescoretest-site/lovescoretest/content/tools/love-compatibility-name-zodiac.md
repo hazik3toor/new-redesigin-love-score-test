@@ -298,6 +298,40 @@ tool: >
 
   </script>
 tool_position: top
+faqs:
+  - question: Can Zodiac or Compatibility Tests Be Trusted?
+    answer: I treat them as entertainment with a useful mirror. After years of
+      reading charts for friends, I have seen sun sign matches miss completely,
+      then land uncannily well. Use results for reflection, never as verdicts.
+  - question: Full First Name or Nickname?
+    answer: Use the full first name. When I tested both versions on my own name, the
+      longer one felt more accurate because formal spellings carry the full
+      letter set. Nicknames work as a quick second check.
+  - question: Are “Incompatible” Signs Doomed?
+    answer: Not at all. Two of my closest friends are fire and water, and they have
+      been married eleven years. Friction between signs usually teaches
+      communication, so effort and honesty matter far more than any label.
+  - question: Name Mode vs Zodiac Mode?
+    answer: Name mode reads the letters of both names, while zodiac mode compares
+      birth signs. I run both on every pairing. When the two agree, I trust the
+      result more; when they split, I look closer.
+  - question: Can I Check Compatibility Using Moon Sign or Rising Sign?
+    answer: >
+      Yes, and it often reveals more. I once compared moon signs for a couple
+      who clashed on sun signs, and emotional needs finally made sense. You will
+      also need accurate birth times for rising signs.
+  - question: Is My Data Saved or Shared?
+    answer: Policies differ by tool, so always read the privacy page carefully
+      before typing anything. I only enter first names and birth dates, never
+      emails or full home addresses, and you can easily do the same.
+  - question: Can I Use It for a Crush?
+    answer: Absolutely. Checking a crush is harmless fun, and I have done it myself
+      more than once. Treat the score only as a conversation starter, not a
+      prediction, and let real chats decide what happens next.
+  - question: Which Signs Are Most Compatible?
+    answer: Fire pairs with air and earth pairs with water, and that matches what I
+      have seen. Leo and Gemini, or Taurus and Cancer, tend to feel easy. Still,
+      easy is not the same as lasting.
 ---
 Most people I meet ask whether **names** really matter in romance. After years of reading charts, my answer: **name numerology** and a **Sun sign** together give a **balanced view**, never a **verdict** on **lasting couples**.
 
@@ -408,37 +442,3 @@ After my **love horoscope** results came back, I texted a heart, a moon, and spa
 ## **Data Privacy**
 
 In practice, a **question-based test** needs only names and birthdays, so I skip anything tied to **unrelated factors**. Treat **promotional** emails and **off-topic** sharing prompts cautiously, and never let an **overall score** travel anywhere unprotected.
-
-## FAQ
-
-### Can Zodiac or Compatibility Tests Be Trusted?
-
-I treat them as entertainment with a useful mirror. After years of reading charts for friends, I have seen sun sign matches miss completely, then land uncannily well. Use results for reflection, never as verdicts.
-
-### Are “Incompatible” Signs Doomed?
-
-Not at all. Two of my closest friends are fire and water, and they have been married eleven years. Friction between signs usually teaches communication, so effort and honesty matter far more than any label.
-
-### Full First Name or Nickname?
-
-Use the full first name. When I tested both versions on my own name, the longer one felt more accurate, because formal spellings carry the full letter set. Nicknames work as a quick second check.
-
-### Can I Check Compatibility Using Moon Sign or Rising Sign?
-
-Yes, and it often reveals more. I once compared moon signs for a couple who clashed on sun signs, and emotional needs finally made sense. You will also need accurate birth times for rising signs.
-
-### Name Mode vs Zodiac Mode?
-
-Name mode reads the letters of both names, while zodiac mode compares birth signs. I run both on every pairing. When the two agree, I trust the result more; when they split, I look closer.
-
-### Which Signs Are Most Compatible?
-
-Fire pairs with air and earth pairs with water, and that matches what I have seen. Leo and Gemini, or Taurus and Cancer, tend to feel easy. Still, easy is not the same as lasting.
-
-### Can I Use It for a Crush?
-
-Absolutely. Checking a crush is harmless fun, and I have done it myself more than once. Treat the score only as a conversation starter, not a prediction, and let real chats decide what happens next.
-
-### Is My Data Saved or Shared?
-
-Policies differ by tool, so always read the privacy page carefully before typing anything. I only enter first names and birth dates, never emails or full home addresses, and you can easily do the same.
