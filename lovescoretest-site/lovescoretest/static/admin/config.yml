@@ -23,19 +23,15 @@ collections:
     summary: "{{title}} ({{date}})"
     sortable_fields: [date, title]
     fields:
+      - { label: "Page title (H1, shown on the page)", name: title, widget: string }
       - { label: "URL slug (lowercase-with-dashes, used in the link)", name: slug, widget: string, pattern: ["^[a-z0-9-]+$", "Only lowercase letters, numbers and dashes"], hint: "Example: zodiac-love-match -> /blog/zodiac-love-match" }
-      - { label: "Short name for footer/menu (optional)", name: menu_title, widget: string, required: false, hint: "Example: Zodiac Calculator. If empty, the full title is used." }
-      - { label: Title, name: title, widget: string }
-      - { label: "Meta description (about 150 characters)", name: description, widget: string }
-      - { label: Publish date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
-      - { label: Last updated (optional), name: updated, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
       - { label: Category, name: category, widget: relation, collection: categories, search_fields: [name], value_field: "{{slug}}", display_fields: [name] }
-      - { label: Image, name: image, widget: image, required: false, hint: "Best size 1200x675 (WebP or JPG)" }
-      - { label: Image alt text, name: image_alt, widget: string, required: false }
-      - { label: Draft (hide from site), name: draft, widget: boolean, default: false, required: false }
-      - { label: "Custom calculator / tool code (optional): paste HTML + CSS + JS here", name: tool, widget: text, required: false, hint: "Self-contained code only. It shows on the page together with your article." }
+      - { label: "Image (optional, also used on the cards)", name: image, widget: image, required: false, hint: "Best size 1200x675 (WebP or JPG). If empty, the first image inside the article is used on the cards." }
+      - { label: "Image alt text", name: image_alt, widget: string, required: false }
+      - { label: "Custom calculator / tool code: paste HTML + CSS + JS here", name: tool, widget: text, required: false, hint: "Self-contained code only. It shows on the page together with your article." }
       - { label: "Where to show the custom code", name: tool_position, widget: select, options: [{ label: "Above the article", value: top }, { label: "Below the article", value: bottom }], default: top, required: false }
-      - label: "FAQs (optional)"
+      - { label: Body, name: body, widget: markdown }
+      - label: "FAQs"
         name: faqs
         widget: list
         required: false
@@ -43,7 +39,12 @@ collections:
         fields:
           - { label: Question, name: question, widget: string }
           - { label: Answer, name: answer, widget: text }
-      - { label: Body, name: body, widget: markdown }
+      - { label: "SEO · Focus keyword", name: focus_keyword, widget: string, required: false, hint: "The main phrase you want to rank for, example: love compatibility by name. The panel on the right checks your page for it." }
+      - { label: "SEO · Title shown in Google", name: seo_title, widget: string, required: false, hint: "Up to 60 characters. If empty, the page title + site name is used. The page itself still shows the page title above." }
+      - { label: "SEO · Meta description (shown in Google only)", name: description, widget: string, hint: "120 to 160 characters. It is not shown on the website. Cards show the first lines of your article instead." }
+      - { label: "Short name for footer/menu", name: menu_title, widget: string, required: false, hint: "Example: Zodiac Calculator. If empty, the page title is used." }
+      - { label: Publish date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: Draft (hide from site), name: draft, widget: boolean, default: false, required: false }
 
   - name: pages
     label: Pages (tools, quizzes)
@@ -54,19 +55,16 @@ collections:
     slug: "{{fields.slug}}"
     summary: "{{title}}"
     fields:
+      - { label: "Page title (H1, shown on the page)", name: title, widget: string }
       - { label: "URL slug (lowercase-with-dashes, used in the link)", name: slug, widget: string, pattern: ["^[a-z0-9-]+$", "Only lowercase letters, numbers and dashes"], hint: "Example: love-language-test -> /love-language-test" }
-      - { label: "Short name for footer/menu (optional)", name: menu_title, widget: string, required: false, hint: "Example: Zodiac Calculator. If empty, the full title is used." }
-      - { label: Title, name: title, widget: string }
-      - { label: "Meta description (about 150 characters)", name: description, widget: string }
-      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - { label: Category, name: category, widget: relation, collection: categories, search_fields: [name], value_field: "{{slug}}", display_fields: [name] }
-      - { label: Image, name: image, widget: image, required: false, hint: "Best size 1200x675 (WebP or JPG)" }
-      - { label: Image alt text, name: image_alt, widget: string, required: false }
-      - { label: Draft (hide from site), name: draft, widget: boolean, default: false, required: false }
+      - { label: "Image (optional, also used on the cards)", name: image, widget: image, required: false, hint: "Best size 1200x675 (WebP or JPG). If empty, the first image inside the article is used on the cards." }
+      - { label: "Image alt text", name: image_alt, widget: string, required: false }
       - { label: "Calculator on this page", name: calculator, widget: select, options: [{ label: "None", value: "none" }, { label: "Love calculator (two birth dates)", value: "love-birthdate" }], default: "none", required: false, hint: "The calculator appears under the title, then your text below it." }
-      - { label: "Custom calculator / tool code (optional): paste HTML + CSS + JS here", name: tool, widget: text, required: false, hint: "Self-contained code only. It shows on the page together with your article." }
+      - { label: "Custom calculator / tool code: paste HTML + CSS + JS here", name: tool, widget: text, required: false, hint: "Self-contained code only. It shows on the page together with your article." }
       - { label: "Where to show the custom code", name: tool_position, widget: select, options: [{ label: "Above the article", value: top }, { label: "Below the article", value: bottom }], default: top, required: false }
-      - label: "FAQs (optional)"
+      - { label: Body, name: body, widget: markdown }
+      - label: "FAQs"
         name: faqs
         widget: list
         required: false
@@ -74,7 +72,12 @@ collections:
         fields:
           - { label: Question, name: question, widget: string }
           - { label: Answer, name: answer, widget: text }
-      - { label: Body, name: body, widget: markdown }
+      - { label: "SEO · Focus keyword", name: focus_keyword, widget: string, required: false, hint: "The main phrase you want to rank for, example: love compatibility by name. The panel on the right checks your page for it." }
+      - { label: "SEO · Title shown in Google", name: seo_title, widget: string, required: false, hint: "Up to 60 characters. If empty, the page title + site name is used. The page itself still shows the page title above." }
+      - { label: "SEO · Meta description (shown in Google only)", name: description, widget: string, hint: "120 to 160 characters. It is not shown on the website. Cards show the first lines of your article instead." }
+      - { label: "Short name for footer/menu", name: menu_title, widget: string, required: false, hint: "Example: Zodiac Calculator. If empty, the page title is used." }
+      - { label: Publish date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: Draft (hide from site), name: draft, widget: boolean, default: false, required: false }
 
   - name: categories
     label: Categories
@@ -104,6 +107,19 @@ collections:
           - { label: Meta description, name: description, widget: string }
           - { label: Show calculator, name: calculator, widget: boolean, default: true }
           - { label: "Article (keep the first line as Heading 1)", name: body, widget: markdown, hint: "To add an image: click the image button in the toolbar, upload or pick a picture, then fill Alt text (and Title if you want)." }
+      - name: links
+        label: Auto links to outside sites (word -> link)
+        file: lovescoretest-site/lovescoretest/content/links.json
+        format: json
+        fields:
+          - label: "Rules (words that link to an outside site automatically; delete a row to stop it)"
+            name: rules
+            widget: list
+            required: false
+            summary: "{{fields.phrase}}"
+            fields:
+              - { label: "Word or phrase in your article", name: phrase, widget: string }
+              - { label: "Link (https://...)", name: url, widget: string }
       - name: about
         label: About
         file: lovescoretest-site/lovescoretest/content/pages/about.md

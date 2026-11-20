@@ -40,9 +40,9 @@ function faqBlock(p, L) {
   const f = Array.isArray(p.data.faqs) ? p.data.faqs : [];
   if (!f.length) return "";
   const ld = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: f.map((x) => ({ "@type": "Question", name: x.question, acceptedAnswer: { "@type": "Answer", text: x.answer } })) };
-  return `<section class="faqx"><h2>${L === "fr" ? "Questions fréquentes" : "Frequently asked questions"}</h2>` +
-    f.map((x) => `<details name="faqx"><summary>${esc(x.question)}</summary><div class="a">${x.answer.split(/\n{2,}/).map((s) => `<p>${inline(s)}</p>`).join("")}</div></details>`).join("") +
-    `</section><script type="application/ld+json">${JSON.stringify(ld).replace(/</g, "\\u003c")}</script>`;
+  return `<h2 id="faqs">${L === "fr" ? "Questions fréquentes" : "Frequently Asked Questions"}</h2>` +
+    f.map((x) => `<details class="faq"><summary><h3>${esc(x.question)}</h3></summary>${x.answer.split(/\n{2,}/).map((s) => `<p>${inline(s)}</p>`).join("")}</details>`).join("") +
+    `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, "\\u003c")}</script>`;
 }
 
 // ---------- front matter + markdown ----------
@@ -260,14 +260,43 @@ function indexablePaths() {
   if (posts.length) s.add(pre() + "/blog");
   return s;
 }
-function applyLinks(html) {
+// every published page with a "focus keyword" (and optional extra words) is linked automatically from other pages
+const STOP = new Set("a an the and or of for to in on at by with your you our my is are be how what why when which who does do can this that it from as into about reveal discover find free best top easy quick test tool calculator calculate check try get".split(" "));
+function titlePhrases(title) { // 2-5 word pieces of the page title that do not start or end with a filler word
+  const out = new Set();
+  for (const seg of String(title || "").toLowerCase().split(/[:|&,;()!?]|\s[-–—]\s/)) {
+    const w = seg.replace(/[^a-z0-9' ]+/g, " ").split(/\s+/).filter(Boolean);
+    for (let n = 2; n <= 5; n++) for (let i = 0; i + n <= w.length; i++) {
+      const g = w.slice(i, i + n);
+      if (STOP.has(g[0]) || STOP.has(g[n - 1])) continue;
+      const s = g.join(" ");
+      if (s.length >= 8) out.add(s);
+    }
+  }
+  return [...out];
+}
+function autoRules(self) {
+  if (!AUTO_INTERNAL) return [];
+  return allItems.filter((x) => x !== self).flatMap((x) => {
+    const own = [x.data.focus_keyword, ...String(x.data.link_words || "").split(/\n|,/)].map((s) => String(s || "").trim()).filter((s) => s.length > 2);
+    const phrases = x.data.focus_keyword ? own : [...own, ...titlePhrases(x.data.title)];
+    return phrases.map((phrase) => ({ phrase, url: x.url, auto: true }));
+  }).sort((a, b) => b.phrase.length - a.phrase.length);
+}
+const AUTO_INTERNAL = false; // automatic internal links are OFF: you add links yourself in the CMS. Set to true to turn them on.
+const AUTO_MAX = 6, EXT_MAX = 10;
+function applyLinks(html, self = null) {
   const ok = indexablePaths();
-  const rules = JSON.parse(read("content/links.json")).filter((r) => (r.lang || "en") === cur && (r.url.startsWith("#") || r.url.startsWith("http") || ok.has(r.url)));
-  const done = new Set();
-  let count = 0;
+  const raw = JSON.parse(read("content/links.json"));
+  const manual = (Array.isArray(raw) ? raw : raw.rules || []).filter((r) => (r.lang || "en") === cur && (r.url.startsWith("#") || r.url.startsWith("http") || ok.has(r.url)));
+  const rules = [...manual, ...autoRules(self)];
+  const done = new Set(), doneUrl = new Set();
+  let count = 0, autos = 0, exts = 0;
   const out = html.replace(/<p>([\s\S]*?)<\/p>/g, (_, inner) => {
     for (const r of rules) {
       if (done.has(r.phrase)) continue;
+      if (r.auto && (doneUrl.has(r.url) || autos >= AUTO_MAX)) continue;
+      if (r.url.startsWith("http") && exts >= EXT_MAX) continue;
       const re = new RegExp("\\b" + r.phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i");
       const parts = inner.split(/(<a\b[\s\S]*?<\/a>|<[^>]+>)/);
       for (let i = 0; i < parts.length; i += 2) {
@@ -276,6 +305,8 @@ function applyLinks(html) {
         const ext = r.url.startsWith("http");
         parts[i] = parts[i].slice(0, m.index) + `<a href="${r.url}"${ext ? ' target="_blank" rel="noopener"' : ""}>${m[0]}</a>` + parts[i].slice(m.index + m[0].length);
         done.add(r.phrase); count++;
+        if (r.auto) { doneUrl.add(r.url); autos++; }
+        if (ext) exts++;
         break;
       }
       inner = parts.join("");
@@ -286,12 +317,31 @@ function applyLinks(html) {
 }
 
 // ---------- components ----------
+const unent = (s) => s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+function excerpt(p) {
+  const html = p.html.replace(/<figure[\s\S]*?<\/figure>/g, "");
+  let txt = "";
+  for (const m of html.matchAll(/<p>([\s\S]*?)<\/p>/g)) { const s = unent(plain(m[1])); if (s.length >= 40) { txt = s; break; } }
+  if (!txt) return p.data.description || "";
+  if (txt.length <= 150) return txt;
+  const cut = txt.slice(0, 150), sp = cut.lastIndexOf(" ");
+  return cut.slice(0, sp > 90 ? sp : 150).replace(/[\s,;:.\-–]+$/, "") + "…";
+}
+function cardImage(p) {
+  const m = /!\[([^\]]*)\]\(([^)\s]+)/.exec(p.body || "");
+  const src = p.data.image || (m && m[2]);
+  if (!src) return null;
+  const alt = (p.data.image ? p.data.image_alt : m[1]) || p.data.title;
+  const small = src.replace(/\.webp$/, "-640.webp");
+  const useSmall = src.startsWith("/") && small !== src && fs.existsSync(path.join(root, "static", small));
+  const use = useSmall ? small : src;
+  const dim = use.startsWith("/") ? imgSize(path.join(root, "static", use)) : null;
+  return `<img src="${esc(use)}" alt="${esc(alt.trim())}"${dim ? ` width="${dim[0]}" height="${dim[1]}"` : ""} loading="lazy" decoding="async">`;
+}
 function card(p) {
-  const img = p.data.image
-    ? `<img src="${esc(p.data.image)}" alt="${esc(p.data.image_alt || p.data.title)}" width="1200" height="675" loading="lazy" decoding="async">`
-    : esc(p.cat?.data.icon || "💕");
+  const img = cardImage(p) || esc(p.cat?.data.icon || "💕");
   const meta = p.type === "post" ? `<p class="meta"><time datetime="${p.date}">${fmtDate(p.date)}</time> · ${p.mins} ${t("minRead")}</p>` : "";
-  return `<article class="post"><div class="th">${img}</div><div class="bd">${p.cat ? `<p class="tag">${esc(cf(p.cat, "name"))}</p>` : ""}<h3><a href="${p.url}">${esc(p.data.title)}</a></h3><p class="ex">${esc(p.data.description || "")}</p>${meta}</div></article>`;
+  return `<article class="post"><div class="th">${img}</div><div class="bd">${p.cat ? `<p class="tag">${esc(cf(p.cat, "name"))}</p>` : ""}<h3><a href="${p.url}">${esc(p.data.title)}</a></h3><p class="ex">${esc(excerpt(p))}</p>${meta}</div></article>`;
 }
 const catCards = () => cats.map((c) => { const n = itemsIn(c.slug).length; return `<a class="cat" href="${pre()}/${c.slug}"><span class="ic" aria-hidden="true">${c.data.icon || "💕"}</span><b>${esc(cf(c, "name"))}</b><span class="d">${esc(cf(c, "blurb") || cf(c, "description"))}</span><span class="n">${n ? `${n} ${n > 1 ? t("many") : t("one")}` : t("exploreBtn")}</span></a>`; }).join("");
 
@@ -307,7 +357,7 @@ function footerHtml() {
   const blogCol = posts.length ? `<div><h2><a href="${pre()}/blog">${t("blog")}</a></h2><ul>${posts.slice(0, 6).map((p) => `<li><a href="${p.url}">${esc(shortTitle(p))}</a></li>`).join("")}<li><a href="${pre()}/blog">${t("seeAll")} →</a></li></ul></div>` : "";
   const explore = `<div><h2>${t("explore")}</h2><ul><li><a href="${homeP()}">${t("home")}</a></li>${cats.map((c) => `<li><a href="${pre()}/${c.slug}">${esc(cf(c, "name"))}</a></li>`).join("")}<li><a href="${pre()}/blog">${t("blog")}</a></li><li><a href="/rss.xml">${t("rss")}</a></li></ul></div>`;
   const info = `<div><h2>${t("info")}</h2><ul>${legal.map((x) => `<li><a href="${x.url}">${esc(x.data.h1 || x.data.title)}</a></li>`).join("")}</ul></div>`;
-  return `<footer class="site"><div class="cols"><div>${logo()}<p>${t("tag")}</p></div>${colsCat}${blogCol}${explore}${info}</div>
+  return `<footer class="site"><div class="cols"><div>${logo().replace('id="g"', 'id="g2"').replace("url(#g)", "url(#g2)")}<p>${t("tag")}</p></div>${colsCat}${blogCol}${explore}${info}</div>
 <p class="cp">&copy; ${new Date().getFullYear()} ${NAME}. ${t("cp")}</p></footer>`;
 }
 
@@ -496,7 +546,7 @@ ${bands}
     if (isPost) crumbItems.push([t("blog"), pre() + "/blog"]);
     if (p.cat) crumbItems.push([cf(p.cat, "name"), pre() + "/" + p.cat.slug]);
     const crumbHtml = crumbItems.map(([n, h]) => `<a href="${h}">${esc(n)}</a>`).join(" › ");
-    const linked = applyLinks(p.html).html + faqBlock(p, L);
+    const linked = applyLinks(p.html, p).html + faqBlock(p, L);
     const toolCode = typeof p.data.tool === "string" ? p.data.tool.trim() : "";
     const toolBox = toolCode ? `<div class="toolbox" style="margin:1.6em 0">${toolCode}</div>` : "";
     const toolTop = p.data.tool_position === "bottom" ? "" : toolBox;
@@ -513,7 +563,7 @@ ${bands}
       : { "@context": "https://schema.org", "@type": isApp ? ["WebPage", "WebApplication"] : "WebPage", ...(isApp ? { applicationCategory: "LifestyleApplication", operatingSystem: "Any", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}), name: p.data.title, description: p.data.description || "", url, image: img, isPartOf: { "@id": SITE + "/#website" }, inLanguage: L };
     const cp = LANGS.length > 1 ? counterpart(p) : null;
     const alts = cp ? { [L]: p.url, [cp.lang]: cp.url } : null;
-    write(outFile(p.url), layout({ title: p.data.title + " | " + NAME, description: p.data.description || "", path: p.url, body, ogImage: img, ogType: isPost ? "article" : "website", schema: [crumbLd, main], withCalc: hasCalc, alts }));
+    write(outFile(p.url), layout({ title: (p.data.seo_title && String(p.data.seo_title).trim()) || p.data.title + " | " + NAME, description: p.data.description || "", path: p.url, body, ogImage: img, ogType: isPost ? "article" : "website", schema: [crumbLd, main], withCalc: hasCalc, alts }));
     sitemap.push({ loc: p.url, pri: isPost ? "0.8" : "0.9", mod: String(p.data.updated || p.date).slice(0, 10), alts });
   }
   console.log(`${L}: faq ${stats.faq}, toc ${stats.toc}, links added ${stats.links}, pages ${tools.length}, posts ${posts.length}`);
