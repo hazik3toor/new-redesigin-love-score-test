@@ -1,13 +1,7 @@
 ---
-slug: love-compatibility-name-zodiac
-menu_title: love compatibility name zodiac
 title: Reveal Your Love Compatibility by Name & Zodiac
-description: Discover your love compatibility by name and zodiac. Enter both
-  names and star signs to see what numerology and astrology reveal about your
-  match.
-date: 2026-11-20
+slug: love-compatibility-name-zodiac
 category: calculators
-draft: false
 calculator: none
 tool: >-
   <!-- Love Compatibility Calculator (name + zodiac), themed to match
@@ -330,10 +324,16 @@ faqs:
     answer: Fire pairs with air and earth pairs with water, and that matches what I
       have seen. Leo and Gemini, or Taurus and Cancer, tend to feel easy. Still,
       easy is not the same as lasting.
+description: Discover your love compatibility by name and zodiac. Enter both
+  names and star signs to see what numerology and astrology reveal about your
+  match.
+menu_title: love compatibility name zodiac
+date: 2026-11-20
+draft: false
 ---
 Most people I meet ask whether **names** really matter in romance. After years of reading charts, my answer: **name numerology** and a **Sun sign** together give a **balanced view**, never a **verdict** on **lasting couples**.
 
-**Zodiac mode** compares **dates of birth**, while **name mode** turns **letters** into numbers through an **algorithm**. I have watched **pairs** score low on one yet thrive, because **communication** and **effort** outweigh any **percentage** ever shown.
+**Zodiac mode** compares[ **dates of birth**,](https://lovescoretest.com/) while **name mode** turns **letters** into numbers through an **algorithm**. I have watched **pairs** score low on one yet thrive, because **communication** and **effort** outweigh any **percentage** ever shown.
 
 Beyond **numerology** and **astrology**, every **relationship** carries **emotional needs** that no **entertainment** tool fully captures. Treat a **conversation starter** like **fun**, then trust **understanding**, **respect**, and honest talk to carry the **real relationships** you build.
 
@@ -381,7 +381,7 @@ Honestly, a **name-only love calculator** is **entertainment**, a **game** I use
 
 ## **Why Try / Why Combine Both Readings**
 
-Most people run a **name** through a **love calculator** for fun, then dismiss it. I stopped after watching **names only** results clash with a **birth-date test**; that gap taught me more than **overall score** did.
+Most people run a **name** through a **love calculator** for fun, then dismiss it. I stopped after watching **names only** results clash with a[ **birth-date test**;](https://lovescoretest.com/) that gap taught me more than **overall score** did.
 
 **Numerology** rewards **first name** **spelling**, while **zodiac mode** reads **Sun signs** and **natal charts**. Combined, one reveals **emotional needs**, the other **basic nature**, and any **low score** becomes a **deeper reading** worth discussing over dinner.
 
