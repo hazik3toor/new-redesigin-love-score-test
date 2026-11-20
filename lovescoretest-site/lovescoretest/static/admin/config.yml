@@ -3,11 +3,11 @@ backend:
   name: github
   repo: hazik3toor/new-redesigin-love-score-test
   branch: main
-  base_url: https://lovescoretest.com
+  base_url: https://www.lovescoretest.com
   auth_endpoint: api/auth
 
-site_url: https://lovescoretest.com
-display_url: https://lovescoretest.com
+site_url: https://www.lovescoretest.com
+display_url: https://www.lovescoretest.com
 media_folder: lovescoretest-site/lovescoretest/static/images
 public_folder: /images
 locale: en
@@ -87,7 +87,7 @@ collections:
           - { label: Title (H1 and Google title), name: title, widget: string }
           - { label: Meta description, name: description, widget: string }
           - { label: Show calculator, name: calculator, widget: boolean, default: true }
-          - { label: "Article (markdown). Keep the first line '# Title'", name: body, widget: text }
+          - { label: "Article (keep the first line as Heading 1)", name: body, widget: markdown, hint: "To add an image: click the image button in the toolbar, upload or pick a picture, then fill Alt text (and Title if you want)." }
       - name: about
         label: About
         file: lovescoretest-site/lovescoretest/content/pages/about.md

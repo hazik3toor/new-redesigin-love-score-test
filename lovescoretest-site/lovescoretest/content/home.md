@@ -15,7 +15,7 @@ Use zodiac compatibility and numerology as reflection tools rather than fixed pr
 
 This birthday compatibility check is best treated as a lighthearted introduction to partner matching. Explore the result with curiosity, then focus on real-life behaviour, mutual respect, shared goals, and the care you build together daily.
 
-![Two birth date calendar cards joined by a heart, illustrating a love calculator by date of birth](/images/love-calculator-by-date-of-birth.webp){1200x675}
+![Two birth date calendar cards joined by a heart, illustrating a love calculator by date of birth](/images/love-calculator-by-date-of-birth.webp)
 
 ## Love Calculator by Date of Birth / Birthday Compatibility
 
@@ -65,7 +65,7 @@ People sometimes expect matching signs to guarantee harmony, while contrasting s
 
 Use sign comparisons as conversation starters, not verdicts about a relationship. Ask which descriptions feel accurate, discuss where expectations differ, and judge compatibility through consistent actions rather than a symbolic chart alone in real life.
 
-![Zodiac wheel with twelve star signs around a heart, illustrating zodiac compatibility and birth signs](/images/zodiac-compatibility-wheel.webp){1200x675}
+![Zodiac wheel with twelve star signs around a heart, illustrating zodiac compatibility and birth signs](/images/zodiac-compatibility-wheel.webp)
 
 ## Love Compatibility Score and Percentage
 

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 
-const SITE = "https://lovescoretest.com";
+const SITE = "https://www.lovescoretest.com";
 const NAME = "LoveScoreTest";
 const GA = "G-4QW8EWN05R";
 const root = path.dirname(new URL(import.meta.url).pathname);
@@ -49,6 +49,30 @@ function inline(s) {
   s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2">$1</a>');
   return s;
 }
+// read width/height from an image file (webp, jpg, png, gif) so pages never jump while loading
+function imgSize(file) {
+  try {
+    const b = fs.readFileSync(file);
+    if (b.slice(0, 4).toString() === "RIFF" && b.slice(8, 12).toString() === "WEBP") {
+      const t = b.slice(12, 16).toString();
+      if (t === "VP8X") return [1 + b.readUIntLE(24, 3), 1 + b.readUIntLE(27, 3)];
+      if (t === "VP8 ") return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
+      if (t === "VP8L") { const v = b.readUInt32LE(21); return [(v & 0x3fff) + 1, ((v >> 14) & 0x3fff) + 1]; }
+    }
+    if (b[0] === 0x89 && b.slice(1, 4).toString() === "PNG") return [b.readUInt32BE(16), b.readUInt32BE(20)];
+    if (b.slice(0, 3).toString() === "GIF") return [b.readUInt16LE(6), b.readUInt16LE(8)];
+    if (b[0] === 0xff && b[1] === 0xd8) {
+      let i = 2;
+      while (i < b.length) {
+        if (b[i] !== 0xff) { i++; continue; }
+        const mk = b[i + 1];
+        if (mk >= 0xc0 && mk <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(mk)) return [b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)];
+        i += 2 + b.readUInt16BE(i + 2);
+      }
+    }
+  } catch {}
+  return null;
+}
 function md(body) {
   const out = [], used = new Set();
   const lines = body.replace(/\r\n/g, "\n").split("\n");
@@ -69,12 +93,14 @@ function md(body) {
       while (used.has(id)) id = b + "-" + n++;
       used.add(id);
       out.push(`<h${lvl}${lvl > 1 ? ` id="${id}"` : ""}>${inline(text)}</h${lvl}>`);
-    } else if ((m = /^!\[([^\]]*)\]\(([^)\s]+)\)(?:\{(\d+)x(\d+)\})?$/.exec(line))) {
+    } else if ((m = /^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)(?:\\?\{(\d+)x(\d+)\\?\})?$/.exec(line))) {
       flush();
-      const [, alt, src, w = 1200, h = 675] = m;
+      const [, alt, src, title, gw, gh] = m;
+      const dim = src.startsWith("/") ? imgSize(path.join(root, "static", src)) : null;
+      const w = dim ? dim[0] : gw, h = dim ? dim[1] : gh;
       const small = src.replace(/\.webp$/, "-640.webp");
-      const hasSmall = fs.existsSync(path.join(root, "static", small));
-      out.push(`<figure><img src="${src}"${hasSmall ? ` srcset="${small} 640w, ${src} ${w}w" sizes="(max-width:760px) 100vw, 728px"` : ""} alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy" decoding="async"></figure>`);
+      const hasSmall = w && src.startsWith("/") && small !== src && fs.existsSync(path.join(root, "static", small));
+      out.push(`<figure><img src="${src}"${hasSmall ? ` srcset="${small} 640w, ${src} ${w}w" sizes="(max-width:760px) 100vw, 728px"` : ""} alt="${esc(alt)}"${title ? ` title="${esc(title)}"` : ""}${w && h ? ` width="${w}" height="${h}"` : ""} loading="lazy" decoding="async"></figure>`);
     } else if (/^[-*]\s+/.test(line)) { flushP(); flushQ(); if (list.length && ordered) flushL(); ordered = false; list.push(line.replace(/^[-*]\s+/, "")); }
     else if (/^\d+\.\s+/.test(line)) { flushP(); flushQ(); if (list.length && !ordered) flushL(); ordered = true; list.push(line.replace(/^\d+\.\s+/, "")); }
     else if (/^>\s?/.test(line)) { flushP(); flushL(); quote.push(line.replace(/^>\s?/, "")); }
