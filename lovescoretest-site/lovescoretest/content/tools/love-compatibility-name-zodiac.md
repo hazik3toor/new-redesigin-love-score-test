@@ -299,7 +299,6 @@ tool: >
   </script>
 tool_position: top
 ---
-\
 Most people I meet ask whether **names** really matter in romance. After years of reading charts, my answer: **name numerology** and a **Sun sign** together give a **balanced view**, never a **verdict** on **lasting couples**.
 
 **Zodiac mode** compares **dates of birth**, while **name mode** turns **letters** into numbers through an **algorithm**. I have watched **pairs** score low on one yet thrive, because **communication** and **effort** outweigh any **percentage** ever shown.
@@ -403,7 +402,6 @@ Fixed and mutable Suns fascinate me: **Taurus** holds steady, **Virgo** refines 
 Some purists disagree, yet **astrology** works best as a mirror, not a verdict. Pair **Cancer and Scorpio** and the Sun’s emotional depth shows; add **text** messages and **love compatibility** becomes visible in everyday relationship habits.
 
 ## **Express Your Love with Symbols / Share with Emojis**
-
 
 After my **love horoscope** results came back, I texted a heart, a moon, and sparkles instead of explaining. Friends noticed how **soulmate compatibility** felt lighter that way, and even **low scores** became playful, shareable moments.
 
