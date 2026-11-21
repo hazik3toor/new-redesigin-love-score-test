@@ -4,291 +4,516 @@ slug: love-compatibility-name-zodiac
 category: calculators
 calculator: none
 tool: >-
-  <!-- Love Compatibility Calculator (name + zodiac), themed to match
-  lovescoretest.com. Paste into the "Custom calculator / tool code" field. -->
+  <!-- ============================================================
+    LOVE COMPATIBILITY BY NAME & ZODIAC — self-contained widget
+    Paste this whole block into your CMS page (HTML / custom code block).
+    No plugins, no external libraries, no external fonts. All CSS is scoped to #lc-app.
+  ============================================================ -->
+
+  <div id="lc-app">
 
   <style>
 
-  .lx,.lx *{box-sizing:border-box}
+  #lc-app{--bg:#fffafc;--card:#fff;--ink:#1f1630;--muted:#5b5470;--line:#f0dfe9;--brand:#be185d;--brand2:#7c3aed;--soft:#fdf2f8;--ring:#e9d5ff;--ok:#15803d;--sh:0 14px 34px -16px rgba(190,24,93,.35);
+   font-family:inherit;color:var(--ink);position:relative;overflow:hidden;color-scheme:light;
+   background:radial-gradient(900px 380px at 8% -10%,#fdf2f8 0%,transparent 60%),radial-gradient(700px 400px at 100% 110%,#f3e8ff 0%,transparent 55%),var(--bg);
+   border:1px solid var(--line);box-shadow:var(--sh);border-radius:24px;padding:28px 18px 34px;max-width:980px;margin:24px auto;line-height:1.5;box-sizing:border-box}
+  #lc-app *{box-sizing:border-box}
 
-  .lx{--pk:#db2777;--vi:#7c3aed;--ink:#2d1b3d;--mut:#6b5a7a;--pn:#fdf0f6;--ln:#f0d7e5;position:relative;font-family:inherit;max-width:720px;margin:20px auto;line-height:1.5}
+  #lc-app .lc-stars{display:none}
 
-  .lx p,.lx h3,.lx ul,.lx li{margin:0;padding:0}
+  #lc-app .lc-wrap{position:relative;z-index:1;max-width:760px;margin:0 auto}
 
-  .lx button,.lx input,.lx select{font-family:inherit}
+  #lc-app h2.lc-title{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:0 0 8px;font-weight:900;letter-spacing:-.5px;color:var(--ink)}
 
-  article:has(.lx) h1{text-align:center;font-weight:800;letter-spacing:-.02em;line-height:1.1;font-size:clamp(32px,6vw,52px);background:linear-gradient(90deg,#db2777,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent}
+  #lc-app .lc-grad{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  article:has(.lx) .art-meta{text-align:center}
+  #lc-app .lc-sub{margin:0 0 20px;color:var(--muted);font-size:15px}
 
-  .lx .lx-heart{position:absolute;color:#f7c0da;opacity:.7;pointer-events:none;line-height:1}
+  #lc-app .lc-card{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--sh)}
 
-  .lx .h1{top:-6px;left:2px;font-size:30px}.lx .h2{top:120px;right:0;font-size:22px}.lx .h3{bottom:-14px;left:10px;font-size:20px}
+  #lc-app .lc-people{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
 
-  .lx .lx-lead{text-align:center;font-size:17px;opacity:.85;max-width:560px;margin:0 auto 12px}
+  #lc-app .lc-person{border-radius:18px;padding:14px}
 
-  .lx .lx-chips{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;list-style:none;font-size:13px;font-weight:600;margin-bottom:22px}
+  #lc-app .lc-p1{background:var(--soft)}#lc-app .lc-p2{background:#f6f1ff}
 
-  .lx .lx-chips li::before{content:"\2713";color:#15803d;margin-right:5px}
+  #lc-app .lc-phead{display:flex;align-items:center;gap:10px;font-weight:800;margin-bottom:10px}
 
-  .lx .lx-card{position:relative;color:var(--ink);background:#fff;border:1px solid #f6e4ee;border-radius:24px;padding:clamp(14px,3vw,22px);box-shadow:0 18px 50px rgba(190,24,93,.12),0 2px 8px rgba(124,58,237,.06)}
+  #lc-app .lc-phead svg{width:44px;height:44px;flex:none}
 
-  .lx .lx-pair{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  #lc-app label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:8px 0 5px}
 
-  .lx .lx-p{background:var(--pn);border-radius:18px;padding:16px}
+  #lc-app input[type=text],#lc-app select,#lc-app input[type=date]{width:100%;height:48px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);padding:0 14px;font:inherit;font-size:16px;outline:none;transition:border-color .15s,box-shadow .15s;appearance:none;-webkit-appearance:none}
 
-  .lx .lx-p2{background:#f7f2fe}
+  #lc-app select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' fill='none' stroke='%235b5470' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M1 1l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
 
-  .lx .lx-who{color:#be185d;font-weight:700;font-size:15px;margin-bottom:4px}
+  #lc-app input:focus,#lc-app select:focus{border-color:var(--brand2);box-shadow:0 0 0 4px var(--ring)}
 
-  .lx .lx-p2 .lx-who{color:#6d28d9}
+  #lc-app input::placeholder{color:#a79bb8}
 
-  .lx label{display:block;font-size:13px;font-weight:500;color:#4b3a5a;margin:12px 0 6px}
+  #lc-app .lc-bday{margin-top:8px;font-size:12.5px;color:var(--muted)}
 
-  .lx input,.lx select{display:block;width:100%;height:50px;border:1px solid var(--ln);border-radius:12px;background:#fff;padding:0 14px;font-size:16px;color:var(--ink);appearance:none;-webkit-appearance:none;margin:0}
+  #lc-app .lc-bday summary{cursor:pointer;font-weight:700;list-style:none;color:var(--brand)}
 
-  .lx select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236b5a7a' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+  #lc-app .lc-bday summary::-webkit-details-marker{display:none}
 
-  .lx input::placeholder{color:#8f7f9d}
+  #lc-app .lc-bday input{height:42px;margin-top:6px;font-size:15px}
 
-  .lx input:focus-visible,.lx select:focus-visible,.lx button:focus-visible,.lx a:focus-visible{outline:3px solid rgba(124,58,237,.4);outline-offset:2px}
+  #lc-app .lc-swap{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--brand);font-size:20px;cursor:pointer;display:grid;place-items:center;transition:transform .25s;padding:0;box-shadow:var(--sh)}
 
-  .lx .lx-swap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;border:1px solid var(--ln);background:#fff;color:var(--pk);font-size:16px;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 12px rgba(190,24,93,.15);transition:transform .35s;padding:0}
+  #lc-app .lc-swap:hover{transform:rotate(180deg) scale(1.08)}
 
-  .lx .lx-swap:hover{transform:translate(-50%,-50%) rotate(180deg)}
+  #lc-app .lc-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:14px;height:56px;border:0;border-radius:999px;background:linear-gradient(100deg,var(--brand),var(--brand2));color:#fff;font:inherit;font-size:18px;font-weight:800;cursor:pointer;box-shadow:0 12px 26px -12px rgba(190,24,93,.6);transition:transform .1s,filter .15s}
 
-  .lx .lx-err{color:#b91c1c;font-size:14px;font-weight:600;min-height:20px;margin:12px 2px 0}
+  #lc-app .lc-btn:hover{filter:brightness(1.08)}
 
-  .lx .lx-go{display:block;width:100%;height:56px;margin-top:8px;border:0;border-radius:14px;background:linear-gradient(90deg,#db2777,#7c3aed);color:#fff;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 10px 24px rgba(190,24,93,.28);transition:transform .1s,filter .2s;padding:0}
+  #lc-app .lc-btn:active{transform:translateY(2px)}
 
-  .lx .lx-go:hover{filter:brightness(1.06)}.lx .lx-go:active{transform:translateY(1px)}
+  #lc-app .lc-err{color:var(--brand);font-weight:700;font-size:14px;margin:10px 4px 0}
 
-  .lx .lx-hist{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;font-size:13px;color:var(--mut);align-items:center}
+  #lc-app .lc-quick{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
 
-  .lx .lx-chip{border:1px solid #ead7f3;background:#faf5ff;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
+  #lc-app .lc-chip{background:var(--soft);border:1px solid var(--line);color:var(--brand);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
 
-  .lx .lx-res{margin-top:22px;border-top:1px dashed var(--ln);padding-top:22px}
+  #lc-app .lc-chip:hover{background:#fce7f3}
 
-  .lx .lx-top{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  #lc-app .lc-result{display:none;margin-top:26px;position:relative}
 
-  .lx .lx-ring{position:relative;width:150px;height:150px;flex:none}
+  #lc-app .lc-result.show{display:block;animation:lcIn .5s ease}
 
-  .lx .lx-ring svg{transform:rotate(-90deg)}
+  @keyframes lcIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-  .lx .lx-bg{stroke:#f7e3ee}
+  #lc-app .lc-panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 8px 24px -18px rgba(190,24,93,.35)}
 
-  .lx .lx-fg{stroke:url(#lxg);stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)}
+  #lc-app .lc-panel h3{margin:0 0 12px;font-size:17px;font-weight:800;color:var(--ink)}
 
-  .lx .lx-ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:36px;font-weight:800}
+  #lc-app .lc-hero{text-align:center;padding:22px 16px;background:linear-gradient(180deg,#fff,var(--soft))}
 
-  .lx .lx-names{font-size:clamp(20px,4.5vw,26px);font-weight:800;line-height:1.2}
+  #lc-app .lc-pair{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;font-weight:800;font-size:18px}
 
-  .lx .lx-tag{margin:4px 0 8px;color:var(--vi);font-weight:700}
+  #lc-app .lc-pair .lc-amp{color:var(--brand)}
 
-  .lx .lx-asp{font-size:14px;color:var(--mut)}
+  #lc-app .lc-signs{color:var(--muted);font-size:14px;margin-top:2px}
 
-  .lx .lx-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;text-align:center}
+  #lc-app .lc-ring{position:relative;width:190px;height:190px;margin:16px auto 6px}
 
-  .lx .lx-mini div{background:var(--pn);border-radius:14px;padding:12px 6px}
+  #lc-app .lc-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 
-  .lx .lx-mini b{display:block;font-size:24px;font-weight:800;color:var(--pk)}
+  #lc-app .lc-ring .bg{stroke:var(--ring)}
 
-  .lx .lx-mini span{font-size:12px;color:var(--mut)}
+  #lc-app .lc-ring .fg{stroke:url(#lcGrad);stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)}
 
-  .lx .lx-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  #lc-app .lc-score{position:absolute;inset:0;display:grid;place-items:center;font-size:48px;font-weight:900;color:var(--ink)}
 
-  .lx .lx-box{background:#faf5ff;border-radius:16px;padding:16px}
+  #lc-app .lc-score small{font-size:22px;font-weight:800;color:var(--brand)}
 
-  .lx .lx-box h3{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--ink)}
+  #lc-app .lc-verdict{font-size:24px;font-weight:900;margin:4px 0;color:var(--ink)}
 
-  .lx .lx-box p{font-size:14px;margin-bottom:10px;color:var(--ink)}.lx .lx-box p:last-child{margin-bottom:0}
+  #lc-app .lc-summary{color:var(--muted);max-width:560px;margin:6px auto 0;font-size:15.5px}
 
-  .lx .lx-bar{margin:10px 0}
+  #lc-app .lc-meters{display:grid;gap:12px}
 
-  .lx .lx-bar div:first-child{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px;color:var(--ink)}
+  #lc-app .lc-meter .row{display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:5px}
 
-  .lx .lx-tr{height:9px;background:#f1e4f3;border-radius:9px;overflow:hidden}
+  #lc-app .lc-bar{height:10px;border-radius:99px;background:#f3e8ff;overflow:hidden}
 
-  .lx .lx-tr i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#db2777,#7c3aed);transition:width 1s cubic-bezier(.2,.8,.2,1)}
+  #lc-app .lc-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
 
-  .lx .lx-best span{display:inline-block;margin:3px 4px 0 0;background:#fff;border:1px solid #ead7f3;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:600}
+  #lc-app .lc-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
-  .lx .lx-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  #lc-app .lc-list{margin:0;padding:0;list-style:none;display:grid;gap:8px}
 
-  .lx .lx-btn{flex:1 1 130px;height:44px;border-radius:999px;border:1px solid #e3cdef;background:#fff;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;text-decoration:none;display:grid;place-items:center;padding:0}
+  #lc-app .lc-list li{position:relative;padding-left:26px;font-size:14.5px;color:var(--ink)}
 
-  .lx .lx-btn:hover{background:#faf5ff}
+  #lc-app .lc-list li:before{content:"";position:absolute;left:0;top:3px;width:16px;height:16px;border-radius:50%;background:var(--ok) center/10px no-repeat;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.5l2.2 2.2 4.8-5'/%3E%3C/svg%3E")}
 
-  .lx [hidden]{display:none!important}
+  #lc-app .lc-list.warn li:before{background-color:#d97706;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 3v3.5M6 9v.1'/%3E%3C/svg%3E")}
 
-  @media(max-width:640px){.lx .lx-pair,.lx .lx-grid{grid-template-columns:1fr}.lx .lx-pair{gap:26px}.lx .lx-top{justify-content:center;text-align:center}}
+  #lc-app .lc-tip{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:12px 14px;font-size:14.5px;color:var(--ink)}
 
-  @media(prefers-reduced-motion:reduce){.lx *{transition:none!important}}
+  #lc-app .lc-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+
+  #lc-app .lc-fact{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+
+  #lc-app .lc-fact b{display:block;font-size:22px;color:var(--brand)}
+
+  #lc-app .lc-fact span{font-size:12.5px;color:var(--muted)}
+
+  #lc-app .lc-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+
+  #lc-app .lc-badge{background:#f6f1ff;border:1px solid var(--ring);color:var(--brand2);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:700}
+
+  #lc-app .lc-match{display:flex;flex-wrap:wrap;gap:8px}
+
+  #lc-app .lc-match span{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:7px 11px;font-size:13.5px;font-weight:700}
+
+  #lc-app .lc-match em{font-style:normal;color:var(--brand);margin-left:4px}
+
+  #lc-app .lc-share{display:flex;flex-wrap:wrap;gap:8px}
+
+  #lc-app .lc-share button,#lc-app .lc-share a{background:var(--soft);color:var(--brand);border:1px solid var(--line);border-radius:999px;padding:10px 16px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}
+
+  #lc-app .lc-share button:hover,#lc-app .lc-share a:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+
+  #lc-app details.lc-fold summary{cursor:pointer;font-weight:800;font-size:17px;list-style:none;color:var(--ink)}
+
+  #lc-app details.lc-fold summary::-webkit-details-marker{display:none}
+
+  #lc-app details.lc-fold summary:after{content:"＋";float:right;color:var(--brand)}
+
+  #lc-app details.lc-fold[open] summary:after{content:"－"}
+
+  #lc-app .lc-matrix-wrap{overflow-x:auto;margin-top:12px;-webkit-overflow-scrolling:touch}
+
+  #lc-app table.lc-matrix{border-collapse:separate;border-spacing:3px;margin:0 auto;font-size:12px}
+
+  #lc-app .lc-matrix th{font-weight:700;color:var(--muted);padding:2px 4px;font-size:15px}
+
+  #lc-app .lc-matrix td{width:36px;height:30px;text-align:center;border-radius:8px;font-weight:800;font-size:11.5px}
+
+  #lc-app .lc-matrix td.sel{outline:3px solid var(--ink)}
+
+  #lc-app .lc-hist{display:flex;flex-wrap:wrap;gap:8px}
+
+  #lc-app .lc-note{font-size:12.5px;color:var(--muted);margin-top:14px;text-align:center}
+
+  #lc-app .lc-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-weight:800;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+
+  #lc-app .lc-toast.show{opacity:1;transform:translateX(-50%)}
+
+  #lc-app .lc-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+
+  #lc-app .lc-confetti span{position:absolute;bottom:-20px;animation:lcUp linear forwards;color:var(--brand)}
+
+  @keyframes lcUp{to{transform:translateY(-520px) rotate(30deg);opacity:0}}
+
+  @media (max-width:640px){
+   #lc-app{padding:22px 12px 28px;border-radius:18px}
+   #lc-app .lc-people{grid-template-columns:1fr}
+   #lc-app .lc-swap{margin:-4px auto;transform:rotate(90deg)}
+   #lc-app .lc-swap:hover{transform:rotate(270deg) scale(1.08)}
+   #lc-app .lc-two{grid-template-columns:1fr}
+   #lc-app .lc-facts{grid-template-columns:1fr 1fr}
+   #lc-app .lc-matrix td{width:28px;height:26px;font-size:10px}
+  }
+
+  @media (prefers-reduced-motion:reduce){#lc-app *{animation:none!important;transition:none!important}}
 
   </style>
 
+  <div class="lc-stars"></div>
 
-  <section class="lx" id="lx" aria-label="Love compatibility calculator by name and zodiac sign">
-    <span class="lx-heart h1" aria-hidden="true">♥</span><span class="lx-heart h2" aria-hidden="true">♥</span><span class="lx-heart h3" aria-hidden="true">♥</span>
-    <p class="lx-lead">Enter two first names and zodiac signs to see your love score, strengths, challenges and tips.</p>
-    <ul class="lx-chips"><li>100% free</li><li>No sign-up</li><li>Private, runs in your browser</li><li>Instant result</li></ul>
-    <div class="lx-card">
-      <div class="lx-pair">
-        <div class="lx-p lx-p1">
-          <div class="lx-who">Person 1</div>
-          <label for="lx-n1">First name</label><input id="lx-n1" maxlength="30" placeholder="E.g. Emma" autocomplete="off">
-          <label for="lx-s1">Zodiac sign</label><select id="lx-s1"></select>
-          <label for="lx-d1">Not sure? Pick a birthday (optional)</label><input type="date" id="lx-d1">
-        </div>
-        <button class="lx-swap" type="button" id="lx-swap" aria-label="Swap Person 1 and Person 2">♥</button>
-        <div class="lx-p lx-p2">
-          <div class="lx-who">Person 2</div>
-          <label for="lx-n2">First name</label><input id="lx-n2" maxlength="30" placeholder="E.g. Jake" autocomplete="off">
-          <label for="lx-s2">Zodiac sign</label><select id="lx-s2"></select>
-          <label for="lx-d2">Not sure? Pick a birthday (optional)</label><input type="date" id="lx-d2">
-        </div>
-      </div>
-      <div class="lx-err" id="lx-err" role="alert"></div>
-      <button class="lx-go" type="button" id="lx-go">Check Compatibility ♥</button>
-      <div class="lx-hist" id="lx-hist" hidden></div>
-      <div class="lx-res" id="lx-res" hidden aria-live="polite"></div>
+  <div class="lc-wrap">
+   <h2 class="lc-title"><span class="lc-grad">Love compatibility</span> by first name and zodiac sign</h2>
+   <p class="lc-sub">Enter two names and signs to see your love score, FLAMES result, element match and more. Free, instant, no sign-up.</p>
+
+   <form class="lc-card" id="lcForm" autocomplete="off" novalidate>
+    <div class="lc-people">
+     <div class="lc-person lc-p1">
+      <div class="lc-phead">
+       <svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="29" rx="14" ry="15" fill="#e8588f"/><circle cx="19" cy="27" r="2.6" fill="#fff"/><circle cx="29" cy="27" r="2.6" fill="#fff"/><circle cx="19" cy="27" r="1.2" fill="#3a2358"/><circle cx="29" cy="27" r="1.2" fill="#3a2358"/><path d="M20 34q4 3 8 0" stroke="#3a2358" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M30 12l6-4v8z M30 12l-6-4v8z" fill="#ff8fc0"/><circle cx="30" cy="12" r="2.4" fill="#ffb3d6"/></svg>
+       Person 1</div>
+      <label for="lcN1">First name</label>
+      <input type="text" id="lcN1" maxlength="30" placeholder="E.g. Emma" enterkeyhint="next">
+      <label for="lcZ1">Zodiac sign</label>
+      <select id="lcZ1"></select>
+      <details class="lc-bday"><summary>Don't know the sign? Use a birthday</summary><input type="date" id="lcB1" aria-label="Person 1 birthday"></details>
+     </div>
+     <button type="button" class="lc-swap" id="lcSwap" title="Swap people" aria-label="Swap people">⇄</button>
+     <div class="lc-person lc-p2">
+      <div class="lc-phead">
+       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 38V22q0-14 14-14t14 14v16q0 5-6 5H16q-6 0-6-5z" fill="#7a4fbf"/><rect x="14" y="21" width="20" height="3" rx="1.5" fill="#5b3a8f"/><circle cx="19" cy="29" r="2.6" fill="#fff"/><circle cx="29" cy="29" r="2.6" fill="#fff"/><circle cx="19" cy="29" r="1.2" fill="#3a2358"/><circle cx="29" cy="29" r="1.2" fill="#3a2358"/><path d="M20 35q4 3 8 0" stroke="#3a2358" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+       Person 2</div>
+      <label for="lcN2">First name</label>
+      <input type="text" id="lcN2" maxlength="30" placeholder="E.g. Jake" enterkeyhint="done">
+      <label for="lcZ2">Zodiac sign</label>
+      <select id="lcZ2"></select>
+      <details class="lc-bday"><summary>Don't know the sign? Use a birthday</summary><input type="date" id="lcB2" aria-label="Person 2 birthday"></details>
+     </div>
     </div>
-  </section>
+    <div class="lc-err" id="lcErr" role="alert"></div>
+    <button type="submit" class="lc-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.8 6.3.8-4.6 4.4 1.2 6.3L12 17.2 6.4 20.3l1.2-6.3L3 9.6l6.3-.8z"/></svg>Check compatibility</button>
+   </form>
+
+   <div class="lc-quick">Try an example:
+    <button type="button" class="lc-chip" data-ex="Emma|Leo|Jake|Aries">Emma ♌ + Jake ♈</button>
+    <button type="button" class="lc-chip" data-ex="Sara|Cancer|Ali|Scorpio">Sara ♋ + Ali ♏</button>
+    <button type="button" class="lc-chip" data-ex="Mia|Gemini|Noah|Capricorn">Mia ♊ + Noah ♑</button>
+   </div>
+
+   <div class="lc-result" id="lcResult" aria-live="polite"></div>
+   <p class="lc-note">For entertainment only. Real relationships depend on communication, respect and effort, not just names and stars. ✨</p>
+  </div>
+
+  <div class="lc-toast" id="lcToast"></div>
 
 
   <script>
 
   (function(){
+   var root=document.getElementById('lc-app'); if(!root) return;
+   var $=function(s){return root.querySelector(s)};
 
-  var SITE='https://lovescoretest.com';var R=document.getElementById('lx'),$=function(i){return document.getElementById('lx-'+i)};
+   /* ---------- DATA ---------- */
+   var SIGNS=[
+    {n:'Aries',s:'♈',e:'fire',m:'Cardinal',d:'Mar 21 – Apr 19',t:'Bold, driven, direct'},
+    {n:'Taurus',s:'♉',e:'earth',m:'Fixed',d:'Apr 20 – May 20',t:'Loyal, sensual, steady'},
+    {n:'Gemini',s:'♊',e:'air',m:'Mutable',d:'May 21 – Jun 20',t:'Curious, witty, playful'},
+    {n:'Cancer',s:'♋',e:'water',m:'Cardinal',d:'Jun 21 – Jul 22',t:'Caring, intuitive, protective'},
+    {n:'Leo',s:'♌',e:'fire',m:'Fixed',d:'Jul 23 – Aug 22',t:'Warm, proud, generous'},
+    {n:'Virgo',s:'♍',e:'earth',m:'Mutable',d:'Aug 23 – Sep 22',t:'Thoughtful, practical, devoted'},
+    {n:'Libra',s:'♎',e:'air',m:'Cardinal',d:'Sep 23 – Oct 22',t:'Charming, fair, romantic'},
+    {n:'Scorpio',s:'♏',e:'water',m:'Fixed',d:'Oct 23 – Nov 21',t:'Intense, loyal, magnetic'},
+    {n:'Sagittarius',s:'♐',e:'fire',m:'Mutable',d:'Nov 22 – Dec 21',t:'Free, honest, adventurous'},
+    {n:'Capricorn',s:'♑',e:'earth',m:'Cardinal',d:'Dec 22 – Jan 19',t:'Ambitious, reliable, grounded'},
+    {n:'Aquarius',s:'♒',e:'air',m:'Fixed',d:'Jan 20 – Feb 18',t:'Original, independent, kind'},
+    {n:'Pisces',s:'♓',e:'water',m:'Mutable',d:'Feb 19 – Mar 20',t:'Dreamy, gentle, empathic'}
+   ];
+   var EL={fire:'🔥 Fire',earth:'🌿 Earth',air:'💨 Air',water:'🌊 Water'};
+   var PAIR={
+    'fire-fire':{sum:'Two flames make a bonfire. This pairing is passionate, playful and full of drive.',pros:['Huge shared energy and love of adventure','Honest, direct communication','Neither of you is ever boring'],cons:['Ego clashes and short tempers','You may both want to lead','Burnout if there is no calm time'],tip:'Take turns leading, and cool down for ten minutes before arguing.'},
+    'earth-fire':{sum:'Fire brings the spark and earth brings the stability. It takes patience, but it can build something solid.',pros:['Fire motivates, earth grounds','Balance of excitement and security','You can learn a lot from each other'],cons:['Fire may feel held back, earth may feel rushed','Different pace on money and plans','Stubborn standoffs'],tip:'Plan one spontaneous thing and one steady routine each week.'},
+    'air-fire':{sum:'Air feeds fire. Ideas, laughter and flirting come easily, and the chemistry is lively.',pros:['Great banter and mutual encouragement','Social, fun and adventurous together','Both dislike dull routines'],cons:['Can stay light and avoid deep topics','Restlessness or impatience','Little patience for slow phases'],tip:'Make time for one deep, phone-free talk a week.'},
+    'fire-water':{sum:'Steam or extinguished flame? This is a high-intensity mix that can be deeply passionate or draining.',pros:['Strong attraction and emotional depth','Fire protects, water soothes','Life never feels flat'],cons:['Fire can seem blunt, water can seem moody','Different ways of handling conflict','Feelings can get hurt quickly'],tip:'Say feelings out loud and kindly. Do not expect your partner to guess.'},
+    'earth-earth':{sum:'Steady, loyal and practical. You build trust slowly and make a very secure team.',pros:['Reliable, loyal and patient','Shared goals around home and security','Comfortable, sensual affection'],cons:['Routine can become too predictable','Stubbornness on both sides','Avoiding risk or change'],tip:'Schedule something new together every month to keep it fresh.'},
+    'air-earth':{sum:'Air thinks, earth does. You can complement each other, but you speak different languages at first.',pros:['Ideas meet practical action','Curiosity balanced with stability','You each fill the other\'s gaps'],cons:['Earth may find air flighty','Air may find earth too rigid','Different communication styles'],tip:'Respect both the dreaming and the planning. You need each.'},
+    'earth-water':{sum:'A nurturing, natural match. Earth gives safety and water gives feeling, so the bond tends to grow deep.',pros:['Emotional security and loyalty','Caring, domestic and affectionate','Strong long-term potential'],cons:['Getting stuck in comfort zones','Water\'s moods vs. earth\'s silence','Possessiveness'],tip:'Keep talking about feelings, even when things feel comfortable.'},
+    'air-air':{sum:'A meeting of minds. You talk for hours, share ideas and stay friends as well as lovers.',pros:['Excellent communication and humour','Intellectual and social chemistry','Freedom and respect for space'],cons:['May overthink instead of feeling','Emotional distance','Indecision or avoiding commitment'],tip:'Turn good conversations into real plans, and share feelings, not just thoughts.'},
+    'air-water':{sum:'Head and heart. There is real curiosity here, but you process things very differently.',pros:['Air brings perspective, water brings depth','Gentle learning curve for both','Creative and imaginative together'],cons:['Air may seem detached, water may seem clingy','Mismatch in emotional needs','Misreading each other\'s silence'],tip:'Water: say what you need. Air: slow down and listen to the feeling behind the words.'},
+    'water-water':{sum:'Deeply emotional and intuitive. You understand each other without many words.',pros:['Powerful emotional bond and empathy','Loyal, tender and protective','Strong intuition about each other'],cons:['Moodiness can feed on itself','Jealousy or oversensitivity','Avoiding hard conversations'],tip:'Protect your own space and friendships so the bond stays healthy.'}
+   };
+   var MODNOTE={
+    'Cardinal-Cardinal':'Both Cardinal: you both start things and like to lead.',
+    'Cardinal-Fixed':'Cardinal starts, Fixed sustains: a strong team when roles are clear.',
+    'Cardinal-Mutable':'Cardinal leads, Mutable adapts: usually a flexible fit.',
+    'Fixed-Fixed':'Both Fixed: loyal and determined, but watch for stubbornness.',
+    'Fixed-Mutable':'Fixed brings stability, Mutable brings adaptability.',
+    'Mutable-Mutable':'Both Mutable: easy-going and adaptable, but plans can drift.'
+   };
+   var FL={F:['Friends','Your bond works best as a strong friendship base: trust, laughter and support.'],L:['Love','FLAMES points to romantic love. There is real attraction and heart here.'],A:['Affection','Warm affection and care: a gentle, tender connection.'],M:['Marriage','FLAMES points to a lasting, committed bond. Long-term potential!'],E:['Enemies','Friction is likely, but strong tension can also turn into strong chemistry.'],S:['Siblings','A sibling-like bond: comfortable, protective and familiar.']};
+   var BIAS={
+    emotional:{water:6,earth:2,fire:-2,air:-4},
+    communication:{air:6,fire:3,earth:-3,water:-3},
+    passion:{fire:7,water:3,air:0,earth:-2},
+    trust:{earth:6,water:3,fire:-3,air:-2},
+    longterm:{earth:4,water:3,fire:-1,air:-2}
+   };
+   var METERS=[['emotional','💞 Emotional bond'],['communication','💬 Communication'],['passion','🔥 Passion & chemistry'],['trust','🤝 Trust & loyalty'],['longterm','🏡 Long-term potential']];
 
-  var S=[['Aries','♈'],['Taurus','♉'],['Gemini','♊'],['Cancer','♋'],['Leo','♌'],['Virgo','♍'],['Libra','♎'],['Scorpio','♏'],['Sagittarius','♐'],['Capricorn','♑'],['Aquarius','♒'],['Pisces','♓']];
+   /* ---------- HELPERS ---------- */
+   function hash(str){var h=2166136261;for(var i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+   function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+   function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+   function idx(name){for(var i=0;i<SIGNS.length;i++)if(SIGNS[i].n===name)return i;return -1}
+   function letters(s){return s.toLowerCase().replace(/[^\p{L}]/gu,'')}
+   function toast(msg){var t=$('#lcToast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show')},2000)}
+   function signFromDate(v){
+    if(!v)return '';var p=v.split('-');var m=+p[1],d=+p[2];if(!m||!d)return '';
+    var cut=[[1,20,'Capricorn'],[2,19,'Aquarius'],[3,21,'Pisces'],[4,20,'Aries'],[5,21,'Taurus'],[6,21,'Gemini'],[7,23,'Cancer'],[8,23,'Leo'],[9,23,'Virgo'],[10,23,'Libra'],[11,22,'Scorpio'],[12,22,'Sagittarius']];
+    for(var i=0;i<cut.length;i++){if(m<cut[i][0]||(m===cut[i][0]&&d<cut[i][1]))return cut[i][2]}
+    return 'Capricorn';
+   }
 
-  var EL=['fire','earth','air','water'],EI={fire:'🔥',earth:'🌍',air:'💨',water:'💧'};
+   /* ---------- SCORING ---------- */
+   function zScore(a,b){
+    var i=idx(a),j=idx(b),d=Math.abs(i-j);d=Math.min(d,12-d);
+    var base=[72,55,82,52,92,50,70][d];
+    var key=[i,j].sort(function(x,y){return x-y}).join('-');
+    return clamp(base+(hash('z'+key)%9)-4,35,98);
+   }
+   function flames(a,b){
+    var A=a.split(''),B=b.split(''),common=0;
+    a.split('').forEach(function(ch){var k=B.indexOf(ch);if(k>-1){B.splice(k,1);A.splice(A.indexOf(ch),1);common++}});
+    var n=A.length+B.length;if(n===0)return {r:'L',common:common,n:0};
+    var list=['F','L','A','M','E','S'],i=0;
+    while(list.length>1){i=(i+n-1)%list.length;list.splice(i,1)}
+    return {r:list[0],common:common,n:n};
+   }
+   function pairKey(e1,e2){return [e1,e2].sort().join('-')}
+   function calc(n1,z1,n2,z2){
+    var a=letters(n1),b=letters(n2),hasNames=!!(a&&b);
+    var s1=SIGNS[idx(z1)],s2=SIGNS[idx(z2)];
+    var zs=zScore(z1,z2),fl=null,nm=null;
+    if(hasNames){
+     fl=flames(a,b);
+     var sorted=[a,b].sort().join('|');
+     nm=clamp(40+hash('n'+sorted)%50+Math.min(10,fl.common*2),40,99);
+    }
+    var overall=hasNames?Math.round(zs*0.6+nm*0.4):zs;
+    var base=hasNames?(zs*0.65+nm*0.35):zs;
+    var seed=hasNames?[a,b].sort().join('|'):'';
+    var meters=METERS.map(function(m){
+     var bias=(BIAS[m[0]][s1.e]+BIAS[m[0]][s2.e])/2;
+     var jit=(hash(m[0]+z1+z2+seed)%13)-6;
+     return {k:m[0],label:m[1],v:Math.round(clamp(base+bias+jit,25,99))};
+    });
+    return {n1:n1,n2:n2,s1:s1,s2:s2,zs:zs,nm:nm,fl:fl,overall:overall,hasNames:hasNames,meters:meters,a:a,b:b};
+   }
+   function verdict(s){
+    if(s>=90)return ['Cosmic soulmates ✨','The stars are practically cheering. This is a rare, high-harmony match.'];
+    if(s>=80)return ['Magnetic match 💖','Strong chemistry and natural understanding. A great base to build on.'];
+    if(s>=70)return ['Promising spark 💫','A lot going for you. A little effort and communication make it shine.'];
+    if(s>=60)return ['Growing connection 🌱','Some differences to navigate, but plenty of potential if you both care.'];
+    if(s>=50)return ['Needs patience 🌓','Different styles can clash, but understanding turns them into strengths.'];
+    return ['Opposites in orbit 🪐','A challenging mix on paper. It takes honesty and compromise, and it is never boring.'];
+   }
+   function colorFor(v){var h=Math.round(clamp((v-35)/63,0,1)*150);return 'hsl('+(330-h*0.0+0)+',0%,0%)'}
+   function heat(v){/* pink-purple scale */var t=clamp((v-35)/63,0,1);var l=90-t*52;var h=335-t*60;return 'hsl('+h+',70%,'+l+'%)'}
 
-  var ASP=[[75,'Same sign: you mirror each other'],[55,'Neighbouring signs: different styles, lots to learn'],[82,'Sextile: friendly, easy teamwork'],[50,'Square: friction that drives growth'],[92,'Trine: natural harmony'],[45,'Quincunx: an awkward fit that needs adjusting'],[70,'Opposites: strong attraction']];
+   /* ---------- UI SETUP ---------- */
+   function fillSelect(sel){
+    var h='<option value="" disabled selected>Choose a sign</option>';
+    SIGNS.forEach(function(s){h+='<option value="'+s.n+'">'+s.s+' '+s.n+' ('+s.d+')</option>'});
+    sel.innerHTML=h;
+   }
+   fillSelect($('#lcZ1'));fillSelect($('#lcZ2'));
+   [['#lcB1','#lcZ1'],['#lcB2','#lcZ2']].forEach(function(p){
+    $(p[0]).addEventListener('change',function(){var s=signFromDate(this.value);if(s){$(p[1]).value=s;toast('Sign set: '+s)}});
+   });
+   $('#lcSwap').addEventListener('click',function(){
+    var n1=$('#lcN1'),n2=$('#lcN2'),z1=$('#lcZ1'),z2=$('#lcZ2');
+    var t=n1.value;n1.value=n2.value;n2.value=t;t=z1.value;z1.value=z2.value;z2.value=t;
+   });
+   Array.prototype.forEach.call(root.querySelectorAll('[data-ex]'),function(b){
+    b.addEventListener('click',function(){
+     var p=this.getAttribute('data-ex').split('|');
+     $('#lcN1').value=p[0];$('#lcZ1').value=p[1];$('#lcN2').value=p[2];$('#lcZ2').value=p[3];run(true);
+    });
+   });
 
-  var TX={
+   /* ---------- HISTORY ---------- */
+   function getHist(){try{return JSON.parse(localStorage.getItem('lc_hist')||'[]')}catch(e){return []}}
+   function saveHist(r){
+    try{
+     var h=getHist().filter(function(x){return !(x.n1===r.n1&&x.z1===r.s1.n&&x.n2===r.n2&&x.z2===r.s2.n)});
+     h.unshift({n1:r.n1,z1:r.s1.n,n2:r.n2,z2:r.s2.n,sc:r.overall});
+     localStorage.setItem('lc_hist',JSON.stringify(h.slice(0,6)));
+    }catch(e){}
+   }
 
-  'fire-fire':['Big energy, shared adventures and zero boredom.','Two strong wills can turn small disagreements into sparks.','Take turns leading and cool off before you argue.'],
+   /* ---------- RENDER ---------- */
+   var lastText='',lastUrl='';
+   function bestList(name){
+    var arr=SIGNS.map(function(s){return {s:s,v:zScore(name,s.n)}}).sort(function(a,b){return b.v-a.v});
+    return {top:arr.slice(0,3),low:arr[arr.length-1]};
+   }
+   function chips(list){return list.map(function(x){return '<span>'+x.s.s+' '+x.s.n+'<em>'+x.v+'%</em></span>'}).join('')}
+   function matrixHtml(s1,s2){
+    var h='<table class="lc-matrix"><thead><tr><th></th>'+SIGNS.map(function(s){return '<th title="'+s.n+'">'+s.s+'</th>'}).join('')+'</tr></thead><tbody>';
+    SIGNS.forEach(function(r){
+     h+='<tr><th title="'+r.n+'">'+r.s+'</th>';
+     SIGNS.forEach(function(c){
+      var v=zScore(r.n,c.n),sel=(r.n===s1&&c.n===s2)||(r.n===s2&&c.n===s1);
+      h+='<td class="'+(sel?'sel':'')+'" style="background:'+heat(v)+';color:'+(v>=74?'#fff':'#1f1630')+'" title="'+r.n+' + '+c.n+': '+v+'%">'+v+'</td>';
+     });
+     h+='</tr>';
+    });
+    return h+'</tbody></table>';
+   }
+   function render(r){
+    var el=$('#lcResult');
+    var pk=pairKey(r.s1.e,r.s2.e),P=PAIR[pk];
+    var mk=[r.s1.m,r.s2.m].sort().join('-'),V=verdict(r.overall);
+    var n1=r.n1||'Person 1',n2=r.n2||'Person 2';
+    var C=2*Math.PI*80;
+    var b1=bestList(r.s1.n),b2=bestList(r.s2.n);
+    var h='';
+    h+='<div class="lc-panel lc-hero"><div class="lc-pair"><span>'+esc(n1)+' '+r.s1.s+'</span><span class="lc-amp">♥</span><span>'+esc(n2)+' '+r.s2.s+'</span></div>'
+     +'<div class="lc-signs">'+r.s1.n+' + '+r.s2.n+'</div>'
+     +'<div class="lc-ring"><svg viewBox="0 0 190 190"><defs><linearGradient id="lcGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#be185d"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><circle class="bg" cx="95" cy="95" r="80" fill="none" stroke-width="14"/><circle class="fg" id="lcFg" cx="95" cy="95" r="80" fill="none" stroke-width="14" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'"/></svg><div class="lc-score"><span><span id="lcNum">0</span><small>%</small></span></div></div>'
+     +'<div class="lc-verdict">'+V[0]+'</div><p class="lc-summary">'+V[1]+'</p>'
+     +'<div class="lc-badges"style="justify-content:center"><span class="lc-badge">Zodiac match: '+r.zs+'%</span>'+(r.hasNames?'<span class="lc-badge">Name match: '+r.nm+'%</span>':'<span class="lc-badge">Add both names for a name score</span>')+'</div></div>';
 
-  'earth-earth':['Steady, loyal and great at building a real life together.','Routine can get too comfortable.','Plan something spontaneous every month.'],
+    h+='<div class="lc-panel"><h3>Compatibility breakdown</h3><div class="lc-meters">'
+     +r.meters.map(function(m){return '<div class="lc-meter"><div class="row"><span>'+m.label+'</span><span>'+m.v+'%</span></div><div class="lc-bar"><i data-w="'+m.v+'"></i></div></div>'}).join('')+'</div></div>';
 
-  'air-air':['Endless conversation, humor and mental chemistry.','Feelings can stay in the head instead of being spoken.','Say the emotional thing out loud, not just the clever one.'],
+    h+='<div class="lc-panel"><h3>'+EL[r.s1.e]+' + '+EL[r.s2.e]+' &nbsp;·&nbsp; '+r.s1.m+' + '+r.s2.m+'</h3><p style="margin:0 0 12px;color:var(--ink)">'+P.sum+'</p>'
+     +'<div class="lc-two"><div><h3 style="font-size:15px">💪 Strengths</h3><ul class="lc-list">'+P.pros.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>'
+     +'<div><h3 style="font-size:15px">⚠️ Watch-outs</h3><ul class="lc-list warn">'+P.cons.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div></div>'
+     +'<div class="lc-tip" style="margin-top:14px">💡 <b>Tip:</b> '+P.tip+'</div>'
+     +'<p style="margin:12px 0 0;font-size:13.5px;color:var(--muted)">'+MODNOTE[mk]+'</p></div>';
 
-  'water-water':['A deep emotional bond; you sense each other\'s moods.','Shared sensitivity can slide into moodiness or avoidance.','Name feelings early and give each other space to recover.'],
+    h+='<div class="lc-two"><div class="lc-panel"><h3>'+r.s1.s+' '+r.s1.n+'</h3><div style="font-size:13px;color:var(--muted)">'+r.s1.d+' · '+r.s1.m+'</div><p style="margin:8px 0 0;color:var(--ink)">'+r.s1.t+'</p></div>'
+     +'<div class="lc-panel"><h3>'+r.s2.s+' '+r.s2.n+'</h3><div style="font-size:13px;color:var(--muted)">'+r.s2.d+' · '+r.s2.m+'</div><p style="margin:8px 0 0;color:var(--ink)">'+r.s2.t+'</p></div></div>';
 
-  'air-fire':['Air fans fire: lively, playful and full of ideas.','Fire may move faster than air can follow.','Agree on plans, then leave room to improvise.'],
+    if(r.hasNames){
+     var f=FL[r.fl.r];
+     h+='<div class="lc-panel"><h3>🔥 FLAMES result: '+f[0]+'</h3><p style="margin:0 0 12px;color:var(--ink)">'+f[1]+'</p>'
+      +'<div class="lc-facts"><div class="lc-fact"><b>'+r.fl.common+'</b><span>Shared letters</span></div><div class="lc-fact"><b>'+r.a.length+' / '+r.b.length+'</b><span>Name lengths</span></div><div class="lc-fact"><b>'+r.nm+'%</b><span>Name harmony</span></div></div></div>';
+    }
 
-  'earth-water':['Nurturing and grounded: water softens earth, earth steadies water.','Both may avoid conflict until it piles up.','Check in regularly, before things build.'],
+    h+='<div class="lc-panel"><h3>'+r.s1.s+' '+r.s1.n+' · best &amp; toughest matches</h3><div class="lc-match">'+chips(b1.top)+'<span style="background:#fef3c7">Toughest: '+b1.low.s.s+' '+b1.low.s.n+'<em>'+b1.low.v+'%</em></span></div>'
+     +(r.s2.n!==r.s1.n?'<h3 style="margin-top:16px">'+r.s2.s+' '+r.s2.n+' · best &amp; toughest matches</h3><div class="lc-match">'+chips(b2.top)+'<span style="background:#fef3c7">Toughest: '+b2.low.s.s+' '+b2.low.s.n+'<em>'+b2.low.v+'%</em></span></div>':'')+'</div>';
 
-  'earth-fire':['Fire brings spark, earth brings stability.','Fire wants speed, earth wants certainty.','Respect each other\'s pace and meet halfway.'],
+    h+='<div class="lc-panel"><details class="lc-fold"><summary>All 12 × 12 zodiac compatibility chart</summary><div class="lc-matrix-wrap">'+matrixHtml(r.s1.n,r.s2.n)+'</div><p style="font-size:12.5px;color:var(--muted);text-align:center;margin:10px 0 0">Brighter = higher match. Your pair is outlined.</p></details></div>';
 
-  'air-water':['Curiosity meets depth; each shows the other a new view.','Logic and emotion may talk past each other.','Listen for the feeling first, then the facts.'],
+    var hist=getHist();
+    if(hist.length>1){
+     h+='<div class="lc-panel"><h3>🕘 Recent checks</h3><div class="lc-hist">'+hist.map(function(x,i){var s1=SIGNS[idx(x.z1)],s2=SIGNS[idx(x.z2)];return '<button type="button" class="lc-chip" data-h="'+i+'">'+esc(x.n1||'?')+' '+s1.s+' + '+esc(x.n2||'?')+' '+s2.s+' · '+x.sc+'%</button>'}).join('')+'</div></div>';
+    }
 
-  'fire-water':['Intense chemistry and strong passion.','Fire\'s bluntness can hurt water; water\'s moods can dampen fire.','Be gentle in how you say things and honest about needs.'],
+    lastText='💖 '+n1+' ('+r.s1.n+') + '+n2+' ('+r.s2.n+') = '+r.overall+'% compatible — '+V[0].replace(/[^\w\s—'-]/g,'').trim()+(r.hasNames?' | FLAMES: '+FL[r.fl.r][0]:'');
+    var q=new URLSearchParams({n1:r.n1,z1:r.s1.n,n2:r.n2,z2:r.s2.n}).toString();
+    lastUrl=location.origin+location.pathname+'?'+q+'#lc-app';
+    h+='<div class="lc-panel"><h3>Share your result</h3><div class="lc-share"><button type="button" id="lcCopy">📋 Copy result</button><button type="button" id="lcLink">🔗 Copy link</button><button type="button" id="lcNative">📤 Share</button><a id="lcWa" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(lastText+' '+lastUrl)+'">WhatsApp</a></div></div>';
 
-  'air-earth':['Ideas meet practicality, so plans actually get made real.','Air can seem scattered; earth can seem rigid.','Appreciate what the other brings instead of trying to change it.']};
+    el.innerHTML=h;el.classList.add('show');
 
-  var LN=['','Leader energy: bold, independent love','Partnership: gentle, balanced and loyal','Expressive: fun, social and creative','Foundation: practical and dependable','Freedom: adventurous and curious','Nurturing: caring and family-minded','Seeker: thoughtful and deep','Power: ambitious and intense','Completion: warm and generous'];
-
-  var CAT=[['Emotional bond','water'],['Communication','air'],['Passion','fire'],['Trust & stability','earth'],['Long-term outlook',0]];
-
-  var TIER=[[90,'Written in the stars ✨'],[80,'A seriously good match 💖'],[70,'Great potential 💫'],[60,'Promising with some effort 🌱'],[50,'Opposites attract, and sometimes clash ⚡'],[0,'A challenge worth understanding 🔥']];
-
-
-  [1,2].forEach(function(n){var s=$('s'+n);s.innerHTML='<option value="">Choose a sign</option>'+S.map(function(x,i){return '<option value="'+i+'">'+x[1]+' '+x[0]+'</option>'}).join('')});
-
-  function fromDate(v){if(!v)return'';var p=v.split('-'),m=+p[1],d=+p[2],c=[20,19,21,20,21,21,23,23,23,23,22,22],a=[10,11,0,1,2,3,4,5,6,7,8,9];return d>=c[m-1]?a[m-1]:a[(m+10)%12]}
-
-  [1,2].forEach(function(n){$('d'+n).addEventListener('change',function(){var s=fromDate(this.value);if(s!=='')$('s'+n).value=s})});
-
-
-  function H(s){var x=2166136261;for(var i=0;i<s.length;i++){x^=s.charCodeAt(i);x=Math.imul(x,16777619)}return x>>>0}
-
-  function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,'')||s.toLowerCase().replace(/\s/g,'')}
-
-  function esc(s){return s.replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-
-  function zs(a,b){var d=Math.abs(a-b);d=Math.min(d,12-d);return ASP[d]}
-
-  function clamp(v){return Math.max(35,Math.min(99,Math.round(v)))}
-
-  function red(n){while(n>9)n=String(n).split('').reduce(function(a,b){return a+ +b},0);return n}
-
-
-  function calc(n1,a,n2,b){
-    var x=norm(n1),y=norm(n2),key=[x,y].sort().join('|'),z=zs(a,b)[0];
-    var u1=new Set(x.split('')),u2=new Set(y.split('')),sh=[],all=new Set(x.split('').concat(y.split('')));
-    u1.forEach(function(c){if(u2.has(c))sh.push(c)});
-    var name=Math.min(99,50+H(key)%46+Math.round(sh.length/all.size*10));
-    var total=Math.round(z*.65+name*.35),ea=EL[a%4],eb=EL[b%4];
-    var cats=CAT.map(function(c){
-      var v=z+((H(key+c[0])%13)-6);
-      if(c[1]){var k=(ea==c[1])+(eb==c[1]);v+=k?k*4+1:-3}
-      else v+=((a%3==1)+(b%3==1))*3;
-      return[c[0],clamp(v)]});
-    var sum=(x+y).split('').reduce(function(t,c){return t+c.charCodeAt(0)-96},0);
-    return{n1:n1,n2:n2,a:a,b:b,total:total,z:z,name:name,cats:cats,ea:ea,eb:eb,tx:TX[[ea,eb].sort().join('-')],
-      asp:zs(a,b)[1],sh:sh.length,ln:red(sum),tier:TIER.filter(function(t){return total>=t[0]})[0][1]}
-  }
-
-  function best(i){return S.map(function(s,j){return[j,zs(i,j)[0]]}).sort(function(p,q){return q[1]-p[1]||p[0]-q[0]}).slice(0,4)
-    .map(function(p){return'<span>'+S[p[0]][1]+' '+S[p[0]][0]+'</span>'}).join('')}
-
-  function show(r){
-    var C=2*Math.PI*54,T=$('res');
-    var txt=r.n1+' & '+r.n2+': '+r.total+'% love compatibility ('+S[r.a][0]+' + '+S[r.b][0]+')';
-    T.innerHTML='<div class="lx-top"><div class="lx-ring"><svg width="150" height="150" viewBox="0 0 120 120"><defs><linearGradient id="lxg"><stop offset="0" stop-color="#db2777"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><circle class="lx-bg" cx="60" cy="60" r="54" fill="none" stroke-width="10"/><circle class="lx-fg" cx="60" cy="60" r="54" fill="none" stroke-width="10" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'"/></svg><b id="lx-pct">0%</b></div>'
-    +'<div style="flex:1;min-width:220px"><h3 class="lx-names">'+esc(r.n1)+' '+S[r.a][1]+' ♥ '+S[r.b][1]+' '+esc(r.n2)+'</h3><p class="lx-tag">'+r.tier+'</p><p class="lx-asp">'+r.asp+'. '+EI[r.ea]+' '+r.ea+' + '+EI[r.eb]+' '+r.eb+'.</p></div></div>'
-    +'<div class="lx-mini"><div><b>'+r.z+'%</b><span>Zodiac match</span></div><div><b>'+r.name+'%</b><span>Name match</span></div><div><b>'+r.ln+'</b><span>Love number</span></div></div>'
-    +'<div class="lx-grid"><div class="lx-box"><h3>Compatibility breakdown</h3>'+r.cats.map(function(c){return'<div class="lx-bar"><div><span>'+c[0]+'</span><span>'+c[1]+'%</span></div><div class="lx-tr"><i data-w="'+c[1]+'"></i></div></div>'}).join('')+'</div>'
-    +'<div class="lx-box"><h3>What to know</h3><p><b>Strength:</b> '+r.tx[0]+'</p><p><b>Challenge:</b> '+r.tx[1]+'</p><p><b>Tip:</b> '+r.tx[2]+'</p><p><b>Name insight:</b> You share '+r.sh+' letter'+(r.sh==1?'':'s')+'. Love number '+r.ln+': '+LN[r.ln].toLowerCase()+'.</p></div>'
-    +'<div class="lx-box lx-best"><h3>Best matches for '+S[r.a][0]+'</h3>'+best(r.a)+'</div>'
-    +'<div class="lx-box lx-best"><h3>Best matches for '+S[r.b][0]+'</h3>'+best(r.b)+'</div></div>'
-    +'<div class="lx-acts"><button class="lx-btn" id="lx-share" type="button">Share result</button><button class="lx-btn" id="lx-copy" type="button">Copy result</button><a class="lx-btn" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(txt+' '+SITE)+'">WhatsApp</a><button class="lx-btn" id="lx-new" type="button">Try another pair</button></div>';
-    T.hidden=false;
+    /* animations */
+    var fg=el.querySelector('#lcFg'),num=el.querySelector('#lcNum');
     requestAnimationFrame(function(){requestAnimationFrame(function(){
-      T.querySelector('.lx-fg').style.strokeDashoffset=C*(1-r.total/100);
-      T.querySelectorAll('.lx-tr i').forEach(function(i){i.style.width=i.dataset.w+'%'});
-      var p=$('pct'),t0=null,rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-      (function f(t){if(rm){p.textContent=r.total+'%';return}t0=t0||t;var k=Math.min(1,(t-t0)/1100);p.textContent=Math.round(r.total*k)+'%';if(k<1)requestAnimationFrame(f)})(performance.now());
+     fg.style.strokeDashoffset=C*(1-r.overall/100);
+     Array.prototype.forEach.call(el.querySelectorAll('.lc-bar i'),function(i){i.style.width=i.getAttribute('data-w')+'%'});
     })});
-    T.scrollIntoView({behavior:'smooth',block:'nearest'});
-    var copy=function(){var s=txt+' '+SITE;if(navigator.clipboard)navigator.clipboard.writeText(s).then(function(){$('copy').textContent='Copied ✓'});else{prompt('Copy your result:',s)}};
-    $('copy').onclick=copy;
-    $('share').onclick=function(){navigator.share?navigator.share({title:'Love compatibility',text:txt,url:SITE}).catch(function(){}):copy()};
-    $('new').onclick=function(){T.hidden=true;['n1','n2','s1','s2','d1','d2'].forEach(function(i){$(i).value=''});$('n1').focus();R.scrollIntoView({behavior:'smooth'})};
-  }
+    var t0=null,dur=1300;
+    (function step(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur);num.textContent=Math.round(r.overall*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)})(performance.now?performance.now():0);
+    if(r.overall>=75&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches))confetti(el);
 
+    /* share handlers */
+    function copy(t,msg){
+     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast(msg)},function(){fb(t,msg)})}else fb(t,msg);
+    }
+    function fb(t,msg){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy');toast(msg)}catch(e){toast('Copy failed')}document.body.removeChild(a)}
+    el.querySelector('#lcCopy').onclick=function(){copy(lastText,'Result copied!')};
+    el.querySelector('#lcLink').onclick=function(){copy(lastUrl,'Link copied!')};
+    el.querySelector('#lcNative').onclick=function(){
+     if(navigator.share){navigator.share({title:'Love Compatibility',text:lastText,url:lastUrl}).catch(function(){})}else copy(lastText+' '+lastUrl,'Copied to share!');
+    };
+    Array.prototype.forEach.call(el.querySelectorAll('[data-h]'),function(b){
+     b.onclick=function(){var x=getHist()[+this.getAttribute('data-h')];if(!x)return;$('#lcN1').value=x.n1;$('#lcZ1').value=x.z1;$('#lcN2').value=x.n2;$('#lcZ2').value=x.z2;run(true)};
+    });
+   }
+   function confetti(host){
+    var box=document.createElement('div');box.className='lc-confetti';
+    for(var i=0;i<26;i++){var s=document.createElement('span');s.textContent=['♥','💖','✨','💕'][i%4];s.style.left=(Math.random()*100)+'%';s.style.fontSize=(12+Math.random()*18)+'px';s.style.animationDuration=(2+Math.random()*1.8)+'s';s.style.animationDelay=(Math.random()*.8)+'s';box.appendChild(s)}
+    host.appendChild(box);setTimeout(function(){if(box.parentNode)box.parentNode.removeChild(box)},4200);
+   }
 
-  function hist(r){
-    try{var h=JSON.parse(localStorage.getItem('lc_h')||'[]').filter(function(i){return!(i[0]==r.n1&&i[2]==r.n2&&i[1]==r.a&&i[3]==r.b)});
-      h.unshift([r.n1,r.a,r.n2,r.b]);localStorage.setItem('lc_h',JSON.stringify(h.slice(0,4)))}catch(e){}
-    drawHist()}
-  function drawHist(){
-    var h=[];try{h=JSON.parse(localStorage.getItem('lc_h')||'[]')}catch(e){}
-    var H_=$('hist');if(!h.length){H_.hidden=true;return}
-    H_.hidden=false;H_.textContent='Recent: ';
-    h.forEach(function(i){var b=document.createElement('button');b.type='button';b.className='lx-chip';b.textContent=i[0]+' + '+i[2];
-      b.onclick=function(){$('n1').value=i[0];$('s1').value=i[1];$('n2').value=i[2];$('s2').value=i[3];go()};H_.appendChild(b)})}
+   /* ---------- RUN ---------- */
+   function run(scroll){
+    var n1=$('#lcN1').value.trim(),n2=$('#lcN2').value.trim(),z1=$('#lcZ1').value,z2=$('#lcZ2').value,err=$('#lcErr');
+    if(!z1||!z2){err.textContent='Please choose a zodiac sign for both people.';return}
+    err.textContent='';
+    var r=calc(n1,z1,n2,z2);saveHist(r);render(r);
+    try{var q=new URLSearchParams({n1:n1,z1:z1,n2:n2,z2:z2}).toString();history.replaceState(null,'',location.pathname+'?'+q+'#lc-app')}catch(e){}
+    if(scroll!==false){var rs=$('#lcResult');if(rs.scrollIntoView)rs.scrollIntoView({behavior:'smooth',block:'start'})}
+   }
+   $('#lcForm').addEventListener('submit',function(e){e.preventDefault();run(true)});
 
-  function go(){
-    var n1=$('n1').value.trim(),n2=$('n2').value.trim(),a=$('s1').value,b=$('s2').value,e=$('err');
-    if(!n1||!n2){e.textContent='Enter both first names.';(!n1?$('n1'):$('n2')).focus();return}
-    if(a===''||b===''){e.textContent='Choose a zodiac sign for both people.';(a===''?$('s1'):$('s2')).focus();return}
-    e.textContent='';var r=calc(n1,+a,n2,+b);show(r);hist(r)}
-  $('go').onclick=go;
-
-  R.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT')go()});
-
-  $('swap').onclick=function(){['n','s','d'].forEach(function(k){var t=$(k+'1').value;$(k+'1').value=$(k+'2').value;$(k+'2').value=t});if(!$('res').hidden)go()};
-
-  drawHist();
-
+   /* auto-load from shared link */
+   try{
+    var p=new URLSearchParams(location.search);
+    if(p.get('z1')&&p.get('z2')&&idx(p.get('z1'))>-1&&idx(p.get('z2'))>-1){
+     $('#lcN1').value=(p.get('n1')||'').slice(0,30);$('#lcN2').value=(p.get('n2')||'').slice(0,30);
+     $('#lcZ1').value=p.get('z1');$('#lcZ2').value=p.get('z2');run(false);
+    }
+   }catch(e){}
   })();
 
   </script>
+
+  </div>
 tool_position: top
 faqs:
   - question: Can Zodiac or Compatibility Tests Be Trusted?
