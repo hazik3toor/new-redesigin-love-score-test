@@ -16,17 +16,12 @@ tool: >-
 
   #lc-app{--bg:#fffafc;--card:#fff;--ink:#1f1630;--muted:#5b5470;--line:#f0dfe9;--brand:#be185d;--brand2:#7c3aed;--soft:#fdf2f8;--ring:#e9d5ff;--ok:#15803d;--sh:0 14px 34px -16px rgba(190,24,93,.35);
    font-family:inherit;color:var(--ink);position:relative;overflow:hidden;color-scheme:light;
-   background:radial-gradient(900px 380px at 8% -10%,#fdf2f8 0%,transparent 60%),radial-gradient(700px 400px at 100% 110%,#f3e8ff 0%,transparent 55%),var(--bg);
-   border:1px solid var(--line);box-shadow:var(--sh);border-radius:24px;padding:28px 18px 34px;max-width:980px;margin:24px auto;line-height:1.5;box-sizing:border-box}
+   background:transparent;border:0;box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0;line-height:1.5;box-sizing:border-box}
   #lc-app *{box-sizing:border-box}
 
   #lc-app .lc-stars{display:none}
 
   #lc-app .lc-wrap{position:relative;z-index:1;max-width:760px;margin:0 auto}
-
-  #lc-app h2.lc-title{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:0 0 8px;font-weight:900;letter-spacing:-.5px;color:var(--ink)}
-
-  #lc-app .lc-grad{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
 
   #lc-app .lc-sub{margin:0 0 20px;color:var(--muted);font-size:15px}
 
@@ -189,7 +184,7 @@ tool: >-
   @keyframes lcUp{to{transform:translateY(-520px) rotate(30deg);opacity:0}}
 
   @media (max-width:640px){
-   #lc-app{padding:22px 12px 28px;border-radius:18px}
+   #lc-app{padding:0}
    #lc-app .lc-people{grid-template-columns:1fr}
    #lc-app .lc-swap{margin:-4px auto;transform:rotate(90deg)}
    #lc-app .lc-swap:hover{transform:rotate(270deg) scale(1.08)}
@@ -205,7 +200,6 @@ tool: >-
   <div class="lc-stars"></div>
 
   <div class="lc-wrap">
-   <h2 class="lc-title"><span class="lc-grad">Love compatibility</span> by first name and zodiac sign</h2>
    <p class="lc-sub">Enter two names and signs to see your love score, FLAMES result, element match and more. Free, instant, no sign-up.</p>
 
    <form class="lc-card" id="lcForm" autocomplete="off" novalidate>
