@@ -469,11 +469,11 @@ Honestly, FLAMES is **not science**, just **pure fun** in **school hallways**. T
 
 \
 \
-The **interactive calculator** automates what we did **manually**: it cancels matches, tracks **uncrossed letters**, runs **circular** eliminations, and shows the **surviving letter** with **instant results**. It is **deterministic**, so rerunning identical names never surprises you.
+The **interactive calculator** automates what we did **manually**: it cancels matches, tracks **uncrossed letters**, runs [**circular** eliminations,](https://en.wikipedia.org/wiki/Josephus_problem) and shows the **surviving letter** with **instant results**. It is **deterministic**, so rerunning identical names never surprises you.
 
 ## **What Is a FLAMES Game**
 
-As a **classic schoolyard relationship game**, it thrived at **sleepovers**, long before the **early 2000s** brought web versions. Now it feels like a **nostalgic childhood game**, **lighthearted**, best at **group hangouts**, never serious **relationship advice**.
+As a **classic** [**schoolyard relationship game**,](https://en.wikipedia.org/wiki/FLAMES_(game)) it thrived at **sleepovers**, long before the **early 2000s** brought web versions. Now it feels like a **nostalgic childhood game**, **lighthearted**, best at **group hangouts**, never serious **relationship advice**.
 
 ## **What Does FLAMES Stand For?**
 
@@ -501,7 +501,7 @@ In my view, **affection** is the **warm** middle ground between **friendship** a
 
 I stopped treating **Marriage** as a verdict years ago. After watching colleagues play, I realised the **M** only really hints at a **good life partner match**; **countless factors** like **shared values** decide whether anything lasts.
 
-Treat the **game outcome** as **exciting** and **fun to share**, nothing more. A **real marriage** needs **career goals** that **align**, plus **genuine connection**; no **name algorithm** can ever **predict** being **meant to be together forever**.
+Treat the **game outcome** as **exciting** and **fun to share**, nothing more. A **real marriage** needs **career goals** that **align**, plus **genuine connection**; no **[name algorithm](https://lovescoretest.com/love-compatibility-name-zodiac)** can ever **predict** being **meant to be together forever**.
 
 ### Enemies (E)
 
@@ -519,7 +519,7 @@ Growing up, I noticed siblings **care deeply** even amid frequent **clashes**. *
 
 The **last letter left** decides everything, and that surprised me. When you **enter your name** beside your **partner's name**, the tool **crosses out letters** that **appear in both names**, **one matching pair at a time**.
 
-**Remaining uncrossed letters** feed the **calculations**; the count tells the tool where to start when it must **eliminate letters** from **F-L-A-M-E-S**, **one by one**, until a **result** appears: **friendship**, **love**, **affection**, **marriage** or **enemy**.
+**Remaining uncrossed letters** feed the **calculations**; the count tells the tool where to start when it must [**eliminate letters** from **F-L-A-M-E-S**,](https://www.geeksforgeeks.org/program-to-implement-flames-game/) **one by one**, until a **result** appears: **friendship**, **love**, **affection**, **marriage** or **enemy**.
 
 ## **How To Play FLAMES With Paper & Pen**
 
@@ -535,7 +535,7 @@ In my experience, **nicknames** change everything, so try **full names** first. 
 
 ## **Benefits / Why People Love FLAMES**
 
-Most people who **search** for **FLAMES** aren't hunting **compatibility**; they want a **nostalgic alternative** to **percentage-based love calculators**. I've watched **friends** laugh at one **single relationship word** instead of a **number**, and that always wins.
+Most people who **search** for **FLAMES** aren't hunting **compatibility**; they want a **nostalgic alternative** to [**percentage-based love calculators**.](https://lovescoretest.com/) I've watched **friends** laugh at one **single relationship word** instead of a **number**, and that always wins.
 
 **School-day** memories explain the **fun**: a **crush**'s name, **pen and paper**, **crossing out matching letters** while everyone leans in. It's **entertainment only**, and **free** play with **no sign-up** keeps **millions of people** happily returning.
 
@@ -549,7 +549,7 @@ Always **count remaining letters**, because one miscount changes everything. Whe
 
 Anyone who has played knows the **same two names** always return the **same outcome**, because only the **letters in the two names** matter. You can **compare** a **live** **FLAMES calculator with names** run against paper.
 
-Nobody should treat it as a **scientific relationship predictor**; it is just **fun**, a **classic school game** where **letter counting** decides between **Friends**, **Love** or **Enemies**, so **accuracy** is never **100%** in any serious sense.
+Nobody should treat it as a **[scientific relationship predictor](https://dev.to/lubiah/the-flames-game-everything-you-need-to-know-about-it-1elk)**; it is just **fun**, a **classic school game** where **letter counting** decides between **Friends**, **Love** or **Enemies**, so **accuracy** is never **100%** in any serious sense.
 
 ## **FLAMES Calculator With Names: Play With Your Crush**
 
