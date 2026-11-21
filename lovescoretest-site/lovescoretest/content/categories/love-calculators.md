@@ -1,6 +1,6 @@
 ---
 name: Love Calculators
-icon: 💕
+icon: ❤️
 order: 3
 blurb: Love Calculators
 title: Love Calculators
