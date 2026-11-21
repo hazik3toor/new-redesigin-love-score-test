@@ -543,9 +543,8 @@ faqs:
     answer: Fire pairs with air and earth pairs with water, and that matches what I
       have seen. Leo and Gemini, or Taurus and Cancer, tend to feel easy. Still,
       easy is not the same as lasting.
-description: Discover your love compatibility by name and zodiac. Enter both
-  names and star signs to see what numerology and astrology reveal about your
-  match.
+description: Check your love compatibility by name and zodiac sign for free.
+  Enter both names and signs to see your love score instantly. Try it now
 menu_title: love compatibility name zodiac
 date: 2026-11-20
 draft: false
