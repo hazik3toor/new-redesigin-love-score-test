@@ -587,7 +587,7 @@ I started with **name numerology** years ago, treating **letters in the names** 
 
 In **name mode**, **first names** alone feed an **algorithmic score**, while a **numerology score** reduces letters to digits like **2** or **7**. Treat this as **40% names** of a **combined overall score**, never a verdict.
 
-Honestly, a **name-only love calculator** is **entertainment**, a **game** I use on every **crush**. Sounds, **similarities** and **differences** spark curiosity, but **understanding** and **communication** decide whether a **partner** stays, however high the printed number really reads.
+Honestly, a **[name-only love calculator](https://lovescoretest.com/flames-calculator)** is **entertainment**, a **game** I use on every **crush**. Sounds, **similarities,** and **differences** spark curiosity, but **understanding** and **communication** decide whether a **partner** stays, however high the printed number really reads.
 
 ## **Best Matches And Major Affinities Between Signs**
 
@@ -599,7 +599,7 @@ Honestly, a **name-only love calculator** is **entertainment**, a **game** I use
 
 ## **Why Try / Why Combine Both Readings**
 
-Most people run a **name** through a **love calculator** for fun, then dismiss it. I stopped after watching **names only** results clash with a[ **birth-date test**;](https://lovescoretest.com/) that gap taught me more than **overall score** did.
+Most people run a **name** through a **[love calculator](https://lovescoretest.com/flames-calculator)** for fun, then dismiss it. I stopped after watching **names-only** results clash with a[ **birth-date test**;](https://lovescoretest.com/) that gap taught me more than **overall score** did.
 
 **Numerology** rewards **first name** **spelling**, while **zodiac mode** reads **Sun signs** and **natal charts**. Combined, one reveals **emotional needs**, the other **basic nature**, and any **low score** becomes a **deeper reading** worth discussing over dinner.
 
