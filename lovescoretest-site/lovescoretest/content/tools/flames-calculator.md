@@ -467,13 +467,11 @@ Honestly, FLAMES is **not science**, just **pure fun** in **school hallways**. T
 
 ![flames calculator](/images/flames-calculator.webp "flames calculator")
 
-\
-\
 The **interactive calculator** automates what we did **manually**: it cancels matches, tracks **uncrossed letters**, runs [**circular** eliminations,](https://en.wikipedia.org/wiki/Josephus_problem) and shows the **surviving letter** with **instant results**. It is **deterministic**, so rerunning identical names never surprises you.
 
 ## **What Is a FLAMES Game**
 
-As a **classic** [**schoolyard relationship game**,](https://en.wikipedia.org/wiki/FLAMES_(game)) it thrived at **sleepovers**, long before the **early 2000s** brought web versions. Now it feels like a **nostalgic childhood game**, **lighthearted**, best at **group hangouts**, never serious **relationship advice**.
+As a **classic** [**schoolyard relationship game**, ](https://en.wikipedia.org/wiki/FLAMES_(game))it thrived at **sleepovers**, long before the **early 2000s** brought web versions. Now it feels like a **nostalgic childhood game**, **lighthearted**, best at **group hangouts**, never serious **relationship advice**.
 
 ## **What Does FLAMES Stand For?**
 
