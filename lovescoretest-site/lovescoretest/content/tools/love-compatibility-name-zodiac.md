@@ -1,5 +1,5 @@
 ---
-title: Reveal Your Love Compatibility by Name & Zodiac
+title: Free Love Compatibility by Name & Zodiac Sign
 slug: love-compatibility-name-zodiac
 category: love-calculators
 calculator: none
