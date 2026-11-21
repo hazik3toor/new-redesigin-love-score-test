@@ -1,4 +1,6 @@
 # Old pages -> new site. 301 permanent redirects (Cloudflare Pages _redirects).
+/calculators  /love-calculators  301
+/calculators/  /love-calculators  301
 /tool/*  /  301
 /catalog  /  301
 /catalog/*  /  301
