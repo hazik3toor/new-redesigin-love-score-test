@@ -558,7 +558,7 @@ Beyond **numerology** and **astrology**, every **relationship** carries **emotio
 
 ## **How the Compatibility Test Works**
 
-![love compatibility by name and zodiac ](/images/love-compatibility-by-name-and-zodiac.webp "love compatibility by name and zodiac ")
+![love compatibility by name and zodiac signs ](/images/love-compatibility-by-name-and-zodiac.webp "love compatibility by name and zodiac signs")
 
 In my experience, I try a **partner name** first, since it is **fast**, **free**, and needs **no sign-up**; **instant results** feel playful, so treat the **compatibility percentage** as **fun**, never a final verdict on love.
 
