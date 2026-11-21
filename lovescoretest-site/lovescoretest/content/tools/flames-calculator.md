@@ -471,7 +471,7 @@ The **interactive calculator** automates what we did **manually**: it cancels ma
 
 ## **What Is a FLAMES Game**
 
-As a **classic** [**schoolyard relationship game**, ](https://en.wikipedia.org/wiki/FLAMES_(game))it thrived at **sleepovers**, long before the **early 2000s** brought web versions. Now it feels like a **nostalgic childhood game**, **lighthearted**, best at **group hangouts**, never serious **relationship advice**.
+As a **classic** [**schoolyard relationship game**,](https://en.wikipedia.org/wiki/FLAMES_(game)) it thrived at **sleepovers**, long before the **early 2000s** brought web versions. Now it feels like a **nostalgic childhood game**, **lighthearted**, best at **group hangouts**, never serious **relationship advice**.
 
 ## **What Does FLAMES Stand For?**
 
