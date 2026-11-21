@@ -1,7 +1,7 @@
 ---
 title: Reveal Your Love Compatibility by Name & Zodiac
 slug: love-compatibility-name-zodiac
-category: calculators
+category: couples-quiz
 calculator: none
 tool: >-
   <!-- ============================================================
