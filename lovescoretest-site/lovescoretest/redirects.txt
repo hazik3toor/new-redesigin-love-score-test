@@ -11,8 +11,8 @@
 /deep-questions-for-couples  /  301
 /does-zodiac-compatibility-matter.html  /  301
 /does-zodiac-compatibility-matter  /  301
-/flames-game-rules-calculator.html  /  301
-/flames-game-rules-calculator  /  301
+/flames-game-rules-calculator.html  /flames-calculator  301
+/flames-game-rules-calculator  /flames-calculator  301
 /friendship-score.html  /  301
 /friendship-score  /  301
 /fun-compatibility-questions.html  /  301
