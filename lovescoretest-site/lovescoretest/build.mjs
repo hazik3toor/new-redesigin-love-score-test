@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 
-const SITE = "https://lovescoretest.com";
+const SITE = "https://www.lovescoretest.com";
 const NAME = "LoveScoreTest";
 const GA = "G-4QW8EWN05R";
 const root = path.dirname(new URL(import.meta.url).pathname);
@@ -68,6 +68,11 @@ function fm(raw) {
       data[k[1]] = txt;
       continue;
     }
+    if (v !== "") { // continuation lines of a long value
+      const q = v[0] === '"' || v[0] === "'" ? v[0] : "";
+      const closed = () => q && v.length > 1 && v.endsWith(q) && !(q === '"' && /\\$/.test(v.slice(0, -1)));
+      while (i + 1 < lines.length && /^\s+\S/.test(lines[i + 1]) && !(q && closed())) v += " " + lines[++i].trim();
+    }
     if (/^".*"$/.test(v)) v = v.slice(1, -1).replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace(/\\"/g, '"').replace(/\\\\/g, "\\");
     else if (/^'.*'$/.test(v)) v = v.slice(1, -1).replace(/''/g, "'");
     if (v === "true") v = true;
@@ -76,6 +81,7 @@ function fm(raw) {
   }
   return { data, body: m[2] };
 }
+const withBrand = (s) => ((s + " | " + NAME).length <= 60 ? s + " | " + NAME : s);
 const slugify = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 function inline(s) {
   s = esc(s);
@@ -338,10 +344,10 @@ function cardImage(p) {
   const dim = use.startsWith("/") ? imgSize(path.join(root, "static", use)) : null;
   return `<img src="${esc(use)}" alt="${esc(alt.trim())}"${dim ? ` width="${dim[0]}" height="${dim[1]}"` : ""} loading="lazy" decoding="async">`;
 }
-function card(p) {
+function card(p, lvl = 3) {
   const img = cardImage(p) || esc(p.cat?.data.icon || "💕");
   const meta = p.type === "post" ? `<p class="meta"><time datetime="${p.date}">${fmtDate(p.date)}</time> · ${p.mins} ${t("minRead")}</p>` : "";
-  return `<article class="post"><div class="th">${img}</div><div class="bd">${p.cat ? `<p class="tag">${esc(cf(p.cat, "name"))}</p>` : ""}<h3><a href="${p.url}">${esc(p.data.title)}</a></h3><p class="ex">${esc(excerpt(p))}</p>${meta}</div></article>`;
+  return `<article class="post"><div class="th">${img}</div><div class="bd">${p.cat ? `<p class="tag">${esc(cf(p.cat, "name"))}</p>` : ""}<h${lvl}><a href="${p.url}">${esc(p.data.title)}</a></h${lvl}><p class="ex">${esc(excerpt(p))}</p>${meta}</div></article>`;
 }
 const catCards = () => cats.map((c) => { const n = itemsIn(c.slug).length; return `<a class="cat" href="${pre()}/${c.slug}"><span class="ic" aria-hidden="true">${c.data.icon || "💕"}</span><b>${esc(cf(c, "name"))}</b><span class="d">${esc(cf(c, "blurb") || cf(c, "description"))}</span><span class="n">${n ? `${n} ${n > 1 ? t("many") : t("one")}` : t("exploreBtn")}</span></a>`; }).join("");
 
@@ -389,6 +395,7 @@ function layout({ title, description, path: p, body, noindex, schema = [], ogIma
 <style>${css}</style>
 ${ld}
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA}');(function(){var l=0;function g(){if(l)return;l=1;var s=document.createElement('script');s.async=1;s.src='https://www.googletagmanager.com/gtag/js?id=${GA}';document.head.appendChild(s)}addEventListener('load',function(){setTimeout(g,2500)});['scroll','click','touchstart','keydown'].forEach(function(e){addEventListener(e,g,{once:true,passive:true})})})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7929468701573804" crossorigin="anonymous"></script>
 </head><body>
 ${banner}<a class="skip" href="#main">${t("skip")}</a>
 <header class="site"><div class="top">${logo()}
@@ -499,7 +506,7 @@ ${bands}
       { "@type": "WebApplication", name: L === "fr" ? "Calculateur d'amour par date de naissance" : "Love Calculator by Date of Birth", url: SITE + hp, applicationCategory: "LifestyleApplication", operatingSystem: "Any", inLanguage: L, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } },
       ...(faqs.length ? [{ "@type": "FAQPage", mainEntity: faqs }] : []),
     ] }];
-    write(outFile(hp), layout({ title: hm.data.title + " | " + NAME, description: hm.data.description, path: hp, body, schema, withCalc: true, alts: homeAlts }));
+    write(outFile(hp), layout({ title: withBrand(hm.data.title), description: hm.data.description, path: hp, body, schema, withCalc: true, alts: homeAlts }));
     sitemap.push({ loc: hp, pri: "1.0", alts: homeAlts });
     Object.assign(stats, { faq: faqs.length, toc: h2s.length, links: linked.count });
   }
@@ -520,9 +527,9 @@ ${bands}
     const has = catHas(L, c);
     const cp = pre() + "/" + c.slug;
     const body = pageHead({ h1: cf(c, "name"), lead: cf(c, "description"), crumbs: `<a href="${homeP()}">${t("home")}</a> › ${esc(cf(c, "name"))}` }) +
-      `<section class="sec"><div class="container">${list.length ? `<div class="posts">${list.map(card).join("")}</div>` : (hasText ? "" : `<p class="empty">${t("soon")}</p>`)}</div>${hasText ? `<div class="prose" style="margin-top:${list.length ? 40 : 0}px">${html}</div>` : ""}</section>`;
+      `<section class="sec"><div class="container">${list.length ? `<div class="posts">${list.map((x) => card(x, 2)).join("")}</div>` : (hasText ? "" : `<p class="empty">${t("soon")}</p>`)}</div>${hasText ? `<div class="prose" style="margin-top:${list.length ? 40 : 0}px">${html}</div>` : ""}</section>`;
     const catAlts = catHas("en", c) && catHas("fr", c) && LANGS.length > 1 ? { en: "/" + c.slug, fr: "/fr/" + c.slug } : null;
-    write(outFile(cp), layout({ title: cf(c, "title") + " | " + NAME, description: cf(c, "description"), path: cp, body, noindex: !has, alts: catAlts, schema: [breadcrumbLd([[t("home"), homeP()], [cf(c, "name"), cp]])] }));
+    write(outFile(cp), layout({ title: withBrand(cf(c, "title")), description: cf(c, "description"), path: cp, body, noindex: !has, alts: catAlts, schema: [breadcrumbLd([[t("home"), homeP()], [cf(c, "name"), cp]])] }));
     if (has) sitemap.push({ loc: cp, pri: "0.7", alts: catAlts });
   }
 
@@ -531,9 +538,9 @@ ${bands}
     const bp = pre() + "/blog";
     const pills = `<ul class="pills">${cats.filter((c) => posts.some((p) => p.data.category === c.slug)).map((c) => `<li><a href="${pre()}/${c.slug}">${esc(cf(c, "name"))}</a></li>`).join("")}</ul>`;
     const body = pageHead({ h1: t("blogH1"), lead: t("blogLead"), crumbs: `<a href="${homeP()}">${t("home")}</a> › ${t("blog")}`, extra: posts.length ? pills : "" }) +
-      `<section class="sec"><div class="container">${posts.length ? `<div class="posts">${posts.map(card).join("")}</div>` : `<p class="empty">${t("blogSoon")}</p>`}</div></section>`;
+      `<section class="sec"><div class="container">${posts.length ? `<div class="posts">${posts.map((x) => card(x, 2)).join("")}</div>` : `<p class="empty">${t("blogSoon")}</p>`}</div></section>`;
     const blogAlts = LANGS.length > 1 && itemsAll.some((x) => x.type === "post" && x.lang === "en") && itemsAll.some((x) => x.type === "post" && x.lang === "fr") ? { en: "/blog", fr: "/fr/blog" } : null;
-    write(outFile(bp), layout({ title: t("blogTitle") + " | " + NAME, description: t("blogDesc"), path: bp, body, noindex: !posts.length, alts: blogAlts, schema: [breadcrumbLd([[t("home"), homeP()], [t("blog"), bp]]), { "@context": "https://schema.org", "@type": "Blog", name: NAME + " Blog", url: SITE + bp, inLanguage: L, blogPost: posts.slice(0, 20).map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: SITE + p.url, datePublished: p.date })) }] }));
+    write(outFile(bp), layout({ title: withBrand(t("blogTitle")), description: t("blogDesc"), path: bp, body, noindex: !posts.length, alts: blogAlts, schema: [breadcrumbLd([[t("home"), homeP()], [t("blog"), bp]]), { "@context": "https://schema.org", "@type": "Blog", name: NAME + " Blog", url: SITE + bp, inLanguage: L, blogPost: posts.slice(0, 20).map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: SITE + p.url, datePublished: p.date })) }] }));
     if (posts.length) sitemap.push({ loc: bp, pri: "0.8", mod: posts[0].date, alts: blogAlts });
   }
 
@@ -563,7 +570,7 @@ ${bands}
       : { "@context": "https://schema.org", "@type": isApp ? ["WebPage", "WebApplication"] : "WebPage", ...(isApp ? { applicationCategory: "LifestyleApplication", operatingSystem: "Any", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}), name: p.data.title, description: p.data.description || "", url, image: img, isPartOf: { "@id": SITE + "/#website" }, inLanguage: L };
     const cp = LANGS.length > 1 ? counterpart(p) : null;
     const alts = cp ? { [L]: p.url, [cp.lang]: cp.url } : null;
-    write(outFile(p.url), layout({ title: (p.data.seo_title && String(p.data.seo_title).trim()) || p.data.title + " | " + NAME, description: p.data.description || "", path: p.url, body, ogImage: img, ogType: isPost ? "article" : "website", schema: [crumbLd, main], withCalc: hasCalc, alts }));
+    write(outFile(p.url), layout({ title: (p.data.seo_title && String(p.data.seo_title).trim()) || withBrand(p.data.title), description: p.data.description || "", path: p.url, body, ogImage: img, ogType: isPost ? "article" : "website", schema: [crumbLd, main], withCalc: hasCalc, alts }));
     sitemap.push({ loc: p.url, pri: isPost ? "0.8" : "0.9", mod: String(p.data.updated || p.date).slice(0, 10), alts });
   }
   console.log(`${L}: faq ${stats.faq}, toc ${stats.toc}, links added ${stats.links}, pages ${tools.length}, posts ${posts.length}`);
@@ -582,7 +589,7 @@ function copyDir(src, dst) {
 copyDir(path.join(root, "static"), dist);
 write(calcFile, calcSrc.replace(/^\s*\/\/.*$/gm, ""));
 const today = new Date().toISOString().slice(0, 10);
-write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` + sitemap.map((u) => `<url><loc>${SITE}${u.loc}</loc>${u.alts && u.alts.en && u.alts.fr ? `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${u.alts.en}"/><xhtml:link rel="alternate" hreflang="fr" href="${SITE}${u.alts.fr}"/>` : ""}<lastmod>${u.mod || today}</lastmod><priority>${u.pri}</priority></url>`).join("\n") + `\n</urlset>\n`);
+write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` + sitemap.map((u) => `<url><loc>${SITE}${u.loc}</loc>${u.alts && u.alts.en && u.alts.fr ? `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${u.alts.en}"/><xhtml:link rel="alternate" hreflang="fr" href="${SITE}${u.alts.fr}"/>` : ""}${u.mod ? `<lastmod>${u.mod}</lastmod>` : ""}<priority>${u.pri}</priority></url>`).join("\n") + `\n</urlset>\n`);
 const enPosts = itemsAll.filter((x) => x.type === "post" && x.lang === "en");
 write("rss.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>${NAME} Blog</title><link>${SITE}/blog</link><description>Love and relationship guides</description>` + enPosts.slice(0, 30).map((p) => `<item><title>${esc(p.data.title)}</title><link>${SITE}${p.url}</link><guid>${SITE}${p.url}</guid><pubDate>${new Date(p.date + "T00:00:00Z").toUTCString()}</pubDate><description>${esc(p.data.description || "")}</description></item>`).join("") + `</channel></rss>\n`);
 write("robots.txt", `User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`);
