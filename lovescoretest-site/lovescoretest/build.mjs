@@ -412,8 +412,8 @@ const breadcrumbLd = (items) => ({ "@context": "https://schema.org", "@type": "B
 const pageHead = ({ h1, lead, icon, crumbs, extra = "" }) => `<section class="phead"><div class="container">${crumbs ? `<p class="crumbs">${crumbs}</p>` : ""}${icon ? `<div class="ic" aria-hidden="true">${icon}</div>` : ""}<h1>${esc(h1)}</h1>${lead ? `<p>${esc(lead)}</p>` : ""}${extra}</div></section>`;
 const latestSections = (self) => {
   const a = tools.filter((x) => x !== self).slice(0, 3), b = posts.filter((x) => x !== self).slice(0, 3);
-  return (a.length ? `<section class="sec alt"><div class="container"><h2 class="sec-h"><small>${t("latest")}</small>${t("toolsH")}</h2><p class="sec-p">${t("toolsP")}</p><div class="posts">${a.map(card).join("")}</div></div></section>` : "") +
-    (b.length ? `<section class="sec${a.length ? "" : " alt"}"><div class="container"><h2 class="sec-h"><small>${t("latest")}</small>${t("postsH")}</h2><p class="sec-p">${t("postsP")}</p><div class="posts">${b.map(card).join("")}</div><p class="center"><a class="btn" href="${pre()}/blog">${t("viewAll")}</a></p></div></section>` : "");
+  return (a.length ? `<section class="sec alt"><div class="container"><h2 class="sec-h"><small>${t("latest")}</small>${t("toolsH")}</h2><p class="sec-p">${t("toolsP")}</p><div class="posts">${a.map((x) => card(x)).join("")}</div></div></section>` : "") +
+    (b.length ? `<section class="sec${a.length ? "" : " alt"}"><div class="container"><h2 class="sec-h"><small>${t("latest")}</small>${t("postsH")}</h2><p class="sec-p">${t("postsP")}</p><div class="posts">${b.map((x) => card(x)).join("")}</div><p class="center"><a class="btn" href="${pre()}/blog">${t("viewAll")}</a></p></div></section>` : "");
 };
 const ctaBand = (h, p) => `<section class="cta"><h2>${h}</h2><p>${p}</p><a class="btn" href="${homeP()}">${t("ctaBtn")}</a></section>`;
 
@@ -484,8 +484,8 @@ function buildLang(L) {
     const sections = [
       ["categories", `<div class="container"><h2 class="sec-h"><small>${t("exS")}</small>${t("exH")}</h2><p class="sec-p">${t("exP")}</p><div class="catgrid">${catCards()}</div></div>`],
       ["why", `<div class="container"><h2 class="sec-h"><small>${t("whyS")}</small>${t("whyH")}</h2><p class="sec-p">${t("whyP")}</p><div class="feats">${t("feats").map(([i, ti, d]) => `<div class="feat"><span class="ic" aria-hidden="true">${i}</span><div><b>${ti}</b><span class="d">${d}</span></div></div>`).join("")}</div></div>`],
-      ...(latestPages.length ? [["tools", `<div class="container"><h2 class="sec-h"><small>${t("latest")}</small>${t("toolsH")}</h2><p class="sec-p">${t("toolsP")}</p><div class="posts">${latestPages.map(card).join("")}</div></div>`]] : []),
-      ...(latestPosts.length ? [["latest", `<div class="container"><h2 class="sec-h"><small>${t("latest")}</small>${t("postsH")}</h2><p class="sec-p">${t("postsP")}</p><div class="posts">${latestPosts.map(card).join("")}</div><p class="center"><a class="btn" href="${pre()}/blog">${t("viewAll")}</a></p></div>`]] : []),
+      ...(latestPages.length ? [["tools", `<div class="container"><h2 class="sec-h"><small>${t("latest")}</small>${t("toolsH")}</h2><p class="sec-p">${t("toolsP")}</p><div class="posts">${latestPages.map((x) => card(x)).join("")}</div></div>`]] : []),
+      ...(latestPosts.length ? [["latest", `<div class="container"><h2 class="sec-h"><small>${t("latest")}</small>${t("postsH")}</h2><p class="sec-p">${t("postsP")}</p><div class="posts">${latestPosts.map((x) => card(x)).join("")}</div><p class="center"><a class="btn" href="${pre()}/blog">${t("viewAll")}</a></p></div>`]] : []),
       ["how", `<div class="container"><h2 class="sec-h"><small>${t("howS")}</small>${t("howH")}</h2><p class="sec-p">${t("howP")}</p><div class="steps">${t("steps").map(([b, s], i) => `<div class="step"><i>${i + 1}</i><b>${b}</b><span>${s}</span></div>`).join("")}</div></div>`],
       ...(hasArticle ? [["guide", `<div class="prose card">${toc}${article}</div>`]] : []),
     ];
