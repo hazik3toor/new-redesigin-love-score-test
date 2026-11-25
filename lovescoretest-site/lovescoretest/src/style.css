@@ -84,9 +84,9 @@ button.go:hover,.btn:hover{filter:brightness(1.08)}
 .th img{width:100%;height:100%;object-fit:cover}
 .bd{padding:16px 20px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
 .tag{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--brand);margin:0}
-.post h3{margin:0;font-size:19px;line-height:1.3}
-.post h3 a{color:var(--ink);text-decoration:none}
-.post h3 a:after{content:"";position:absolute;inset:0}
+.post h2,.post h3{margin:0;font-size:19px;line-height:1.3}
+.post h2 a,.post h3 a{color:var(--ink);text-decoration:none}
+.post h2 a:after,.post h3 a:after{content:"";position:absolute;inset:0}
 .post p.ex{margin:0;font-size:15px;color:var(--muted);line-height:1.55}
 .meta{font-size:13px;color:var(--muted);margin:auto 0 0;padding-top:6px}
 .center{text-align:center;margin-top:30px}
@@ -196,3 +196,7 @@ footer.site .cp{max-width:1120px;margin:0 auto;border-top:1px solid #33274f;padd
 .lang .ddm a[aria-current]{color:var(--brand)}
 footer.site h2 a{color:#fff;text-decoration:none}footer.site h2 a:hover{text-decoration:underline}
 @media (max-width:859px){.lang .ddm{left:0;right:auto}}
+.post h2,.post h3,.prose .post h2,.prose .post h3{margin:0;padding:0;font-size:19px;line-height:1.3;letter-spacing:0}
+.post h2:before,.prose .post h2:before{display:none;content:none}
+.post a,.prose .post a,.post h2 a,.post h3 a{color:var(--ink);text-decoration:none;font-weight:inherit}
+.post h2 a:after,.post h3 a:after{content:"";position:absolute;inset:0}
