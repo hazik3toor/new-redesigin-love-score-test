@@ -127,6 +127,8 @@ focus_keyword: soulmate readiness test
 
 This free **soulmate readiness test** is for the moment before love begins, when you are single and quietly asking whether your heart, your week and your hopes are in the right place. It looks at **closure**, **openness**, **lifestyle** and **expectations**, then turns your answers into a gentle **readiness** snapshot. It is made for fun and self-reflection, not professional relationship advice, and no score can promise that a soulmate is on the way.
 
+![soulmate readiness test](/images/soulmate-readiness-test.webp "soulmate readiness test")
+
 ## **What Readiness for Love Means**
 
 In my experience, **readiness** is less about wanting love loudly and more about having the quiet capacity to receive it well. That capacity shows up as **emotional availability**: you can be present, honest and kind without handing a new person the job of fixing your mood. It also needs **self-awareness**, because knowing your **values**, your tender spots and your usual **patterns** helps you choose with a clear head instead of old reflexes.
