@@ -5,7 +5,7 @@ description: "Try the free love calculator by date of birth! Enter your birth
   compatibility. "
 calculator: true
 ---
-<h1>Love Calculator by Date of Birth: Free Compatibility Test</h1>
+<h1>`Love Calculator by Date of Birth: Free Compatibility Test`</h1>
 
 <p>A love calculator uses your date of birth to explore birthday compatibility between two partners. Enter each birth date and birth month to receive an entertaining view of your potential love match and connection together.</p>
 
