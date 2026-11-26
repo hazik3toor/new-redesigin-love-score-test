@@ -51,18 +51,18 @@ tool: >-
   <script>
   (function(){
   var srtQ=[
-  {a:"Emotional Closure",q:"When an old song or place reminds you of a past relationship, you usually...",o:[["Smile and move on",3],["Replay old conversations for a while",1],["Feel a brief pang, then refocus",2],["Feel pulled to message them",0]]},
-  {a:"Emotional Closure",q:"If an ex reached out today just to chat, your honest reaction would be...",o:[["Curious, but careful",2],["Calm and clear about my limits",3],["Hopeful we might restart",0],["Unsettled for days",1]]},
-  {a:"Emotional Closure",q:"The lesson you carry from your last relationship feels...",o:[["Mostly blame or regret",0],["Clear and useful",3],["Still confusing",1],["Partly clear",2]]},
-  {a:"Openness",q:"Meeting someone new and being truly seen feels...",o:[["Fine once trust builds",2],["Something I avoid",0],["Welcome, even if a little scary",3],["Risky, so I hold back",1]]},
-  {a:"Openness",q:"When a date goes quiet for a day, you tend to...",o:[["Reread messages for clues",1],["Assume life is busy and wait",3],["Panic or chase replies",0],["Feel unsure but stay steady",2]]},
-  {a:"Openness",q:"Sharing a real feeling early on is...",o:[["Possible with the right person",2],["Doable in small honest steps",3],["Almost impossible",0],["Hard until I feel totally safe",1]]},
-  {a:"Lifestyle & Time",q:"In a normal week, room for dating looks like...",o:[["Squeezed between everything",1],["Real space I can protect",3],["Almost none right now",0],["Some space if I plan",2]]},
-  {a:"Lifestyle & Time",q:"Your current season of life feels...",o:[["Busy but manageable",2],["Overwhelming",0],["Steady enough to add someone",3],["Draining most days",1]]},
-  {a:"Lifestyle & Time",q:"Time alone lately feels...",o:[["Like something to escape",0],["Restorative and chosen",3],["Lonely more often than not",1],["Mostly okay",2]]},
-  {a:"Expectations",q:"You want a relationship mainly because...",o:[["Being single feels hard to face",1],["Sharing life sounds joyful",3],["A partner would fix my low mood",0],["Companionship would be lovely",2]]},
-  {a:"Expectations",q:"A healthy pace at the start, to you, is...",o:[["Fast, so I know where I stand",1],["Steady and mutual",3],["Intense or nothing",0],["Warm, with clear check-ins",2]]},
-  {a:"Expectations",q:"If dating takes months with no match, you would...",o:[["Keep living well and stay open",3],["Question my worth",1],["Settle for attention",0],["Feel disappointed but grounded",2]]}
+  {a:"Emotional Closure",q:"Thinking of an ex feels:",o:[["Calm and closed",3],["Still heavy",1],["Mostly fine",2],["Hard to shake",0]]},
+  {a:"Emotional Closure",q:"If an ex texted you, you'd feel:",o:[["Curious, but careful",2],["Calm and clear",3],["Hopeful",0],["Unsettled",1]]},
+  {a:"Emotional Closure",q:"Your last relationship taught you:",o:[["Mostly regret",0],["A clear lesson",3],["Still unsure",1],["Part of a lesson",2]]},
+  {a:"Openness",q:"Being truly seen feels:",o:[["Fine with trust",2],["Scary, I avoid it",0],["Welcome",3],["Risky",1]]},
+  {a:"Openness",q:"A date goes quiet for a day. You:",o:[["Reread messages",1],["Wait calmly",3],["Panic or chase",0],["Feel unsure, stay steady",2]]},
+  {a:"Openness",q:"Sharing real feelings early is:",o:[["Possible with trust",2],["Doable in small steps",3],["Almost impossible",0],["Hard at first",1]]},
+  {a:"Lifestyle & Time",q:"Your week has room for dating:",o:[["Very little",1],["Yes, real space",3],["Almost none",0],["Some, with planning",2]]},
+  {a:"Lifestyle & Time",q:"Life right now feels:",o:[["Busy but okay",2],["Overwhelming",0],["Steady",3],["Draining",1]]},
+  {a:"Lifestyle & Time",q:"Time alone feels:",o:[["Like an escape",0],["Restful",3],["Often lonely",1],["Mostly okay",2]]},
+  {a:"Expectations",q:"You want love mainly to:",o:[["Avoid being single",1],["Share your life",3],["Fix your mood",0],["Have companionship",2]]},
+  {a:"Expectations",q:"A healthy pace is:",o:[["Fast and clear",1],["Steady and mutual",3],["Intense or nothing",0],["Warm with check-ins",2]]},
+  {a:"Expectations",q:"Months with no match would make you:",o:[["Stay open",3],["Doubt your worth",1],["Settle for attention",0],["Feel sad but steady",2]]}
   ];
   var srtTips={"Emotional Closure":"Give the past a little more room to settle. A short journal note about what you learned can turn old hurt into a clear lesson.","Openness":"Practice small honesty early: one true sentence about your day or your hopes is enough to start.","Lifestyle & Time":"Protect one calm evening a week for yourself first. Readiness grows when your week has breathing room.","Expectations":"Let the pace stay steady and mutual. Wanting love is healthy; needing it to fix a mood is a sign to slow down."};
   var srtBody=document.getElementById("srt-body"),srtProg=document.getElementById("srt-prog"),srtPct=document.getElementById("srt-pct");
