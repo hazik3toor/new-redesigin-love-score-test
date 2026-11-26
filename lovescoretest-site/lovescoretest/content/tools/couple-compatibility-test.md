@@ -8,10 +8,17 @@ tool: >-
   <style>
   #cct-app{--cct-ink:#241332;--cct-muted:#6b5b7a;--cct-line:#f0dfe9;--cct-brand:#be185d;--cct-brand2:#7c3aed;--cct-soft:#fdf2f8;--cct-card:#fff;font-family:inherit;color:var(--cct-ink);line-height:1.5;box-sizing:border-box;max-width:680px;margin:0 auto}
   #cct-app *{box-sizing:border-box}
-  #cct-app .cct-card{background:var(--cct-card);border:1px solid var(--cct-line);border-radius:24px;padding:24px 20px;box-shadow:0 14px 34px -16px rgba(190,24,93,.35)}
-  #cct-app h2.cct-h{margin:0;text-align:center;font-size:clamp(21px,5vw,27px);font-weight:900}
-  #cct-app .cct-sub{margin:6px 0 16px;text-align:center;color:var(--cct-muted);font-size:15px}
-  #cct-app .cct-prog{height:8px;border-radius:99px;background:var(--cct-soft);overflow:hidden;margin:0 0 16px}
+  #cct-app .cct-card{background:var(--cct-card);border:1px solid var(--cct-line);border-radius:24px;padding:0 20px 24px;box-shadow:0 14px 34px -16px rgba(190,24,93,.35);overflow:hidden}
+  #cct-app .cct-head{margin:0 -20px 18px;padding:26px 20px 20px;background:linear-gradient(120deg,#fdf2f8,#f5f3ff);border-bottom:1px solid var(--cct-line);text-align:center}
+  #cct-app .cct-icon{width:58px;height:58px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--cct-brand),var(--cct-brand2));box-shadow:0 10px 22px -8px rgba(190,24,93,.55)}
+  #cct-app .cct-icon svg{width:28px;height:28px}
+  #cct-app h2.cct-h{margin:0;text-align:center;font-size:clamp(22px,5vw,28px);font-weight:900;letter-spacing:-.3px}
+  #cct-app .cct-sub{margin:6px auto 0;max-width:460px;text-align:center;color:var(--cct-muted);font-size:15px}
+  #cct-app .cct-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0 0}
+  #cct-app .cct-chip{font-size:12.5px;font-weight:800;color:var(--cct-brand);background:#fff;border:1px solid var(--cct-line);border-radius:99px;padding:5px 12px}
+  #cct-app .cct-progwrap{display:flex;align-items:center;gap:10px;margin:0 0 16px}
+  #cct-app .cct-prog{flex:1;height:9px;border-radius:99px;background:var(--cct-soft);overflow:hidden}
+  #cct-app .cct-pct{font-size:13px;font-weight:900;color:var(--cct-brand);min-width:38px;text-align:right}
   #cct-app .cct-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cct-brand),var(--cct-brand2));transition:width .3s}
   #cct-app .cct-who{text-align:center;font-weight:800;color:var(--cct-brand);font-size:14px;letter-spacing:.4px;text-transform:uppercase;margin:0 0 8px}
   #cct-app .cct-q{font-size:18px;font-weight:800;text-align:center;margin:0 0 16px}
@@ -31,9 +38,13 @@ tool: >-
   #cct-app .cct-note{text-align:center;color:var(--cct-muted);font-size:13px;margin:14px 0 0}
   </style>
   <div class="cct-card">
+  <div class="cct-head">
+  <div class="cct-icon"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9C.4 8.9 2.2 5 5.6 5c2 0 3.4 1.1 4.4 2.4h4C15 6.1 16.4 5 18.4 5 21.8 5 23.6 8.9 22 12c-2.5 4.4-10 9-10 9z" transform="scale(.92) translate(1,0)"/></svg></div>
   <h2 class="cct-h">Couple Compatibility Test</h2>
-  <p class="cct-sub">12 questions, answered by both of you. See where you match and where you differ.</p>
-  <div class="cct-prog"><i id="cct-prog"></i></div>
+  <p class="cct-sub">Answer together, compare honestly, and see where you match and where you differ.</p>
+  <div class="cct-chips"><span class="cct-chip">12 questions</span><span class="cct-chip">Both partners</span><span class="cct-chip">About 3 minutes</span></div>
+  </div>
+  <div class="cct-progwrap"><div class="cct-prog"><i id="cct-prog"></i></div><span class="cct-pct" id="cct-pct">0%</span></div>
   <div id="cct-body"></div>
   <p class="cct-note">For fun and conversation only. This test cannot measure real compatibility or replace honest talk.</p>
   </div>
@@ -53,10 +64,11 @@ tool: >-
   {a:"Affection & Time",q:"How much time apart feels healthy?",o:["Very little","Some evenings alone","Regular solo time","Lots of independence"]},
   {a:"Affection & Time",q:"When we disagree about affection or closeness, I prefer to...",o:["Talk it through","Compromise gently","Give it time","Let it go quietly"]}
   ];
-  var cctBody=document.getElementById("cct-body"),cctProg=document.getElementById("cct-prog");
+  var cctBody=document.getElementById("cct-body"),cctProg=document.getElementById("cct-prog"),cctPct=document.getElementById("cct-pct");
+  function cctSetProg(p){cctProg.style.width=p+"%";cctPct.textContent=Math.round(p)+"%";}
   var cctRound=0,cctIdx=0,cctA=[],cctB=[];
   function cctRender(){
-    cctProg.style.width=((cctRound*12+cctIdx)/24*100)+"%";
+    cctSetProg((cctRound*12+cctIdx)/24*100);
     var who=cctRound===0?"Partner 1 answers":"Partner 2 answers";
     var item=cctQ[cctIdx];
     var html='<p class="cct-who">'+who+' · Question '+(cctIdx+1)+' of 12</p><p class="cct-q">'+item.q+'</p><div class="cct-opts">';
@@ -74,12 +86,12 @@ tool: >-
     cctResult();
   }
   function cctHandover(){
-    cctProg.style.width="50%";
+    cctSetProg(50);
     cctBody.innerHTML='<p class="cct-q">Partner 1 is done. Hand the phone over.</p><p class="cct-sub">Partner 2 answers the same 12 questions, without peeking.</p><button type="button" class="cct-btn" id="cct-next">Partner 2, start</button>';
     document.getElementById("cct-next").addEventListener("click",cctRender);
   }
   function cctResult(){
-    cctProg.style.width="100%";
+    cctSetProg(100);
     var areas={},talk=[],total=0;
     for(var i=0;i<12;i++){
       var d=Math.abs(cctA[i]-cctB[i]);
@@ -139,6 +151,8 @@ focus_keyword: couple compatibility test
 ---
 
 This free **couple compatibility test** compares how you and your partner see everyday life together, from **communication** and **money** to **affection** and plans for the **future**. Both of you answer the same 12 questions, and the test shows where you **match** and where you **differ**. It is made for fun and honest conversation, not professional relationship advice, and no score can promise real compatibility.
+
+![couple compatibility test](/images/couple-compatibility-test.webp "couple compatibility test")
 
 ## **What Is a Couple Compatibility Test**
 
