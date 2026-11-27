@@ -529,7 +529,7 @@ ${bands}
     const has = catHas(L, c);
     const cp = pre() + "/" + c.slug;
     const body = pageHead({ h1: cf(c, "name"), lead: cf(c, "description"), crumbs: `<a href="${homeP()}">${t("home")}</a> › ${esc(cf(c, "name"))}` }) +
-      `<section class="sec"><div class="container">${list.length ? `<div class="posts">${list.map((x) => card(x, 2)).join("")}</div>` : (hasText ? "" : `<p class="empty">${t("soon")}</p>`)}</div>${hasText ? `<div class="prose" style="margin-top:${list.length ? 40 : 0}px">${html}</div>` : ""}</section>`;
+      `<section class="sec"><div class="container">${hasText ? `<div class="prose" style="margin-bottom:${list.length ? 40 : 0}px">${html}</div>` : ""}${list.length ? `<div class="posts">${list.map((x) => card(x, 2)).join("")}</div>` : (hasText ? "" : `<p class="empty">${t("soon")}</p>`)}</div></section>`;
     const catAlts = catHas("en", c) && catHas("fr", c) && LANGS.length > 1 ? { en: "/" + c.slug, fr: "/fr/" + c.slug } : null;
     write(outFile(cp), layout({ title: withBrand(cf(c, "title")), description: cf(c, "description"), path: cp, body, noindex: !has, alts: catAlts, schema: [breadcrumbLd([[t("home"), homeP()], [cf(c, "name"), cp]])] }));
     if (has) sitemap.push({ loc: cp, pri: "0.7", alts: catAlts });
