@@ -472,7 +472,7 @@ The **interactive calculator** automates what we did **manually**: it cancels ma
 
 ## **What Is a FLAMES Game**
 
-As a **classic** [**schoolyard relationship game**,](https://en.wikipedia.org/wiki/FLAMES_(game)) it thrived at **sleepovers**, long before the **early 2000s** brought web versions. Now it feels like a **nostalgic childhood game**, **lighthearted**, best at **group hangouts**, never serious **relationship advice**.
+As a **classic** [**schoolyard relationship game**,](https://en.wikipedia.org/wiki/FLAMES_%28game%29) it thrived at **sleepovers**, long before the **early 2000s** brought web versions. Now it feels like a **nostalgic childhood game**, **lighthearted**, best at **group hangouts**, never serious **relationship advice**.
 
 ## **What Does FLAMES Stand For?**
 
@@ -548,7 +548,7 @@ Always **count remaining letters**, because one miscount changes everything. Whe
 
 Anyone who has played knows the **same two names** always return the **same outcome**, because only the **letters in the two names** matter. You can **compare** a **live** **FLAMES calculator with names** run against paper.
 
-Nobody should treat it as a **[scientific relationship predictor](https://dev.to/lubiah/the-flames-game-everything-you-need-to-know-about-it-1elk)**; it is just **fun**, a **classic school game** where **letter counting** decides between **Friends**, **Love** or **Enemies**, so **accuracy** is never **100%** in any serious sense.
+Nobody should treat it as a **scientific relationship predictor**; it is just **fun**, a **classic school game** where **letter counting** decides between **Friends**, **Love** or **Enemies**, so **accuracy** is never **100%** in any serious sense.
 
 ## **FLAMES Calculator With Names: Play With Your Crush**
 

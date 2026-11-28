@@ -5,7 +5,7 @@ description: "Get in touch with LoveScoreTest.com for questions, feedback, or su
 ---
 Have a question, found a bug, or want to suggest a new compatibility tool? We'd love to hear from you.
 
-**Email:** [nonelikeyou422@gmail.com](mailto:nonelikeyou422@gmail.com)
+**Email:** nonelikeyou422 [at] gmail.com
 
 We aim to respond to genuine questions and feedback as quickly as we can. Please note this address is not monitored for advertising or partnership spam.
 
