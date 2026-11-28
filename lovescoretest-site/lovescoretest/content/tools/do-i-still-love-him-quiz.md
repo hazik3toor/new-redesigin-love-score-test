@@ -748,7 +748,7 @@ faqs:
       Yes, the test is completely anonymous. You don't need to share your name,
       email, or personal details to take it, and your answers aren't linked to
       your identity, so you can respond honestly and privately.
-focus_keyword: ""
+focus_keyword: do i still love him quiz
 description: Not sure how you feel? Take our do I still love him quiz to find
   out what your heart really wants. Free, quick, and honest results.
 menu_title: Do I Still Love Him
@@ -916,3 +916,5 @@ draft: false
 #### Behind all these **twenty** **weighted questions**, the **test** quietly **weighs the answers** instead of counting them equally. **Four things** **weigh the most**, so a few honest replies can often **count for more than the rest**.
 
 #### Finally, it gives **one level out of eight**, never just a blunt **yes or no**. You either **love them and it's clear**, or **you don't love them anymore**, with **six in-between states** covering everything else.
+
+#### This quiz looks at **your own feelings** only. If you and your partner want to compare how you match on **communication**, **money** and **future plans**, take our **[couple compatibility test](/couple-compatibility-test)** together instead.

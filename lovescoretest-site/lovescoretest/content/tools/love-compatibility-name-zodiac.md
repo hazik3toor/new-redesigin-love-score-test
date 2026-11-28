@@ -547,6 +547,7 @@ description: Check love compatibility by name and zodiac sign for free. Enter
   both names and signs to get your love score instantly!
 menu_title: love compatibility name zodiac
 date: 2026-11-20
+focus_keyword: love compatibility name zodiac
 draft: false
 ---
 Most people I meet ask whether **names** really matter in romance. After years of reading charts, my answer: **name numerology** and a **Sun sign** together give a **balanced view**, never a **verdict** on **lasting couples**.

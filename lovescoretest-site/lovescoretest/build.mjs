@@ -570,9 +570,10 @@ ${bands}
     const main = isPost
       ? { "@context": "https://schema.org", "@type": "BlogPosting", headline: p.data.title, description: p.data.description || "", image: [img], datePublished: p.date, dateModified: String(p.data.updated || p.date).slice(0, 10), author: { "@type": "Organization", name: NAME, url: SITE + "/" }, publisher: { "@type": "Organization", name: NAME, logo: { "@type": "ImageObject", url: SITE + "/apple-touch-icon.png" } }, mainEntityOfPage: url, inLanguage: L }
       : { "@context": "https://schema.org", "@type": isApp ? ["WebPage", "WebApplication"] : "WebPage", ...(isApp ? { applicationCategory: "LifestyleApplication", operatingSystem: "Any", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}), name: p.data.title, description: p.data.description || "", url, image: img, isPartOf: { "@id": SITE + "/#website" }, inLanguage: L };
+    const articleLd = isPost ? null : { "@context": "https://schema.org", "@type": "Article", headline: p.data.title, description: p.data.description || "", image: [img], datePublished: p.date, dateModified: String(p.data.updated || p.date).slice(0, 10), author: { "@type": "Organization", name: NAME, url: SITE + "/" }, publisher: { "@type": "Organization", name: NAME, logo: { "@type": "ImageObject", url: SITE + "/apple-touch-icon.png" } }, mainEntityOfPage: url, inLanguage: L };
     const cp = LANGS.length > 1 ? counterpart(p) : null;
     const alts = cp ? { [L]: p.url, [cp.lang]: cp.url } : null;
-    write(outFile(p.url), layout({ title: (p.data.seo_title && String(p.data.seo_title).trim()) || withBrand(p.data.title), description: p.data.description || "", path: p.url, body, ogImage: img, ogType: isPost ? "article" : "website", schema: [crumbLd, main], withCalc: hasCalc, alts }));
+    write(outFile(p.url), layout({ title: (p.data.seo_title && String(p.data.seo_title).trim()) || withBrand(p.data.title), description: p.data.description || "", path: p.url, body, ogImage: img, ogType: isPost ? "article" : "website", schema: [crumbLd, main, ...(articleLd ? [articleLd] : [])], withCalc: hasCalc, alts }));
     sitemap.push({ loc: p.url, pri: isPost ? "0.8" : "0.9", mod: String(p.data.updated || p.date).slice(0, 10), alts });
   }
   console.log(`${L}: faq ${stats.faq}, toc ${stats.toc}, links added ${stats.links}, pages ${tools.length}, posts ${posts.length}`);

@@ -132,6 +132,7 @@ faqs:
 description: "Take this free why am i still single test to spot gentle dating patterns around guardedness, standards, confidence and lifestyle. 12 short questions, no blame."
 menu_title: "Why Am I Still Single Test"
 date: 2026-11-27
+updated: 2026-11-28
 draft: false
 focus_keyword: "why am i still single test"
 ---

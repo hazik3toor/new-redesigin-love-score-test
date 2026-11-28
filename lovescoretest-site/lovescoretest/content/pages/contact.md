@@ -1,5 +1,5 @@
 ---
-title: "Contact LoveScoreTest.com"
+title: "Contact LoveScoreTest: Questions, Feedback and Support"
 h1: "Contact Us"
 description: "Get in touch with LoveScoreTest.com for questions, feedback, or support requests."
 ---

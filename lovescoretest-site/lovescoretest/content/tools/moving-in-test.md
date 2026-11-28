@@ -127,6 +127,7 @@ faqs:
 description: "Take this free moving in test to check money, space, habits and conflict before living together. Answer 12 short questions and get a readiness score."
 menu_title: "Moving In Test"
 date: 2026-11-27
+updated: 2026-11-28
 draft: false
 focus_keyword: "moving in test"
 ---

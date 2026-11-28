@@ -453,6 +453,7 @@ faqs:
 description: Try our free FLAMES Calculator and find out if it's Friends, Lovers
   or Forever. Enter two names and reveal your real bond in seconds!
 date: 2026-11-21
+focus_keyword: flames calculator
 draft: false
 ---
 Back in **school hallways**, **millions of students** guarded this **pencil-and-paper game** like a secret. I still remember **classroom downtime** spent **crossing out shared letters**, hoping **relationship fate** would favor my sweet **crushes** and **nostalgic memories**.

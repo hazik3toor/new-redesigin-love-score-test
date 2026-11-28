@@ -123,6 +123,7 @@ faqs:
 description: "Take this free is this the one test to check respect, trust, future fit and everyday ease. Answer 12 short questions and get a clear result in minutes."
 menu_title: "Is This the One Test"
 date: 2026-11-27
+updated: 2026-11-28
 draft: false
 focus_keyword: "is this the one test"
 ---
